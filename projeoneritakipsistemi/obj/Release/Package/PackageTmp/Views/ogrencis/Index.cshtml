@@ -1,0 +1,279 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.ogrenci>
+
+@{
+    ViewBag.Title = "Ögrenci İşlemleri Ana Sayfası";
+}
+<html>
+<head>
+<title>@ViewBag.Title- Hoş Geldiniz</title>
+
+</head>
+<body>
+
+    <p>
+        @Html.ActionLink("Yeni Ögrenci Oluştur", "Create")
+    </p>
+
+    <table>
+
+        <tr>
+            <td>
+                @Html.Label("Ögrenci Arama Kriteri")
+            </td>
+            <td>
+                @Html.DropDownList("neyegore", (new List<SelectListItem>() {  new SelectListItem { Text = "ogrenci numarasına göre", Selected = true, Value = "ogrenci_no" }, new SelectListItem { Text = "tc ye göre", Selected = false, Value = "ogrenci_tc" } }))
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+
+                @Html.Label("aramak istediginiz öegernciyle ilgili anahtar kelimeyi  giriniz...")
+
+            </td>
+            <td valign="top">
+                @Html.TextBox("arama1", null, new { @placeholder = "Aranacak anahtar kelimeyi giriniz" })
+
+                <div id="myData">
+                    <table id="deneme" border="1">
+                     
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                            <tr>
+                                <th>
+                                    @Html.Label("Bölüm Adı")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.bolum.bolum_adi)
+                                </td>
+                            </tr>
+                            <tr> 
+                                <th>
+                                    @Html.Label("Fakülte Adı")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fakulte.fakulte_adi)
+                                </td>
+                            </tr>
+                            <tr>   
+                                <th>
+                                   @Html.Label("Adı")
+                                </th>
+                                  <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_adi)
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <th>
+                                
+                                @Html.Label("Soyadı")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_soyadi)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("Okul Numarası")
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_no)
+                                </td>
+                            </tr> 
+                            <tr>   
+                                <th>
+                                    @Html.Label("Adresi")
+                                </th>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_adresi)
+                                </td>
+                             </tr>
+                             <tr>   
+                                 <th>
+                                     @Html.Label("Telefon numarası")
+                                 </th>
+                                 <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_tel)
+                                </td>
+                             </tr>
+                             <tr>       
+                                 
+
+                                 <th>
+                                    @Html.Label("Mail Adresi")
+                                 </th>
+
+                                 <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_email)
+                                </td>
+
+                                 </tr>
+                                 <tr>
+                                     <th>
+                                         @Html.Label("TC")
+                                     </th>                   
+                                    <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_tc)
+                                    </td>
+                                 </tr>
+                                 <tr>                   
+
+
+                                     <th>
+                                         @Html.Label("Kullanici Adı")
+                                     </th>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_kullanici_adi)
+                                </td>
+                                </tr>
+                                <tr>                        
+
+                                    <th>
+                                       @Html.Label("Parola")
+                                    </th>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_parola)
+                                </td>
+                                    </tr>
+                                    <tr>
+
+                                        <th>
+                                           @Html.Label("Sınıf")
+                                        </th>
+
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ogrenci_sinif)
+                                </td>
+                                 </tr>
+                                     @*<tr> 
+                                         <th>
+                                             @Html.DisplayNameFor(model => model.calısma_grub_id)
+                                         </th>                  
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.calısma_grub_id)
+                                </td>
+                                         </tr>*@
+                                         <tr>
+
+                                             <th>
+                                                 @Html.DisplayNameFor(model => model.kayit_tarihi)
+                                             </th>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.kayit_tarihi)
+                                </td>
+                                </tr>
+                                <tr>
+                                <th>
+                                    @Html.ActionLink("Düzenle", "Edit", new { id = item.ogrenci_id }) |
+                                    @Html.ActionLink("Detay", "Details", new { id = item.ogrenci_id }) |
+                                    @Html.ActionLink("Sil", "Delete", new { id = item.ogrenci_id })
+                                </th>
+                                   
+                                </tr>
+
+                            }
+                        }
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#arama1").keyup(function () {
+
+
+                var ogr = $("#arama1").val();
+                var aramaturu = $("#neyegore").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("arama", "ogrencis")', //"../Map/Search"
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "ogrenci": ogr, "arama": aramaturu }),
+                    dataType: "json",
+                    error: function (q, status, err) { console.log(q, status, err); },
+                    success: function (data) {
+                        var table = "";
+                        table = "<table class='table' border='1' ><tbody>";
+
+                        $.each(data, function (index, value) {
+                            console.log(value);
+
+                            if (value.ogrenci_adi != null) {
+
+                            table += "<tr><th>Ögrenci Adi:</th><td>" + value.ogrenci_adi + "</td></tr>";
+                            }
+                            if (value.ogrenci_soyadi != null) {
+
+                            table += "<tr><th>Ögrenci Soyadi:</th><td>" + value.ogrenci_soyadi + "</td></tr>";
+                            }
+                            if (value.ogrenci_no != null) {
+
+                            table += "<tr><th>Ögrenci No:</th><td>" + value.ogrenci_no + "</td></tr>";
+                            }
+                            if (value.ogrenci_tc != null) {
+                                table += "<tr><th>Ögrenci TC:</th><td>" + value.ogrenci_tc + "</td></tr>";
+                            }
+                            if (value.ogrenci_email != null) {
+                                table += "<tr><th>Mail Adresi</th><td>" + value.ogrenci_email + "</td></tr>";
+                            }
+                            if (value.ogrenci_tel != null) {
+                                table += "<tr><th>Telefon no</th><td>" + value.ogrenci_tel + "</td></tr>";
+                            }
+                            if (value.ogrenci_adresi != null) {
+                                table += "<tr><th>Adresi</th><td>" + value.ogrenci_adresi + "</td></tr>";
+                            }
+                            if (value.ogrenci_sinif != null) {
+                                table += "<tr><th>Sınıfı</th><td>" + value.ogrenci_sinif + "</td></tr>";
+                            }
+                            if (value.ogrenci_kullanici_adi != null) {
+                                table += "<tr><th>Kullanici Adi</th><td>" + value.ogrenci_kullanici_adi + "</td></tr>";
+                            }
+                            if (value.ogrenci_parola != null) {
+                                table += "<tr><th>Parola</th><td>" + value.ogrenci_parola + "</td></tr>";
+                            }
+                           
+                            var a = value.ogrenci_id;
+                            alert(a);
+                            if (a != null) {
+
+                                table += "<tr><th><a href='Details/" + a + "'>Detay</a> |";
+                                table += "<a href='Edit/" + a + "'>Düzenle</a> |";
+                                table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
+                            }
+
+
+
+                        });
+                        table += "</tbody></table>";
+                        $("#myData").html(table);
+
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

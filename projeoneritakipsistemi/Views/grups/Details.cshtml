@@ -1,0 +1,50 @@
+﻿@model projeoneritakipsistemi.Models.grup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>grup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.grup_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grup_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grup_uye_sayisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grup_uye_sayisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grup_proje_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grup_proje_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grub_akademisyen_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grub_akademisyen_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.grup_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

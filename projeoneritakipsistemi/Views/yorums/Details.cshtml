@@ -1,0 +1,58 @@
+﻿@model projeoneritakipsistemi.Models.yorum
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>yorum</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.yorum_icerigi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yorum_icerigi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.yorumu_yapan_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yorumu_yapan_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.yorumu_yapan_statu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yorumu_yapan_statu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.yor_proje_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yor_proje_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.yorum_tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.yorum_tarihi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.yorum_id }) |
+    @Html.ActionLink("Ana Sayfa", "projearama","projes")
+</p>

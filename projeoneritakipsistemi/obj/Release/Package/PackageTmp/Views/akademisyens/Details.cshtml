@@ -1,0 +1,114 @@
+﻿@model projeoneritakipsistemi.Models.akademisyen
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>akademisyen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_soyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_soyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_tc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_tc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_sitesi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_sitesi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_parola)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_parola)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_kullanici_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_kullanici_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_unvani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_unvani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_uzmanlik_alani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_uzmanlik_alani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_oda_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_oda_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aka_bolum_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aka_bolum_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.akademisyen_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

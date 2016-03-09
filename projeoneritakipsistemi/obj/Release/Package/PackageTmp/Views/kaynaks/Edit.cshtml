@@ -1,0 +1,129 @@
+﻿@model projeoneritakipsistemi.Models.kaynak
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Create", "Kaynaks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>kaynak</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.kaynak_id)
+        @Html.HiddenFor(model => model.kaynak_url)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kaynak_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kaynak_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.kaynak_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kaynak_aciklamasi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kaynak_aciklamasi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.kaynak_aciklamasi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kaynak_tarih, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kaynak_tarih, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.kaynak_tarih, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mevcut Dosya:</label>
+            <div class="col-md-10">
+                <table>
+                    <tr>
+                        @{
+                            string b = null;
+                            if (Model.kaynak_url != null)
+                            {
+                                string url = Model.kaynak_url;
+                                var liste = url.Split('.');
+                                List<string> a = new List<string>();
+                                a.AsEnumerable();
+                                foreach (string eleman in liste)
+                                {
+                                    a.Add(eleman);
+                                }
+
+                                b = a.Last();
+                                b = b.ToUpper();
+                               
+                            }
+
+                            if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                            {
+                                <td>
+                                    <a href="@Html.Raw(Model.kaynak_url)"> <img src="@Html.Raw(Model.kaynak_url)" width="100" height="100" /></a>
+                                </td>
+                            }
+                            else if (b == "PDF" && b != null)
+                            {
+                                <td>
+                                    <a href="@Html.Raw(Model.kaynak_url)"><img src="~/resimler/deneme.png" width="100" height="100" /> </a>
+                                </td>
+                            }
+                            else if (b == "PPT" && b != null)
+                            {
+                                <td>
+                                    <a href="@Html.Raw(Model.kaynak_url)"><img src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                                </td>
+                            }
+                            else if (b == "DOCX" && b != null)
+                            {
+                                <td>
+                                    <a href="@Html.Raw(Model.kaynak_url)"><img src="~/resimler/doc.png" width="100" height="100" /> </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a href="@Html.Raw(Model.kaynak_url)"><img src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                                </td>
+
+                            }
+
+                        }
+                    </tr>
+                </table>
+            </div>
+            <label class="control-label col-md-2" for="imageFile">Yeni Dosya Sec:</label>
+            <div class="col-md-10">
+                <input type="file" name="imageFile" accept="image/*" class="form-control fileupload" />
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kaynak_yukleyen_statu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kaynak_yukleyen_statu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.kaynak_yukleyen_statu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

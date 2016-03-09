@@ -1,0 +1,109 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.proje>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_begeni_sayisi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_teslim_tarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_durumu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_aciklamasi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_turu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_kisi_siniri)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.projeolusturanid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_akademisyen_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_bolum_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_diger_kul_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proje_yayin_tarihi)
+        </th>
+       @for (int i = 0; i < 10; i++)
+       {
+        <th>
+            yorumlar
+        </th>
+
+       }
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_begeni_sayisi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_teslim_tarihi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_durumu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_aciklamasi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_turu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_kisi_siniri)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projeolusturanid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_akademisyen_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_bolum_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_diger_kul_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje_yayin_tarihi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.proje_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.proje_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.proje_id })
+        </td>
+    </tr>
+}
+
+</table>
+
+

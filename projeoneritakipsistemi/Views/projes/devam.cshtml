@@ -1,0 +1,867 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.proje>
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "projearama";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .geriicon {
+            padding: 90px;
+            background: transparent url('../../resimler/geri_icon.png');
+        }
+
+        .ileriicon {
+            padding: 90px;
+            background: transparent url('../../resimler/ileriicon.png');
+        }
+        td{
+            word-wrap:break-word;
+        }
+    </style>
+
+</head>
+<body id="@User.Identity.GetUserName()">
+
+    <table style="margin-top:50px">
+
+        <tr>
+
+
+
+            <td>
+                <p style="margin-left:400px;font-size:20px;font-weight:bold">
+                    Lütfen Arama Yapmak İstediginiz Kategori Secin&nbsp;&nbsp;&nbsp;:
+                    @Html.DropDownList("neyegore", (new List<SelectListItem>() { new SelectListItem { Text = "Proje adina göre Arama yap", Selected = false, Value = "proje_adi" }, new SelectListItem { Text = "Poje Turune göre Arama Yap", Selected = false, Value = "proje_turu" } }))
+                </p><br />
+            </td>
+
+        </tr>
+        <tr>
+            @*<td>
+
+                    @Html.Label("aramak istediginiz anahtar kelimeyi  giriniz...")
+
+                </td>*@
+            <td valign="top">
+                <p style="font-size:20px;margin-left:400px;font-weight:bold">
+                    Lütfen Aranacak Proje İle ilgili Bilgiyi Giriniz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+
+                    @Html.TextBox("arama1", null, new { @placeholder = "Aranacak proje bilgisini giriniz" })
+                </p>
+                <div id="myData">
+
+
+                    <table border="1" style="position:page">
+                        <tr style="position:absolute">
+
+                            @if (Model != null)
+                            {
+                                int a = Model.Count();
+                                int i = 0;
+                                int k = 0;
+
+                                List<projeoneritakipsistemi.Models.proje> projeler = (List<projeoneritakipsistemi.Models.proje>)Session["projes"];
+                                projeler.AsEnumerable();
+                                int ilk = 0;
+                                int son = 0;
+
+                                if (projeler.Count() != 0 && a != 0)
+                                {
+                                    ilk = projeler.First().proje_id;
+                                    son = Model.First().proje_id;
+                                }
+                                foreach (var item in Model)
+                                {
+
+                                    k++;
+                                    if (a < 5 && k == 1 && ilk != son)
+                                    {
+
+
+                                        <td>
+                                            @Html.ActionLink("Geri", "geri", new { id = item.proje_id }, new { @class = "geriicon" })
+                                        </td>
+
+
+                                    }
+
+                                    if (a >= 5 && k == 1 && item.proje_id > 5 && ilk != son)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Geri", "geri", new { id = item.proje_id }, new { @class = "geriicon" })
+                                        </td>
+
+
+                                    }
+
+                                    i++;
+                                    if (i % 5 != 0)
+                                    {
+
+
+                                        <td style="max-width:400px">
+
+                                            <div>
+
+                                                <table class="table" style="table-layout: fixed; width: 100%">
+                                                    <tr>
+                                                        <th colspan="2">
+                                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.ActionLink("Daha Detaylı Bilgi İçin Tıkla", "Details", new { id = item.proje_id })
+                                                            <br />
+
+
+
+                                                        </th>
+                                                    </tr>
+
+                                                    @if (item.proje_adi.Length >= 20)
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje Adı")
+
+                                                            </th>
+                                                            <td>
+                                                                <marquee style="width:100%" SCROLLDELAY=200>@item.proje_adi</marquee>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje Adı")
+
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.proje_adi)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    @*<tr>
+            <th>
+                @Html.Label("begeni sayısı", new { @id="beg"})
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.proje_begeni_sayisi)
+            </td>
+        </tr>*@
+                                                    @if (item.proje_durumu.Length > 20)
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("proje durumu")
+                                                            </th>
+                                                            <td>
+                                                                <marquee style="width:100%" SCROLLDELAY=200>@item.proje_durumu</marquee>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("proje durumu")
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.proje_durumu)
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                    <tr>
+
+                                                        <th>
+
+                                                            @Html.Label("Teslim Tarihi")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_teslim_tarihi)
+                                                        </td>
+                                                    </tr>
+
+
+                                                    @if (item.proje_turu.Length >= 20)
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje Türü")
+
+                                                            </th>
+                                                            <td>
+                                                                <marquee style="width:100%" SCROLLDELAY=200>@item.proje_turu</marquee>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje türü")
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.proje_turu)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Yayın Tarihi")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_yayin_tarihi)
+                                                        </td>
+                                                    </tr>
+
+                                                    @if (item.proje_aciklamasi.Length >= 20)
+                                                    {
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje Hakkında Açıklama")
+
+                                                            </th>
+                                                            <td>
+                                                                <marquee style="width:100%" SCROLLDELAY=200>@item.proje_aciklamasi</marquee>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr>
+                                                            <th>
+                                                                @Html.Label("Proje Hakkında Açıklama")
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.proje_aciklamasi)
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                    <tr>
+                                                        @if (item.akademisyen != null)
+                                                        {
+                                                            <th>
+                                                                @Html.Label("Akademisyen")
+                                                            </th>
+                                                            <td>
+
+                                                                @Html.DisplayFor(modelItem => item.akademisyen.akademisyen_adi)
+
+                                                                @Html.ActionLink("Akademisyen Bilgileri", "Details", "akademisyens", new { id = item.akademisyen.akademisyen_id })
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        @if (item.bolum != null)
+                                                        {
+                                                            <th>
+                                                                @Html.Label("Bolum Bilgileri")
+                                                            </th>
+
+
+
+                                                            <td>
+                                                                @Html.ActionLink("Bolum Bilgileri", "Details", "bolums", new { id = item.bolum.bolum_id })
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+
+                                                            @{
+                                                                @*List<projeoneritakipsistemi.Models.begenme> a = item.begenmes.Where(x => x.begenenid == User.Identity.GetUserName() && x.projeid == item.proje_id && x.begenmedurumu == "begendi").ToList();
+                        if (a.Count== 0)
+                        {
+                           <input type="button" id="@item.proje_id" value="+1" />
+                        }*@
+
+                                                                <input type="button" id="@item.proje_id" value="+1" />
+                                                            }
+
+
+
+                                                            <input type="button" id="@item.proje_id" value="0" />&nbsp;&nbsp;
+
+                                                            @{
+                                                                @*List<projeoneritakipsistemi.Models.begenme> aa = item.begenmes.Where(x => x.begenenid == User.Identity.GetUserName() && x.projeid == item.proje_id && x.begenmedurumu == "begenmedi").ToList();
+                        if (aa.Count == 0)
+                        {
+                            <input type="button" id="@item.proje_id" value="-1" />
+                        }*@
+
+                                                                <input type="button" id="@item.proje_id" value="-1" />
+                                                            }
+
+
+                                                            <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Kararsızım!..Toplam begeni:@item.proje_begeni_sayisi</label>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label style="font-weight:bold">Proje Hakkındaki Yorumunuzu Giriniz </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td colspan="2">
+                                                            <input style="width:240px" type="text" placeholder="Proje Hakkındaki Yorumunuzu giriniz" id="@item.proje_id" />
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label value="@item.proje_id" id="projem">Sisteme Son Eklediginiz Yorumlar</label>
+                                                  
+                                                            <div style="width:100%;height:150px;overflow:auto;max-height:150px;margin-left:0px;overflow-wrap:break-word;max-width:200px">
+
+
+                                                                <ol class="@item.proje_id.ToString()" style="overflow:auto"></ol>
+                                                            </div>
+                                                        </td>
+
+
+                                                    </tr>
+
+
+                                                    @*<tr>
+                <th>
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.proje_id }) |
+                    @Html.ActionLink("Detay", "Details", new { id = item.proje_id }) |
+                    @Html.ActionLink("Sil", "Delete", new { id = item.proje_id })
+                </th>
+
+            </tr>*@
+
+
+                                                    <tr>
+
+                                                        <td colspan="2">
+                                                            <p></p>
+
+                                                            <button id="@item.proje_id" value="goster">tüm yorumları görüntüle</button><button value="gizle" id="@item.proje_id">Gizle</button>
+                                                            <div value="@item.proje_id" style="visibility:hidden;width:100%;height:400px;overflow:auto;max-height:400px;margin-left:0px;overflow-wrap:break-word;max-width:300px">
+                                                                <ol id="tüm" value="@item.proje_id" style="overflow:auto"></ol>
+
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+
+
+
+
+
+                                                </table>
+                                            </div>
+                                        </td>
+                                                                }
+
+                                                                else
+                                                                {
+                                                                    <td>
+                                                                        @Html.ActionLink("İlerle", "devam", new { id = item.proje_id }, new { @class = "ileriicon" })
+                                                                    </td>
+                                                                            break;
+                                                                        }
+
+
+                                                                    }
+
+                                                                }
+
+
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+
+        window.scroll(500, 0);
+        $("#arama1").focus();
+
+        var username = $("body").attr("id");
+
+        $(document).ready(function () {
+
+
+            $("ol").each(function () {
+                var id = $(this).attr("class");
+                var username = $("body").attr("id");
+
+                if (username != "") {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("ben", "projes")', //"../Map/Search"
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "projeid": id, "kullanici": username }),
+                        dataType: "json",
+                        error: function (q, status, err) { console.log(q, status, err); },
+                        success: function (data) {
+
+                            $("." + id).empty();
+
+                            $.each(data, function (index, value) {
+
+                                $("." + id).prepend("<li style=' border-top: 1px solid black ;padding: .3em 0;'><p>" + value.yorum_icerigi + "<p><a href='/yorums/Edit/" + value.yorum_id + "' ><input type='button' value='Düzenle' id='" + value.yorum_id + "'/></a><a href='/yorums/Delete/" + value.yorum_id + "' ><input type='button' value='Sil' id='" + value.yorum_id + "'/></a></li>");
+
+                            });
+
+                        }
+                    });
+
+                }
+
+
+
+
+            });
+
+
+            $(document).ready(function () {
+
+                var username = $("body").attr("id");
+                if (username == "") {
+                    $("input[value='+1']").show();
+                    $("input[value='-1']").show();
+                    $("input[value='0']").hide();
+
+                }
+                else {
+                    $("input[value='+1']").each(function () {
+                        var id = $(this).attr("id");
+                        $("input[value='+1']").show();
+                        $("input[value='-1']").show();
+                        $("input[value='0']").hide();
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("butonlar", "projes")', //"../Map/Search"
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "projeid": id, "kullanici": username }),
+                            dataType: "json",
+                            error: function (q, status, err) { console.log(q, status, err); },
+                            success: function (data) {
+
+                                $.each(data, function (index, value) {
+
+
+
+                                    if (value.begenmedurumu == "begendi") {
+                                        $("input[value='+1'][id='"+value.projeid+"']").hide();
+                                        $("input[value='-1'][id='" + value.projeid + "']").show();
+                                        $("input[value='0'][id='" + value.projeid + "']").show();
+                                        $("label[id='" + id + "']").text("<Begendim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                    }
+                                    else if (value.begenmedurumu == "begenmedi") {
+                                        $("input[value='+1'][id='" + value.projeid + "']").show();
+                                        $("input[value='-1'][id='" + value.projeid + "']").hide();
+                                        $("input[value='0'][id='" + value.projeid + "']").show();
+                                        $("label[id='" + id + "']").text("<Begenmedim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                    }
+
+
+
+
+                                });
+
+                            }
+                        });
+
+
+
+                    });
+
+                }
+
+
+
+            });
+
+
+
+        $("#arama1").keyup(function () {
+
+
+            var prj = $("#arama1").val();
+            var aramaturu = $("#neyegore").val();
+            if (prj == "") {
+                window.location = "/projes/projearama";
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("arama", "projes")', //"../Map/Search"
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "projeadi": prj , "projeturu":aramaturu}),
+                dataType: "json",
+                error: function (q, status, err) { console.log(q, status, err); },
+                success: function (data) {
+                    var table = "";
+                    table = "<table class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
+
+                    $.each(data, function (index, value) {
+                        //alert("deneme");
+
+                        console.log(value);
+
+
+                        if (value.proje_adi != null) {
+
+                            table += "<tr><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                        }
+                        if (value.proje_begeni_sayisi != null) {
+
+                            table += "<tr><th>Begeni Sayısı:</th><td>" + value.proje_begeni_sayisi + "</td></tr>";
+                        }
+                        if (value.proje_durumu != null) {
+
+                            table += "<tr><th>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
+                        }
+                        if (value.proje_aciklamasi != null) {
+                            table += "<tr><th>Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
+                        }
+                        if (value.proje_turu != null) {
+                            table += "<tr><th>Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
+
+                        }
+                        if (value.proje_kisi_siniri != null) {
+                            table += "<tr><th>Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
+                        }
+
+
+                        var a = value.proje_id;
+                        //alert(a);
+                        if (a != null) {
+
+                            table += "<tr><th><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<a href='Edit/" + a + "'>Düzenle</a> |";
+                            table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
+                        }
+
+
+
+
+                    });
+                    table += "</tbody></table>";
+                    $("#myData").html(table);
+
+                    }
+            });
+
+        });
+
+
+
+
+
+
+
+
+      $("input:text").keypress(function (event) {
+          if (event.keyCode == 13) {
+              var yorumum = $(this).val();
+              $(this).val("");
+              var id = $(this).attr("id");
+              if (yorumum == "") {
+                  alert("Yorumunuz Boş olamaz");
+              }
+              var username = $("body").attr("id");
+
+
+              if (username == "") {
+                  alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                  window.location = "/Account/Login";
+              }
+              if (username != "") {
+                  alert("Hoş Geldiniz Yorumunuz Başarılı Şekilde Oluşturuldu:" + username);
+
+
+                  var kontrol = 0;
+
+                  $.ajax({
+                      type: "POST",
+                      url: '@Url.Action("yorumyap", "projes")', //"../Map/Search"
+                      contentType: "application/json; charset=utf-8",
+                      data: JSON.stringify({ "projeid": id, "kullanici": username, "yorum": yorumum }),
+                      dataType: "json",
+                      error: function (q, status, err) { console.log(q, status, err); },
+                      success: function (data) {
+
+                          $("." + id).empty();
+                          $("button[id='"+id+"'][value='goster']").trigger("click");
+
+                          $.each(data, function (index, value) {
+                              if (kontrol == 0) {
+                                  kontrol = 0;
+                                  $("." + id).prepend("<li style=' border-top: 1px solid black ;padding: .3em 0;'><p>" + value.yorum_icerigi+ "<p><a href='/yorums/Edit/" +value.yorum_id + "' ><input type='button' value='Düzenle' id='" + value.yorum_id + "'/></a><a href='/yorums/Delete/" + value.yorum_id + "' ><input type='button' value='Sil' id='" + value.yorum_id + "'/></a></li>");
+                              }
+                          });
+
+
+                      }
+                  });
+
+              }
+          }
+
+      });
+
+
+
+            $("button[value='gizle']").click(function () {
+
+
+                $("button[value='gizle']").each(function () {
+                    var prj = $(this).attr("id");
+                    $("div[value='" + prj + "'").css("visibility", "hidden");
+
+                });
+
+                window.scrollTo(0, 0);
+
+            });
+
+
+
+
+       $("input[value='+1']").click(function () {
+           var prj = $(this).attr("id");
+
+           var username = $("body").attr("id");
+
+
+           if (username == "") {
+               alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+               window.location = "/Account/Login";
+           }
+
+           else {
+
+               $.ajax({
+                   type: "POST",
+                   url: '@Url.Action("begen", "projes")', //"../Map/Search"
+                   contentType: "application/json; charset=utf-8",
+                   data: JSON.stringify({ "projeid": prj,"kullanici":username}),
+                   dataType: "json",
+                   error: function (q, status, err) { console.log(q, status, err); },
+                   success: function (data) {
+
+                       $.each(data, function (index, value) {
+
+
+                           $("input[value='+1'][id='" + prj + "']").hide();
+                           $("input[value='-1'][id='" + prj + "']").show();
+                           $("input[value='0'][id='" + prj + "']").show();
+                           $("label[id='" + prj + "']").text("<Begendim>Toplam Begeni:" + value.proje_begeni_sayisi)
+
+                       });
+
+                   }
+
+               });
+
+           }
+
+       });
+
+            $("input[value='0']").click(function () {
+                var prj = $(this).attr("id");
+
+                var username = $("body").attr("id");
+
+
+                if (username == "") {
+                    alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                    window.location = "/Account/Login";
+                }
+
+                else {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("vazgec", "projes")', //"../Map/Search"
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "projeid": prj, "kullanici": username }),
+                        dataType: "json",
+                        error: function (q, status, err) { console.log(q, status, err); },
+                        success: function (data) {
+
+                            $.each(data, function (index, value) {
+
+
+                                $("input[value='+1'][id='" + prj + "']").show();
+                                $("input[value='-1'][id='" + prj + "']").show();
+                                $("input[value='0'][id='" + prj + "']").hide();
+                                $("label[id='" + prj + "']").text("Kararsızım!..Toplam Begeni:" + value.proje_begeni_sayisi)
+
+                            });
+
+                        }
+
+                    });
+
+                }
+
+            });
+
+
+
+            $("input[value='-1']").click(function () {
+                var prj = $(this).attr("id");
+
+                var username = $("body").attr("id");
+
+
+                if (username == "") {
+                    alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                    window.location = "/Account/Login";
+                }
+
+                else {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("begenmedim", "projes")', //"../Map/Search"
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "projeid": prj, "kullanici": username }),
+                        dataType: "json",
+                        error: function (q, status, err) { console.log(q, status, err); },
+                        success: function (data) {
+
+                            $.each(data, function (index, value) {
+                                $("input[value='+1'][id='" + prj + "']").show();
+                                $("input[value='-1'][id='" + prj + "']").hide();
+                                $("input[value='0'][id='" + prj + "']").show();
+                                $("label[id='"+prj+"']").text("<Begenmedim>Toplam Begeni: "+value.proje_begeni_sayisi)
+                                //alert(value.proje_begeni_sayisi);
+
+
+                            });
+
+                        }
+
+                    });
+
+                }
+
+            });
+
+
+
+
+      $("button[value='goster']").click(function () {
+
+          var username = $("body").attr("id");
+          var prj = $(this).attr("id");
+          $("div[value='" + prj + "'").css("visibility", "visible");
+
+          if (username == "") {
+              alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+              window.location = "/Account/Login";
+          }
+          $.ajax({
+              type: "POST",
+              url: '@Url.Action("yorumlar", "projes")', //"../Map/Search"
+              contentType: "application/json; charset=utf-8",
+              data: JSON.stringify({ "projeid": prj}),
+              dataType: "json",
+              error: function (q, status, err) { console.log(q, status, err); },
+              success: function (data) {
+
+
+                  if (data.length == 0) {
+
+                      var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
+                      if (r == true) {
+
+                          var yazilan = prompt("Lütfen Aşagıya Proje Hakkındaki İlk Yorumu Giriniz...");
+                          if (yazilan !=null) {
+                              $.ajax({
+                                  type: "POST",
+                                  url: '@Url.Action("yorumyap", "projes")', //"../Map/Search"
+                                  contentType: "application/json; charset=utf-8",
+                                  data: JSON.stringify({ "projeid": prj, "kullanici": username, "yorum": yazilan }),
+                                  dataType: "json",
+                                  error: function (q, status, err) { console.log(q, status, err); },
+                                  success: function (data) {
+                                      window.location.reload();
+                                      $("." + id).empty();
+                                      $("button[id='" + id + "'][value='goster']").trigger("click");
+
+                                      $.each(data, function (index, value) {
+                                          if (kontrol == 0) {
+                                              kontrol = 0;
+                                              $("." + id).prepend("<li style=' border-top: 1px solid black ;padding: .3em 0;'><p>" + value.yorum_icerigi + "<p><a href='/yorums/Edit/" + value.yorum_id + "' ><input type='button' value='Düzenle' id='" + value.yorum_id + "'/></a><a href='/yorums/Delete/" + value.yorum_id + "' ><input type='button' value='Sil' id='" + value.yorum_id + "'/></a></li>");
+                                          }
+                                      });
+
+
+                                  }
+                              });
+                          }
+
+
+                      } else {
+
+                      }
+                  }
+                  else {
+                      window.scrollTo(100, 1000);
+                  }
+
+
+                  $("ol[value='" + prj + "']").empty();
+
+                  $.each(data, function (index, value) {
+
+
+
+
+
+
+                      var ekle = "<li style=' border-top: 1px solid black ;padding: .3em 0;'><p style='font-weight:bold'>" + value.yorumu_yapan_id + "</p><p>:" + value.yorum_icerigi + "</p>";
+                      if (username == value.yorumu_yapan_id) {
+
+                          ekle += "<p><a href='/yorums/Edit/" + value.yorum_id + "' ><input type='button' value='Düzenle' id='" + value.yorum_id + "'/></a><a href='/yorums/Delete/" + value.yorum_id + "' ><input type='button' value='Sil' id='" + value.yorum_id + "'/></a></p>";
+
+                      }
+                      ekle+="</li>";
+                          //alert("deneme");
+                      //console.log(value);
+                      $("ol[value='" + prj + "']").prepend(ekle);
+
+
+                  });
+
+              }
+          });
+
+      });
+  });
+    </script>
+
+
+
+
+</body>

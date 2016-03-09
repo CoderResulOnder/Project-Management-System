@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Yönetici Sayfasi";
+}
+
+<h2>Yönetim Paneli</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div>
+                <h2 style="color:aqua">@ViewBag.Title - Hoş Geldiniz</h2>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("üniversite ile ilgili işlemler", "Index", "universites")</li>
+                    <li>@Html.ActionLink("bolum ile ilgili işlemler", "Index", "bolums")</li>
+                    <li>@Html.ActionLink("Ögrenci ile ilgili işlemler", "Index", "ogrencis")</li>
+                    <li>@Html.ActionLink("Akademisyenle ile ilgili İşlemler", "Index", "Akademisyens")</li>
+                    <li>@Html.ActionLink("Projeler ile ilgili İşlemler", "projearama", "Projes")</li>
+                    <li>@Html.ActionLink("yorumlar ile ilgili işlemler", "Index", "yorums")</li>
+                    <li>@Html.ActionLink("gruplar ile ilgili işlemler", "Index", "grups")</li>
+                    <li>@Html.ActionLink("misafir kullanıcılar ile ilgili işlemler", "Index", "diger_kullanicilar")</li>
+                    <li>@Html.ActionLink("proje kaynakları ile ilgili işlemler", "Index", "kaynaks")</li>    
+                    
+                </ul>
+            </div>
+            <div >              
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

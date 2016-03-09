@@ -1,0 +1,122 @@
+﻿@model projeoneritakipsistemi.Models.azureprojekontrol
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>azureprojekontrol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Kullanici Adi")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kullanici)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("bulut servisleriyle ilgili blogum")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bulutSistemleriblogurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Sanal makine ile ilgili blogum")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sanalmakineblogurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Web servisleriyle ilgili blogum")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.webservisleriblogurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("storage ile ilgili blogum")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.storageblogurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Daha önceden kullanmadım bir bulut firması ile ilgili blogum")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kullanmadiginizbulutservisiblogurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Kullandıgım dataset storage url adresi")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataset)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Machine Learnin proje adi")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MachineLearningProjeadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("MAchine Learning Projemin kısaca acıklaması")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeaciklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Machine learning projesindeki grup üyeleri")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projegrupuyeleri)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("MAchine learningte kullandıgım model")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kullanilanmodeltanit)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("bitmiş projemin storagedeki url adresi")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bitmisproje)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teslimtarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teslimtarihi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.odevid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

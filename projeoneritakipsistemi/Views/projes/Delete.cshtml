@@ -1,0 +1,120 @@
+﻿@model projeoneritakipsistemi.Models.proje
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>proje</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_begeni_sayisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_begeni_sayisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_teslim_tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_teslim_tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_durumu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_durumu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_aciklamasi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_aciklamasi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_turu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_turu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_kisi_siniri)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_kisi_siniri)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeolusturanid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeolusturanid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_akademisyen_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_akademisyen_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_bolum_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_bolum_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_diger_kul_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_diger_kul_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_yayin_tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_yayin_tarihi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

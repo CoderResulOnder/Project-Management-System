@@ -1,0 +1,317 @@
+﻿@model projeoneritakipsistemi.Models.ogrenci
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ogrenci</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Ögrenci Adı:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_adi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_adi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ögrenci Soyadi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_soyadi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_soyadi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ögrenci No", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_no, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_no, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ögrenci Adresi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_adresi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_adresi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ögrenci Tel", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_tel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_tel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ögrenci Tc", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_tc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_tc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+
+        <div class="form-group">
+            @Html.Label("Ögrenci Sınıf", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ogrenci_sinif, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ogrenci_sinif, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Universite Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @{
+
+                    List<projeoneritakipsistemi.Models.universite> universiteler = (List<projeoneritakipsistemi.Models.universite>)ViewData["universiteler"];
+                    SelectListItem deneme2;
+                    List<SelectListItem> gonder2 = new List<SelectListItem>();
+                    deneme2 = new SelectListItem();
+                    deneme2.Text = "----Tıkla------";
+                    deneme2.Value = 0.ToString();
+                    deneme2.Selected = false;
+
+                    gonder2.Add(deneme2);
+                    int x = 0;
+                }
+
+
+                @foreach (projeoneritakipsistemi.Models.universite b in universiteler)
+                {
+
+                    x = 1;
+                    deneme2 = new SelectListItem();
+                    deneme2.Selected = false;
+                    deneme2.Text = b.universite_adi;
+                    deneme2.Value = b.universite_id.ToString();
+                    gonder2.Add(deneme2);
+                }
+                @if (x == 1)
+                {
+                    @Html.DropDownList("universiteler", gonder2, new { htmlAttributes = new { @class = "form-control" }, style = "background-color:aqua" })
+                    @Html.ValidationMessageFor(model => model.bolum.fakulte.fak_uni_id, "", new { @class = "text-danger" })
+                }
+                else
+                {
+                    @Html.DropDownList("universiteler", gonder2, new { htmlAttributes = new { @class = "form-control" }, style = "background-color:red" })
+                    @Html.ValidationMessageFor(model => model.bolum.fakulte.fak_uni_id, "", new { @class = "text-danger" })
+                }
+
+            </div>
+        </div>
+        <div class="form-group" id="aaa" style="visibility:hidden">
+            @Html.Label("Fakulte Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="fakulteler">
+                    <option value="0" selected="selected">--------Tıkla-----</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group" id="bbb" style="visibility:hidden">
+            @Html.Label("Bolum Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="bolumler">
+                    <option value="0" selected="selected">--------Tıkla-----</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="but" disabled="disabled" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+                $(document).ready(function () {
+                    var degisen = 0;
+
+                    $("#universiteler").change(function () {
+                        degisen = 1;
+                        var akd = $("#universiteler").val();
+                        if (akd == 0) { alert("Lutfen Bir Üniversite seçiniz....");}
+
+
+                        $("#but").attr("disabled", true);
+                        $("#fakulteler option").remove();
+                        $("#fakulteler").append("<option selected='selected' value='0'>------Tıkla--------</option>");
+                        $("#fakulteler").css("background-color", "red");
+                        $("#bolumler option").remove();
+                        $("#bolumler").append("<option selected='selected' value='0'>------Tıkla--------</option>");
+                        $("#bolumler").css("background-color", "red");
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("secilenuniversite", "ogrencis")', //"../Map/Search"
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "universiteid": akd }),
+                            dataType: "json",
+                            error: function (q, status, err) { console.log(q, status, err); },
+                            success: function (data) {
+                                //alert(data);
+
+
+                                var b = 0;
+
+
+
+                                $.each(data, function (index, value) {
+                                    //alert(value.Value);
+                                    b = 1;
+                                    $("#fakulteler").append("<option value='" + value.Value + "'>" + value.Text + "</option>");
+
+
+                                    console.log(value);
+                                });
+                                if (b == 1) {
+
+                                    $("#aaa").css("visibility", "visible");
+                                    $("#fakulteler").css("background-color", "aqua");
+                                }
+
+                            }
+                        });
+                    });
+
+
+                    $("#fakulteler").change(function () {
+
+                        var akd = $("#fakulteler").val();
+                        if (akd == 0) { alert("Lutfen Bir Fakulte Seçiniz....");}
+
+                        $("#but").attr("disabled", true);
+                        $("#bolumler option").remove();
+                        $("#bolumler").css("background-color", "red");
+                        $("#bolumler").append("<option selected='selected' value='0'>------Tıkla--------</option>");
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("sec", "ogrencis")', //"../Map/Search"
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "fakulteid": akd }),
+                            dataType: "json",
+                            error: function (q, status, err) { console.log(q, status, err); },
+                            success: function (data) {
+                                var a = 0;
+
+                                $.each(data, function (index, value) {
+                                    a = 1;
+
+
+                                    $("#bolumler").append("<option value='" + value.Value + "'>" + value.Text + "</option>");
+
+                                    console.log(value);
+
+                                });
+                                if (a == 1) {
+
+                                    $("#bbb").css("visibility", "visible");
+                                    $("#bolumler").css("background-color", "aqua");
+
+                                }
+
+
+                            }
+                        });
+                    });
+
+                    $("#bolumler").change(function () {
+
+                        var akd = $("#bolumler").val();
+                        if (akd == 0) { alert("Lutfen Bir bolum Seçiniz....");}
+
+                        //alert(akd);
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("sec1", "ogrencis")', //"../Map/Search"
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ "bolumid": akd }),
+                            dataType: "json",
+                            error: function (q, status, err) { console.log(q, status, err); },
+                            success: function (data) {
+                                //if (data == null) alert("deneme");
+
+                                $.each(data, function (index, value) {
+
+                                    console.log(value);
+                                });
+                                $("#but").attr("disabled", false);
+
+
+                            }
+                        });
+                    });
+
+                    $("#but").hover(function () {
+
+                        var bol = $("#bolumler").val();
+                        var fak = $("#fakulteler").val();
+                        var uni = $("#universiteler").val();
+
+                        //alert(akd);
+                        if (bol == 0 || fak == 0 || uni == 0) {
+
+                            if (bol == 0) {
+                                alert("Lütfen Bolum Seçiniz");
+                            }
+                            else if (fak == 0) {
+                                alert("fakulte seçiniz");
+
+                            }
+                            else if (uni == 0) {
+                                alert("Lutfen Üniversite seciniz");
+                            }
+                            else {
+                                alert("Lutfen Tüm Alanları Doldurunuz");
+                            }
+                        }
+
+
+                    });
+
+
+
+
+                });
+
+
+
+
+
+
+</script>

@@ -1,0 +1,188 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.yazilimmuh>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="color:chartreuse">Proje Ekleme ve Kontrol Sayfası </h2>
+
+@{
+    var kontrol = 0;
+    foreach (var a in Model)
+    {
+        if (a.kullaniciadi == User.Identity.GetUserName())
+        {
+            
+            kontrol = 1;
+
+        }
+
+    }
+    if (kontrol == 0)
+    {
+    <p>
+
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    }
+
+    else
+    {
+        <p style="color:red">Sistemde Kayıtlı Projeniz Mevcut</p>
+    }
+    }
+
+<table class="table">
+    <tr style="color:white">
+
+
+        <th>
+            @Html.DisplayName("Projeyi Ekleyen  Kullanıcı Adi")
+        </th>
+        
+        <th>
+            @Html.DisplayName("Proje Adı")
+        </th>
+        <th>
+            @Html.DisplayName("Proje Hakkında")
+        </th>
+        <th>
+            @Html.DisplayName("Grup Bilgisi")
+        </th>
+        <th>
+            @Html.DisplayName("kullanılan Dil")
+        </th>
+        <th>
+            @Html.DisplayName("Kullanılan ide")
+        </th>
+        <th>
+            @Html.DisplayName("kullanılan sürüm kontrol sistemi")
+        </th>
+        <th>
+            @Html.DisplayName("Giriş Tarihi")
+        </th>
+        <th>
+            @Html.DisplayName("Backlog img")
+        </th>
+        <th>
+            @Html.DisplayName("Sprint 1 img")
+        </th>
+        <th>
+            @Html.DisplayName("Checkinlerim İmg")
+        </th>
+        <th>
+            @Html.DisplayName("Youtube Linki")
+        </th>
+        <th></th>
+    </tr>
+   
+@foreach (var item in Model)
+{
+
+
+    string kullanici=null;
+    List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
+    users.AsEnumerable();
+    foreach(var j in users)
+    {
+        if (j.UserName == item.kullaniciadi)
+        {
+            kullanici = j.kullaniciadi;
+
+        }
+    }
+
+
+    <tr>
+        <td>
+            @kullanici
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Projeadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projeaciklama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projegrupuyeleri)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projedil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projeide)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.surumkontsisadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teslimtarihi)
+        </td>
+       
+        <td>
+           @* <a href="@Html.Raw(item.baclocimgurl)"> <img src="@Html.Raw(item.baclocimgurl)" width="100" height="100" /></a>*@
+            <img src="@Html.Raw(item.baclocimgurl)" width="100" height="100" />
+          
+        </td>
+        <td>
+           @* <a href="@Html.Raw(item.sprintimgurl)"> <img src="@Html.Raw(item.sprintimgurl)" width="100" height="100" /></a>*@
+            <img src="@Html.Raw(item.sprintimgurl)" width="100" height="100" />
+        </td>
+        <td>
+           @* <a href="@Html.Raw(item.checkinimgurl)"> <img src="@Html.Raw(item.checkinimgurl)" width="100" height="100" /></a>*@
+            <img src="@Html.Raw(item.checkinimgurl)" width="100" height="100" />
+         </td>
+        <td>
+          <a href="//@item.youtubecalismavideourl" target="_blank">@item.youtubecalismavideourl</a>
+          
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.projeid }) |*@
+            @Html.ActionLink("Details", "Details", new { id = item.projeid })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.projeid })*@
+        </td>
+        @{
+
+
+
+            if (User.Identity.GetUserName() == item.kullaniciadi) {
+                <td>
+                 @Html.ActionLink("Edit", "Edit", new { id=item.projeid }) 
+                </td>
+                <td>
+                @Html.ActionLink("Delete", "Delete", new { id=item.projeid })
+        
+                </td>
+                }
+            }
+    </tr>
+}
+
+</table>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+      $("img").click(function () {
+          
+          var resim = $(this).attr('src');
+          $(this).width(500);
+          $(this).height(500);
+         
+         
+      });
+      $("img").dblclick(function () {
+
+          var resim = $(this).attr('src');
+          $(this).width(100);
+          $(this).height(100);
+      });
+
+  });
+</script>
+

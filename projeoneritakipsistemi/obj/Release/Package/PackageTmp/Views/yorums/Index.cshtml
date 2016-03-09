@@ -1,0 +1,57 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.yorum>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.yorum_icerigi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yorumu_yapan_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yorumu_yapan_statu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yor_proje_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yorum_tarihi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.yorum_icerigi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yorumu_yapan_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yorumu_yapan_statu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yor_proje_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yorum_tarihi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.yorum_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.yorum_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.yorum_id })
+        </td>
+    </tr>
+}
+
+</table>

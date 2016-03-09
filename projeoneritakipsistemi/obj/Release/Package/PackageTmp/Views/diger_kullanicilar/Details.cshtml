@@ -1,0 +1,90 @@
+﻿@model projeoneritakipsistemi.Models.diger_kullanicilar
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>diger_kullanicilar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_soyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_soyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_parola)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_parola)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_kullanici_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_kullanici_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_unvan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_unvan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_uzmanlik_alani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_uzmanlik_alani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_kayit_tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_kayit_tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_acıklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diger_kullanicilar_acıklama)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.diger_kullanicilar_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

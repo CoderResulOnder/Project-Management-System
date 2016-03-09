@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projeoneritakipsistemi", "projeoneritakipsistemi\projeoneritakipsistemi.csproj", "{F48046F6-4781-4A35-9F2F-E341B8B6DDCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projeoneritakipsistemi.Tests", "projeoneritakipsistemi.Tests\projeoneritakipsistemi.Tests.csproj", "{CA929574-3413-44AC-B6E2-FE247D8D5081}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F48046F6-4781-4A35-9F2F-E341B8B6DDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48046F6-4781-4A35-9F2F-E341B8B6DDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48046F6-4781-4A35-9F2F-E341B8B6DDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48046F6-4781-4A35-9F2F-E341B8B6DDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA929574-3413-44AC-B6E2-FE247D8D5081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA929574-3413-44AC-B6E2-FE247D8D5081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA929574-3413-44AC-B6E2-FE247D8D5081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA929574-3413-44AC-B6E2-FE247D8D5081}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://resul-onder.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = projeoneritakipsistemi.Tests\\projeoneritakipsistemi.Tests.csproj
+		SccProjectName1 = projeoneritakipsistemi.Tests
+		SccLocalPath1 = projeoneritakipsistemi.Tests
+		SccProjectUniqueName2 = projeoneritakipsistemi\\projeoneritakipsistemi.csproj
+		SccProjectName2 = projeoneritakipsistemi
+		SccLocalPath2 = projeoneritakipsistemi
+	EndGlobalSection
+EndGlobal

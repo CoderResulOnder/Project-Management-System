@@ -1,0 +1,51 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.grup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.grup_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grup_uye_sayisi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grup_proje_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grub_akademisyen_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.grup_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grup_uye_sayisi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grup_proje_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grub_akademisyen_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.grup_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.grup_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.grup_id })
+        </td>
+    </tr>
+}
+
+</table>

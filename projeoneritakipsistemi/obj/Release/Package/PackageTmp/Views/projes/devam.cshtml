@@ -1,0 +1,290 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.proje>
+@{
+    ViewBag.Title = "projearama";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <table>
+
+        <tr>
+            <td>
+                @Html.Label("Neye göre arama yapmak İstediginizi Seciniz")
+            </td>
+            <td>
+                @Html.DropDownList("neyegore", (new List<SelectListItem>() { new SelectListItem { Text = "Proje adina göre", Selected = false, Value = "proje_adi" }, new SelectListItem { Text = "Poje Turune göre", Selected = false, Value = "proje_turu" } }))
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+
+                @Html.Label("aramak istediginiz anahtar kelimeyi  giriniz...")
+
+            </td>
+            <td valign="top">
+                @Html.TextBox("arama1", null, new { @placeholder = "Aranacak proje adini giriniz" })
+
+                <div id="myData">
+
+
+                    <table>
+                        <tr>
+
+                            @if (Model != null)
+                            {
+                                int a = Model.Count();
+                                int i = 0;
+                                int k = 0;
+
+                                foreach (var item in Model)
+                                {
+                                    k++;
+                                    if (a < 5 && k == 1)
+                                    {
+
+                                        <td>
+                                            @Html.ActionLink("Geri", "geri", new { id = item.proje_id })
+                                        </td>
+
+
+                                    }
+                                    if (a >= 5 && k == 1 && item.proje_id >= 5)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Geri", "geri", new { id = item.proje_id })
+                                        </td>
+
+
+                                    }
+
+                                    i++;
+                                    if (i % 5 != 0)
+                                    {
+
+
+                                        <td>
+                                            <div>
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Proje Adı")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_adi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("begeni sayısı")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_begeni_sayisi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("proje durumu")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_durumu)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <th>
+
+                                                            @Html.Label("Teslim Tarihi")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_teslim_tarihi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Proje türü")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_turu)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Yayın Tarihi")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.proje_yayin_tarihi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        @if (item.yorums != null && item.yorums.Where(m => m.yor_proje_id == item.proje_id).Count() != 0)
+                                                        {
+                                                            <th>
+                                                                @Html.Label("yorum Bilgileri")
+                                                            </th>
+                                                            <td>
+                                                                @Html.ActionLink("Yorum Bilgileri", "Details", "yorums", new { id = item.yorums.FirstOrDefault(m => m.yor_proje_id == item.proje_id).yorum_id })
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    <tr>
+
+
+                                                        <th>
+                                                            @Html.Label("Proje grubu adi")
+                                                        </th>
+
+                                                        <td>
+                                                            @if (item.kaynaks != null && item.kaynaks.Where(m => m.proje_id == item.proje_id).Count() != 0)
+                                                            {
+                                                                @Html.DisplayFor(modelItem => item.ogrenci.grup.grup_adi)
+                                                                @Html.ActionLink("Grup Bilgileri", "Details", "grups", new { id = item.kaynaks.FirstOrDefault(m => m.proje_id == item.proje_id).kaynak_id })
+                                                            }
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        @if (item.akademisyen != null)
+                                                        {
+                                                            <th>
+                                                                @Html.Label("Akademisyen")
+                                                            </th>
+                                                            <td>
+
+                                                                @Html.DisplayFor(modelItem => item.akademisyen.akademisyen_adi)
+
+                                                                @Html.ActionLink("Akademisyen Bilgileri", "Details", "akademisyens", new { id = item.akademisyen.akademisyen_id })
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    <tr>
+                                                        @if (item.bolum != null)
+                                                        {
+                                                            <th>
+                                                                @Html.Label("Bolum Bilgileri")
+                                                            </th>
+
+
+
+                                                            <td>
+                                                                @Html.ActionLink("Bolum Bilgileri", "Details", "bolums", new { id = item.bolum.bolum_id })
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>
+                                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.proje_id }) |
+                                                            @Html.ActionLink("Detay", "Details", new { id = item.proje_id }) |
+                                                            @Html.ActionLink("Sil", "Delete", new { id = item.proje_id })
+                                                        </th>
+
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    }
+
+                                    else
+                                    {
+                                        <td>
+                                            @Html.ActionLink("İlerle", "devam", new { id = item.proje_id })
+                                        </td>
+                                        break;
+                                    }
+
+
+                                }
+
+                            }
+
+
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+
+  $(document).ready(function () {
+
+        $("#arama1").keyup(function () {
+
+
+            var prj = $("#arama1").val();
+            var aramaturu=$("#neyegore").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("arama", "projes")', //"../Map/Search"
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "projeadi": prj , "projeturu":aramaturu}),
+                dataType: "json",
+                error: function (q, status, err) { console.log(q, status, err); },
+                success: function (data) {
+                    var table = "";
+                    table = "<table class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
+
+                    $.each(data, function (index, value) {
+                        //alert("deneme");
+
+                        console.log(value);
+
+                        if (value.proje_adi != null) {
+
+                            table += "<tr><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                        }
+                        if (value.proje_begeni_sayisi != null) {
+
+                            table += "<tr><th>Begeni Sayısı:</th><td>" + value.proje_begeni_sayisi + "</td></tr>";
+                        }
+                        if (value.proje_durumu != null) {
+
+                            table += "<tr><th>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
+                        }
+                        if (value.proje_aciklamasi != null) {
+                            table += "<tr><th>Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
+                        }
+                        if (value.proje_turu != null) {
+                            table += "<tr><th>Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
+                        }
+                        if (value.proje_kisi_siniri != null) {
+                            table += "<tr><th>Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
+                        }
+
+
+                        var a = value.proje_id;
+                        //alert(a);
+                        if (a != null) {
+
+                            table += "<tr><th><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<a href='Edit/" + a + "'>Düzenle</a> |";
+                            table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
+                        }
+
+
+
+                    });
+                    table += "</tbody></table>";
+                    $("#myData").html(table);
+
+                    }
+            });
+        });
+  });
+    </script>
+
+</body>

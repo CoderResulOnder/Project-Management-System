@@ -1,0 +1,329 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.akademisyen>
+@{
+    ViewBag.Title = "akademisyenarama";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+       
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    @Html.Label("Neye göre arama yapmak İstersiniz")
+                </td>
+                <td>
+                    @Html.DropDownList("neyegore", (new List<SelectListItem>() { new SelectListItem { Text = "Akademisyen adina göre", Selected = true, Value = "akademisyen_adi" }, new SelectListItem { Text = "Akademisyen soyadina göre", Selected = false, Value = "akademisyen_soyadi" }, new SelectListItem { Text = "Akademisyen Tc 'sine göre", Selected = false, Value = "akademisyen_tc" } }))
+                </td>
+                <td colspan="2" align="right" >
+                    
+                    <a href='/akademisyens/akademisyenarama' style="left:50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Akademisyen  Arama  Ana Sayfası</a>
+                   
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("aramak istediginiz anahtar kelime")
+                </td>
+                <td>
+                    @Html.TextBox("arama1", null, new { @placeholder = "Aranacak Akademisyen Bilgisini giriniz" })
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <br />
+    <table>
+        <tr>
+           <td valign="top">
+                  <div id="myData">
+                    <table  >
+                        <tr>
+
+
+                            @if (Model != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+
+                                    i++;
+                                    if (i % 5 != 0)
+                                    {
+
+
+                                        <td  style=" border:solid">
+                                            <div>
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Akademisyen Adı")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_adi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Akademisyen Soyadı")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_soyadi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Akademsiyen Tc")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_tc)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <th>
+
+                                                            @Html.Label("Telefon no")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_tel)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Akademisyenin Sitesi")
+                                                        </th>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_sitesi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Mail Adresi ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_mail)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Parola ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_parola)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Kullanici Adi ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_kullanici_adi)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Unvani ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_unvani)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Uzmanlık Alanı ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_uzmanlik_alani)
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>
+                                                            @Html.Label("Oda no ")
+                                                        </th>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.akademisyen_oda_no)
+                                                        </td>
+                                                    </tr>
+                                                    @if (item.bolum != null)
+                                                    {
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <table>
+                                                                    <tr>
+                                                                        
+                                                                        <td>@item.bolum.bolum_adi</td>
+                                                                        <td>@Html.ActionLink("Detaylı Bilgi", "Details", "Bolums", new { id = item.bolum.bolum_id }) </td>
+                                                                        
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    }
+                                                     @if (item.grups != null)
+                                                     {
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <table>
+                                                                    <tr>
+                                                                       
+                                                                            @foreach (var k in item.grups)
+                                                                            {   
+                                                                                <td>@Html.Label("Grup Adı")</td>
+                                                                                <td>@k.grup_adi</td>
+                                                                                <td>@Html.ActionLink("Grup Hakkında Detaylı Bilgi", "Details", "grups", new { id = k.grup_id }) </td>
+                                                                                <td>@Html.ActionLink("Grup Düzenle", "Edit", "grups", new { id = k.grup_id }) </td>
+                                                                                <td>@Html.ActionLink("Grubu Sil", "Delete", "grups", new { id = k.grup_id }) </td>
+                                                                            }
+
+                                                                        
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                     }
+
+
+                                                    <tr>
+                                                        <th>
+                                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.akademisyen_id }) |
+                                                            @Html.ActionLink("Detay", "Details", new { id = item.akademisyen_id }) |
+                                                            @Html.ActionLink("Sil", "Delete", new { id = item.akademisyen_id })
+                                                        </th>
+
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    }
+
+                                    else
+                                    {
+                                        <td>
+                                            @Html.ActionLink("İlerle", "devam", new { id = item.akademisyen_id })
+                                        </td>
+                                        break;
+                                    }
+
+
+                                }
+
+                            }
+
+
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+
+  $(document).ready(function () {
+
+        $("#arama1").keyup(function () {
+
+
+            var akd = $("#arama1").val();
+            var aramaturu=$("#neyegore").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("arama", "akademisyens")', //"../Map/Search"
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "akademisyenbilgisi": akd , "turu":aramaturu}),
+                dataType: "json",
+                error: function (q, status, err) { console.log(q, status, err); },
+                success: function (data) {
+                    var table = "";
+                    table = "<table class='table' ><tbody>";
+
+                    $.each(data, function (index, value) {
+                        //alert("deneme");
+
+                        console.log(value);
+
+                        if (value.akademisyen_adi != null) {
+
+                            table += "<tr><th> Adi :</th><td>" + value.akademisyen_adi + "</td></tr>";
+                        }
+                        if (value.akademisyen_soyadi != null) {
+
+                            table += "<tr><th>Soyadi :</th><td>" + value.akademisyen_soyadi + "</td></tr>";
+                        }
+                        if (value.akademisyen_tc != null) {
+
+                            table += "<tr><th>Tc :</th><td>" + value.akademisyen_tc + "</td></tr>";
+                        }
+                        if (value.akademisyen_tel != null) {
+                            table += "<tr><th>Tel :</th><td>" + value.akademisyen_tel + "</td></tr>";
+                        }
+                        if (value.akademisyen_sitesi != null) {
+                            table += "<tr><th>Web Sitesi:</th><td>" + value.akademisyen_sitesi + "</td></tr>";
+                        }
+                        if (value.akademisyen_parola != null) {
+                            table += "<tr><th>Parola :</th><td>" + value.akademisyen_parola + "</td></tr>";
+                        }
+                        if (value.akademisyen_kullanici_adi != null) {
+                            table += "<tr><th>Kullanıcı Adı :</th><td>" + value.akademisyen_kullanici_adi + "</td></tr>";
+                        } if (value.akademisyen_unvani != null) {
+                            table += "<tr><th>Unvanı</th><td>" + value.akademisyen_unvani + "</td></tr>";
+                        }
+                        if (value.akademisyen_uzmanlik_alani != null) {
+                            table += "<tr><th>Uzmanlık Alanı :</th><td>" + value.akademisyen_uzmanlik_alani + "</td></tr>";
+                        }
+                        if (value.akademisyen_oda_no != null) {
+                            table += "<tr><th>Oda no :</th><td>" + value.akademisyen_oda_no + "</td></tr>";
+                        }
+
+
+
+                        var a = value.akademisyen_id;
+                        //alert(a);
+                        if (a != null) {
+
+                            table += "<tr><th><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<a href='Edit/" + a + "'>Düzenle</a> |";
+                            table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
+                        }
+
+
+
+
+
+                    });
+                    table += "</tbody></table>";
+                    $("#myData").html(table);
+
+                    }
+            });
+        });
+  });
+    </script>
+
+</body>
+
+

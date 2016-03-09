@@ -1,0 +1,194 @@
+﻿@model projeoneritakipsistemi.Models.proje
+
+@{
+    ViewBag.Title = "Proje Hakkında";
+}
+
+<h2>Projenin Özellikleri</h2>
+
+<div>
+    <table cellpadding="15" border="0"style="margin-left:100px;font-size:17px">
+        <tr>
+            <th>
+                @Html.DisplayName("Proje Adı") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+         
+            <td>
+                :@Html.DisplayFor(model => model.proje_adi) <br />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin Toplam Begeni Sayısı")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+          
+            <td>
+                :@Html.DisplayFor(model => model.proje_begeni_sayisi)
+            </td>
+        </tr>
+        @if (@Model.proje_durumu.ToLower().ToString() != "boşta")
+        {
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin Son Teslim Tarihi")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_teslim_tarihi)
+            </td>
+        </tr>
+        }
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin Durumu ")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_durumu)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin amacı ve hakkında açıklama")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_aciklamasi)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin Türü")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_turu)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayName("Projeyi Alabilecek Maksimum Kişi Sayısı")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_kisi_siniri)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayName("Projenin Yüklenme(Yayınlanma) Tarihi")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+
+            <td>
+                :@Html.DisplayFor(model => model.proje_yayin_tarihi)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayName("Projeyi Yükleyen Kullanıcı Bilgileri")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+            </th>
+            
+            <td><div value="ara" id="@Model.projeolusturanid"></div>
+        
+
+            </td>
+        </tr>
+
+
+
+
+    </table>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeolusturanid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeolusturanid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_akademisyen_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_akademisyen_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_bolum_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_bolum_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_diger_kul_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_diger_kul_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proje_yayin_tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje_yayin_tarihi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.proje_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+       var username=$("div[value='ara']").attr("id");
+       if (username != "") {
+           $.ajax({
+               type: "POST",
+               url: '@Url.Action("kullaniciara", "projes")', //"../Map/Search"
+               contentType: "application/json; charset=utf-8",
+               data: JSON.stringify({ "kullanici": username }),
+               dataType: "json",
+               error: function (q, status, err) { console.log(q, status, err); },
+               success: function (data) {
+
+                   $.each(data, function (index, value) {
+
+                       var table = "<table border=0>";
+
+                       table += "<tr><th>Kullanici Adı</th><td>:" + value.kullaniciadi + "</td></tr>";
+                       if (value.kullanici_turu == "diger_kullanici") {
+                           table += "<tr><th>Kullanici Türü</th><td>:Kayıtlı Misafir Kullanici</td></tr>";
+                       }
+                       else {
+                           table += "<tr><th>Kullanici Türü</th><td>:" + value.kullanici_turu + "</td></tr>";
+                       }
+                       table += "<tr><th>Kullanici email</th><td>:" + value.UserName + "</td></tr>";
+                       $("div[value='ara']").html(table);
+                   });
+
+               }
+           });
+
+       }
+    });
+</script>

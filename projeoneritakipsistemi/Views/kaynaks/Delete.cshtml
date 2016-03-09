@@ -1,0 +1,81 @@
+﻿@model projeoneritakipsistemi.Models.kaynak
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>kaynak</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.proje.proje_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proje.proje_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kaynak_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_aciklamasi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kaynak_aciklamasi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kaynak_tarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_url)
+        </dt>
+
+        <dd>
+            <img src="@Html.Raw(Model.kaynak_url)" width="200" height="200"/>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_yukleyen_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kaynak_yukleyen_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kaynak_yukleyen_statu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kaynak_yukleyen_statu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

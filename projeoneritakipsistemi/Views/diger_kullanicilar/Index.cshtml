@@ -1,0 +1,81 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.diger_kullanicilar>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_soyadi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_parola)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_kullanici_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_unvan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_uzmanlik_alani)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_kayit_tarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diger_kullanicilar_acıklama)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_soyadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_parola)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_kullanici_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_unvan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_uzmanlik_alani)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_kayit_tarihi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diger_kullanicilar_acıklama)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.diger_kullanicilar_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.diger_kullanicilar_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.diger_kullanicilar_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,226 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/angular.min.js"></script>
+    @*<script src="~/Scripts/kar.js"></script>*@
+    <style>
+        #links:hover{
+            color:blue;
+            font-size:20px;
+        }
+        #links{
+            color:white;
+            font-size:20px;
+        }
+    
+        #links:active{
+            color:white;
+        }
+     
+        a{
+            color:blue;
+        }
+        a:hover{
+          color:limegreen;
+         }
+      
+    </style>
+</head>
+<body style="background-color:white" >
+    
+    <div  class="navbar navbar-inverse navbar-fixed-top"  >
+        <div class="container" >
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Ana Sayfa", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Yazilim Mühendisligi Projeleri", "Index", "yazilimmuhs")</li>
+                    <li>@Html.ActionLink("Azure Projeleri", "Index", "azureprojekontrols")</li>
+                    @*<li>@Html.ActionLink("Yönetici Sayfası", "Index", "YoneticiSayfasi")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("projeara", "projearama", "projes")</li>*@
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="position:absolute;background-color:white;margin-left:0px;margin-top:0px;width:300px;height:850px;background-image:url(../../resimler/dene.jpg)">
+            <p>
+
+                <script language="JavaScript1.2">
+
+//Secify scroller contents
+var line=new Array()
+line[1]="Proje Takip ve Öneri Sistemi"
+line[2]="Danışman:İsmail Kahraman"
+line[3] ="Geliştiriciler:Resul Önder"
+line[4] = "Hüseyin Çobanoglu"
+line[5]="Çanakkale 18 Mart Üniversitesi"
+
+
+//Specify font size for scoller
+var ts_fontsize="16px"
+
+//--Don't edit below this line
+
+var longestmessage=1
+for (i=2;i<line.length;i++){
+if (line[i].length>line[longestmessage].length)
+longestmessage=i
+}
+
+//Auto set scroller
+var tscroller_width=line[longestmessage].length
+
+lines=line.length-1 //--Number of lines
+
+//if IE 4+ or NS6
+if (document.all||document.getElementById){
+document.write('<form name="bannerform">')
+document.write('<input type="text" name="banner" size="'+tscroller_width+'"')
+document.write('  style=" '+document.r+'; color: '+document.body.text+'; font-family: verdana; font-size: '+ts_fontsize+'; font-weight:bold; border: medium none" onfocus="blur()">')
+document.write('</form>')
+}
+
+temp=""
+nextchar=-1;
+nextline=1;
+cursor="\\"
+function animate(){
+if (temp==line[nextline] & temp.length==line[nextline].length & nextline!=lines){
+nextline++;
+nextchar=-1;
+document.bannerform.banner.value=temp;
+temp="";
+setTimeout("nextstep()",1000)}
+else if (nextline==lines & temp==line[nextline] & temp.length==line[nextline].length){
+nextline=1;
+nextchar=-1;
+document.bannerform.banner.value=temp;
+temp="";
+setTimeout("nextstep()",1000)}
+else{
+nextstep()}}
+
+function nextstep(){
+
+if (cursor=="\\"){
+cursor="|"}
+else if (cursor=="|"){
+cursor="/"}
+else if (cursor=="/"){
+cursor="-"}
+else if (cursor=="-"){
+cursor="\\"}
+
+
+nextchar++;
+temp+=line[nextline].charAt(nextchar);
+document.bannerform.banner.value=temp+cursor
+setTimeout("animate()",25)}
+
+//if IE 4+ or NS6
+if (document.all||document.getElementById)
+window.onload=animate
+// -->
+                </script>
+
+            </p>
+
+
+            @{
+                string kullanici_email = null;
+                if (User.Identity.GetUserName() != "")
+                {
+                    kullanici_email = User.Identity.GetUserName();
+
+
+                    List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
+                    users.AsEnumerable();
+                    projeoneritakipsistemi.Models.ApplicationUser kullanici = null;
+                    foreach (var j in users)
+                    {
+                        if (j.Email == kullanici_email)
+                        {
+                            kullanici = j;
+                        }
+                    }
+                    if (kullanici.kullanici_turu != "")
+                    {
+                        if (kullanici.kullanici_turu == "ogrenci")
+                        {
+                            <h1>Hoş Geldiniz</h1>
+                            <h3>Ögrenci İşlemleri İşlemleri </h3>
+                            <ol style="list-style-type:circle">
+
+                                <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                            </ol>
+                        }
+                        else if (kullanici.kullanici_turu == "akademisyen")
+                        {
+                            <h1>Hoş Geldiniz</h1>
+                            <h3>Akademisyen İşlemleri </h3>
+                            <ol style="list-style-type:circle">
+
+                                <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                            </ol>
+                        }
+                        else if (kullanici.kullanici_turu == "diger_kullanici")
+                        {
+                            <h1>Hoş Geldiniz</h1>
+                            <h3>Kayıtlı Misafir Kullanici İşlemleri </h3>
+                            <ol style="list-style-type:circle">
+                             
+                                <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                            </ol>
+                        }
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+                else
+                {
+                   <h1>Hoş Geldiniz</h1>
+                  <h3>Misafir Kullanıcı İşlemleri </h3>
+                <ol style="list-style-type:circle">
+                    <li style="color:white" >@Html.ActionLink("Sisteme Kayıt ol", "Register", "Account", routeValues: null, htmlAttributes: new { id = "links"  })</li> 
+                    <li style="color:white">@Html.ActionLink("Sisteme Giriş Yap", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                    <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                 </ol>
+             
+                }
+            }
+            <footer>
+                @*&copy; @DateTime.Now.Day.ToString()/@DateTime.Now.Month.ToString() / @DateTime.Now.Year.ToString()*@
+                <p style="position:absolute;font-size:15px;color:black;margin-top:595px" >&copy; @DateTime.Now.ToShortDateString() - Proje Takip ve Öneri Sistemi</p>
+            </footer>
+        </div>
+        <div style="position:page;background-color:white;overflow:auto;scrollbar-darkshadow-color:black;margin-left:300px;max-width:1700px;max-height:782px;margin-right:5px;margin-bottom:50px;">
+            @RenderBody()
+            <hr />
+            
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,131 @@
+﻿@model projeoneritakipsistemi.Models.yazilimmuh
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>yazilimmuh</h4>
+    <hr />
+    @Html.HiddenFor(model => model.baclocimgurl)
+    @Html.HiddenFor(model => model.sprintimgurl)
+    @Html.HiddenFor(model => model.checkinimgurl)
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Projeadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projeadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeaciklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeaciklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projegrupuyeleri)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projegrupuyeleri)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projedil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projedil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeide)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeide)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surumkontsisadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surumkontsisadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teslimtarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teslimtarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.baclocimgurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.baclocimgurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sprintimgurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sprintimgurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.checkinimgurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.checkinimgurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.youtubecalismavideourl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.youtubecalismavideourl)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" id="create1" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+
+        $("#create1").click(function () {
+
+            $("#create1").hide();
+        });
+  });
+</script>

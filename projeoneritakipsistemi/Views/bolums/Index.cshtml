@@ -1,0 +1,117 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.bolum>
+
+@{
+    ViewBag.Title = "Bölüm İşlemleri";
+}
+
+<h2>Bölüm İle İlgili İşlemler</h2>
+
+<p>
+    @Html.ActionLink("Yeni Bölüm Ekle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Bölüm Adı")
+        </th>
+        <th>
+            @Html.DisplayName("Bölüm Adresi")
+        </th>
+        <th>
+            @Html.DisplayName("Bölüm Tel No")
+        </th>
+        <th>
+            @Html.DisplayName("Bölüm Faks No")
+        </th>
+        <th>
+            @Html.DisplayName("Bölüm Kodu")
+        </th>
+        <th>
+            @Html.DisplayName("Bölüm Web Sitesi")
+        </th>
+        <th>
+            @Html.DisplayName("Bölümün Bulundugu Fakülte Adı")
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    
+    <tr>
+        
+        <td>
+            <input type="hidden" id="@item.bolum_id"/>
+            @Html.DisplayFor(modelItem => item.bolum_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_adresi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_faks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_kodu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_sitesi)
+        </td>
+        <td>
+            <div id="@item.bolum_id" value="fakulte">
+               
+
+            </div>
+          
+        
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.bolum_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.bolum_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.bolum_id })
+        </td>
+    </tr>
+}
+
+</table>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("div[value='fakulte']").each(function(){
+        
+        
+     
+        var fak_id = $(this).attr("id");
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("fakulteara", "bolums")', //"../Map/Search"
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ "fak_id":fak_id  }),
+            dataType: "json",
+            error: function (q, status, err) { console.log(q, status, err); },
+            success: function (data) {
+
+                $.each(data, function (index, value) {
+
+                    var deneme = "<p>" + value.fakulte_adi + "<p>";
+                    $("div[value='fakulte'][id='"+fak_id+"']").html(deneme);
+
+                });
+
+            }
+        });
+
+        } );
+
+    });
+
+
+</script>

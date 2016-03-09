@@ -1,0 +1,610 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.azureprojekontrol>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2 style="color:chartreuse">Proje Ekleme ve Kontrol Sayfası </h2>
+
+@{
+    var kontrol = 0;
+    foreach (var a in Model)
+    {
+        if (a.kullanici == User.Identity.GetUserName())
+        {
+
+            kontrol = 1;
+
+        }
+
+    }
+    if (kontrol == 0)
+    {
+        <p>
+
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+    else
+       {
+        <p style="color:blue">Sistemde Kayıtlısınız önceden giris yapmıssınız bilgilerinizi düzenleye bilirsiniz kırmızı renkli kayıt size ait</p>
+        }
+}
+
+<table class="table">
+    <tr style="color:white">
+        <th>
+            @Html.DisplayName("Kullanici Adi")
+        </th>
+        <th>
+            @Html.DisplayName("Bulut servislerini tanıtan blog url")
+        </th>
+        <th>
+            @Html.DisplayName("Sanal Makine ile ilgili yazmış oldugunuz blog url")
+        </th>
+        <th>
+            @Html.DisplayName("Web servisleriyle ilgili yazdıgınız blog url")
+        </th>
+        <th>
+            @Html.DisplayName("Storage kullanımı ve tanıtımı ile ilgili blogunuzun url")
+        </th>
+        <th>
+            @Html.DisplayName("Kullanmadıgınız bulut servisini tanıtan Blog url")
+        </th>
+        <th>
+            @Html.DisplayName("Machine learnıngde kullandıgınız Dataset")
+        </th>
+        <th>
+            @Html.DisplayName("Machine Learning Proje Adi")
+        </th>
+        <th>
+            @Html.DisplayName("MAchine Learning Proje Acıklaması kısaca ")
+        </th>
+        <th>
+            @Html.DisplayName("Machine learning grup üyeleri")
+        </th>
+        <th>
+            @Html.DisplayName("Machine Learningte Kullanilan modeli kısaca acıkla")
+        </th>
+        <th>
+            @Html.DisplayName("Bitmis proje Raporunu giriniz ")
+        </th>
+        <th>
+            @Html.DisplayName("Teslim Tarihi")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+
+
+    string kullanici = null;
+    List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
+    users.AsEnumerable();
+    foreach (var j in users)
+    {
+        if (j.UserName == item.kullanici)
+        {
+            kullanici = j.kullaniciadi;
+
+        }
+    }
+
+    if (User.Identity.GetUserName() == item.kullanici)
+    {
+
+        <tr style="color:red;">
+
+            <td>
+                @kullanici
+            </td>
+
+            <td>
+                <a style="color:red" href="//@item.bulutSistemleriblogurl" target="_blank">@item.bulutSistemleriblogurl</a>
+            </td>
+
+            <td>
+                <a style="color:red"  href="//@item.sanalmakineblogurl" target="_blank">@item.sanalmakineblogurl</a>
+            </td>
+            <td>
+                <a style="color:red"  href="//@item.webservisleriblogurl" target="_blank">@item.webservisleriblogurl</a>
+            </td>
+            <td>
+                <a style="color:red"  href="//@item.storageblogurl" target="_blank">@item.storageblogurl</a>
+            </td>
+            <td>
+                <a style="color:red" href="//@item.kullanmadiginizbulutservisiblogurl" target="_blank">@item.kullanmadiginizbulutservisiblogurl</a>
+            </td>
+
+
+
+            @{
+                string b = null;
+                if (item.dataset != null)
+                {
+                    string url = item.dataset;
+                    var liste = url.Split('.');
+                    List<string> a = new List<string>();
+                    a.AsEnumerable();
+                    foreach (string eleman in liste)
+                    {
+                        a.Add(eleman);
+                    }
+
+                    b = a.Last();
+                    b = b.ToUpper();
+
+
+                    if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"> <img alt="tıkla indir" src="@Html.Raw(item.dataset)" width="100" height="100" /></a>
+                        </td>
+                    }
+                    else if (b == "PDF" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/deneme.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "PPT" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "CSV" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/csv.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "JSON" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/json.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "DATA" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/data.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "TXT" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/txt.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+
+                    else if (b == "DOCX" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "XLSX" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/exel.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "DOC" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.dataset)"><img alt="dosyaya tıkla indir" src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                        </td>
+
+                    }
+                }
+                else
+                {
+                    <td>
+                        <img src="" alt="yükleme yapınız lütfen" />
+                    </td>
+                }
+
+            }
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineLearningProjeadi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.projeaciklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.projegrupuyeleri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kullanilanmodeltanit)
+            </td>
+
+            @{
+
+                if (item.bitmisproje != null)
+                {
+                    b = null;
+                    string url = item.bitmisproje;
+                    var liste = url.Split('.');
+                    List<string> a = new List<string>();
+                    a.AsEnumerable();
+                    foreach (string eleman in liste)
+                    {
+                        a.Add(eleman);
+                    }
+
+                    b = a.Last();
+                    b = b.ToUpper();
+
+
+                    if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"> <img alt="boş" src="@Html.Raw(item.bitmisproje)" width="100" height="100" /></a>
+                        </td>
+                    }
+                    else if (b == "PDF" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/deneme.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "PPT" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "JSON" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/json.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "DATA" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/data.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "TXT" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/txt.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "XLSX" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/exel.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "DOC" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "DOCX" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                        </td>
+                    }
+                    else if (b == "CSV" && b != null)
+                    {
+                        <td>
+                            <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/csv.jpg" width="100" height="100" /> </a>
+                        </td>
+                    }
+
+                    else
+                    {
+
+                        <td>
+                            <a style="color:red" href="@Html.Raw(item.bitmisproje)"><img alt="dosyaya tıkla indir" src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                        </td>
+
+                    }
+                }
+                else
+                {
+                    <td>
+                        <img src="" alt="yükleme yapınız lütfen" />
+                    </td>
+                }
+
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.teslimtarihi)
+            </td>
+
+           <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.odevid})  
+           </td>
+           <td>
+               @Html.ActionLink("Details", "Details", new { id = item.odevid }) 
+           </td>
+           <td>
+                @Html.ActionLink("Delete", "Delete", new { id=item.odevid })
+            </td>
+           
+            }
+        </tr>
+    }
+    else
+    {
+
+         <tr>
+        
+        <td>
+            @kullanici
+        </td>
+       
+        <td>
+            <a href="//@item.bulutSistemleriblogurl" target="_blank">@item.bulutSistemleriblogurl</a>
+        </td>
+
+        <td>
+            <a href="//@item.sanalmakineblogurl" target="_blank">@item.sanalmakineblogurl</a>
+        </td>
+        <td>
+            <a href="//@item.webservisleriblogurl" target="_blank">@item.webservisleriblogurl</a>
+        </td>
+        <td>
+            <a href="//@item.storageblogurl" target="_blank">@item.storageblogurl</a>
+        </td>
+        <td>
+            <a href="//@item.kullanmadiginizbulutservisiblogurl" target="_blank">@item.kullanmadiginizbulutservisiblogurl</a>
+        </td>
+        
+
+
+        @{
+            string b = null;
+            if (item.dataset != null)
+            {
+                string url = item.dataset;
+                var liste = url.Split('.');
+                List<string> a = new List<string>();
+                a.AsEnumerable();
+                foreach (string eleman in liste)
+                {
+                    a.Add(eleman);
+                }
+
+                b = a.Last();
+                b = b.ToUpper();
+
+
+                if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.dataset)"> <img alt="tıkla indir" src="@Html.Raw(item.dataset)" width="100" height="100" /></a>
+                </td>
+                }
+                else if (b == "PDF" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/deneme.png" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "PPT" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "CSV" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/csv.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "JSON" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/json.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "DATA" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/data.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "TXT" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/txt.png" width="100" height="100" /> </a>
+                    </td>
+                }
+
+                else if (b == "DOCX" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "XLSX" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/exel.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "DOC" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.dataset)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                    </td>
+                }
+                else
+                {
+                <td>
+                    <a href="@Html.Raw(item.dataset)"><img alt="dosyaya tıkla indir" src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                </td>
+
+                }
+            }
+            else
+            {
+        <td>
+            <img src="" alt="yükleme yapınız lütfen" />
+        </td>
+            }
+
+        }
+
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.MachineLearningProjeadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projeaciklama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projegrupuyeleri)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kullanilanmodeltanit)
+        </td>
+       
+        @{
+
+            if (item.bitmisproje != null)
+            {
+                b = null;
+                string url = item.bitmisproje;
+                var liste = url.Split('.');
+                List<string> a = new List<string>();
+                a.AsEnumerable();
+                foreach (string eleman in liste)
+                {
+                    a.Add(eleman);
+                }
+
+                b = a.Last();
+                b = b.ToUpper();
+
+
+                if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.bitmisproje)"> <img alt="boş" src="@Html.Raw(item.bitmisproje)" width="100" height="100" /></a>
+                </td>
+                }
+                else if (b == "PDF" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/deneme.png" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "PPT" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "JSON" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/json.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "DATA" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/data.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "TXT" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/txt.png" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "XLSX" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/exel.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "DOC" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                </td>
+                }
+                else if (b == "DOCX" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "CSV" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.bitmisproje)"><img alt="tıkla indir" src="~/resimler/csv.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+
+                else
+                {
+
+                <td>
+                    <a href="@Html.Raw(item.bitmisproje)"><img alt="dosyaya tıkla indir" src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                </td>
+
+                }
+            }
+            else
+            {
+                <td>
+                    <img src="" alt="yükleme yapınız lütfen"/>
+                </td>
+            }
+
+        }
+
+        <td>
+            @Html.DisplayFor(modelItem => item.teslimtarihi)
+        </td>
+
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.projeid }) |*@
+            @Html.ActionLink("Details", "Details", new { id = item.odevid })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.projeid })*@
+        </td>
+        @*@{
+
+
+
+            if (User.Identity.GetUserName() == item.kullanici)
+            {
+                <td style="color:red">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.odevid })
+                </td>
+                <td style="color:red">
+                    @Html.ActionLink("Delete", "Delete", new { id = item.odevid })
+
+                </td>
+            }
+        }*@
+    </tr>
+    }
+}
+
+</table>

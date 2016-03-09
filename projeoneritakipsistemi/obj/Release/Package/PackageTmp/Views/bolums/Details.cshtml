@@ -1,0 +1,74 @@
+﻿@model projeoneritakipsistemi.Models.bolum
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bolum</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_adresi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_adresi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_faks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_faks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_kodu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_kodu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bolum_sitesi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bolum_sitesi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bol_fakulte_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bol_fakulte_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.bolum_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.bolum>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_adresi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_faks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_kodu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bolum_sitesi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bol_fakulte_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_adresi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_faks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_kodu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bolum_sitesi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bol_fakulte_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.bolum_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.bolum_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.bolum_id })
+        </td>
+    </tr>
+}
+
+</table>
