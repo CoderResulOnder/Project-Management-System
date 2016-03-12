@@ -1,0 +1,48 @@
+﻿@model projeoneritakipsistemi.Models.begenme
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>begenme</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.projeid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begenenid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begenenid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begenmedurumu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begenmedurumu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

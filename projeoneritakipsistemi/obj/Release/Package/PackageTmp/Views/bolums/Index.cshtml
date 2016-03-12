@@ -1,43 +1,47 @@
 ﻿@model IEnumerable<projeoneritakipsistemi.Models.bolum>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bölüm İşlemleri";
 }
 
-<h2>Index</h2>
+<h2>Bölüm İle İlgili İşlemler</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Yeni Bölüm Ekle", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_adi)
+            @Html.DisplayName("Bölüm Adı")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_adresi)
+            @Html.DisplayName("Bölüm Adresi")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_tel)
+            @Html.DisplayName("Bölüm Tel No")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_faks)
+            @Html.DisplayName("Bölüm Faks No")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_kodu)
+            @Html.DisplayName("Bölüm Kodu")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bolum_sitesi)
+            @Html.DisplayName("Bölüm Web Sitesi")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bol_fakulte_id)
+            @Html.DisplayName("Bölümün Bulundugu Fakülte Adı")
         </th>
+       
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
+    
     <tr>
+        
         <td>
+            <input type="hidden" id="@item.bolum_id"/>
             @Html.DisplayFor(modelItem => item.bolum_adi)
         </td>
         <td>
@@ -56,7 +60,12 @@
             @Html.DisplayFor(modelItem => item.bolum_sitesi)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.bol_fakulte_id)
+            <div id="@item.bolum_id" value="fakulte">
+               
+
+            </div>
+          
+        
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.bolum_id }) |
@@ -67,3 +76,42 @@
 }
 
 </table>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("div[value='fakulte']").each(function(){
+        
+        
+     
+        var fak_id = $(this).attr("id");
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("fakulteara", "bolums")', //"../Map/Search"
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ "fak_id":fak_id  }),
+            dataType: "json",
+            error: function (q, status, err) { console.log(q, status, err); },
+            success: function (data) {
+
+                $.each(data, function (index, value) {
+
+                    var deneme = "<p>" + value.fakulte_adi + "<p>";
+                    $("div[value='fakulte'][id='"+fak_id+"']").html(deneme);
+
+                });
+
+            }
+        });
+
+        } );
+
+    });
+
+
+</script>

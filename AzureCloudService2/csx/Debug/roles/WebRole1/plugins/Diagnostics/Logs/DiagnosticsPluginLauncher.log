@@ -1,0 +1,14 @@
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Emulator config file set to c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\AzureCloudService2\csx\Debug\roles\WebRole1\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] DiagnosticsStoreRootPath set to: C:\Users\resul_onder\AppData\Local\dftmp\Resources\0c40c9fc-732c-4a2b-9a5f-2b860445d41d
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Loading config file: c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\AzureCloudService2\csx\Debug\roles\WebRole1\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Checking VM Type
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Emulator config file set to c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\AzureCloudService2\csx\Debug\roles\WebRole1\approot\diagnostics.wadcfgx
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Extension set to Emulator Mode
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Reading XML configuration file
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Bypassing private config decryption
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Stopping the running plugin, if any
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] No DiagnosticsPlugin is running.
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Killing any DiagnosticsPlugin that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Killing any MonAgentHost that might remain.
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Diagnostics plugin stopped successfully
+DiagnosticsPluginLauncher.exe Information: 0 : [17.12.2015 21:57:03] Resetting DiagnosticPlugin

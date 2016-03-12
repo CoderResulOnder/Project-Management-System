@@ -19,6 +19,7 @@ namespace projeoneritakipsistemi.Models
         [Key]
         public int proje_id { get; set; }
         [Required]
+
         public string proje_adi { get; set; }
 
         public Nullable<int> proje_begeni_sayisi { get; set; }
@@ -32,23 +33,42 @@ namespace projeoneritakipsistemi.Models
         public string proje_turu { get; set; }
         [Required]
         public Nullable<int> proje_kisi_siniri { get; set; }
+
         public string projeolusturanid { get; set; }
-        public Nullable<int> proje_akademisyen_id { get; set; }
-        public Nullable<int> proje_bolum_id { get; set; }
-        public Nullable<int> proje_diger_kul_id { get; set; }
+
+        public Nullable<int> ogrenci_id { get; set; }
+
+        public Nullable<int> akademisyen_id { get; set; }
+
+        public Nullable<int> bolum_id { get; set; }
+
+        public Nullable<int> diger_kullanicilar_id { get; set; }
+
         public Nullable<System.DateTime> proje_yayin_tarihi { get; set; }
 
+        public virtual ogrenci ogrenci { get; set; }
+
+
         public virtual akademisyen akademisyen { get; set; }
+
         public virtual bolum bolum { get; set; }
+
         public virtual diger_kullanicilar diger_kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<grup> grups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<kaynak> kaynaks { get; set; }
-        public virtual ogrenci ogrenci { get; set; }
+
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<yorum> yorums { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<begenme> begenmes { get; set; }
+
+      
     }
 }

@@ -132,3 +132,8 @@ c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistem
 c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.deneme4.resources
 c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.csprojResolveAssemblyReference.cache
 c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.azurevs.resources
+c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.vs8.resources
+c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.vs9.resources
+c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.vs10.resources
+c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.vs11.resources
+c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.vs12.resources

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Add", "Blobs",FormMethod.Post,new {enctype="multipart/form-data" }))
+{
+
+    <input type="file" name="pic"/>
+    <input type="submit" value="Yükle" />
+}
+

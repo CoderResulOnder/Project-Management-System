@@ -468,6 +468,7 @@ namespace projeoneritakipsistemi.Controllers
                 proje.proje_begeni_sayisi = 0;
                 proje.projeolusturanid = User.Identity.GetUserName();
                 proje.proje_yayin_tarihi = DateTime.Now;
+                proje.proje_durumu = "false";
                 db.projes.Add(proje);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -18,6 +18,14 @@ namespace projeoneritakipsistemi.Controllers
 
         public ActionResult Index()
         {
+
+
+
+
+
+
+
+
             ViewData["universiteler"] = db.universites.ToList();
             ViewData["fakulteler"] = db.fakultes.ToList();
             ViewData["bolumler"] = db.bolums.ToList();
@@ -25,6 +33,55 @@ namespace projeoneritakipsistemi.Controllers
             Session["projes"] = db.projes.ToList();
             ApplicationUser user = new ApplicationUser();
             string kullanici_emaili = User.Identity.GetUserName();
+            if (kullanici_emaili != "")
+            {
+                user = db.Users.Where(x => x.Email == kullanici_emaili).First();
+
+                if (user.kullanici_turu == "ogrenci")
+                {
+                    var kont = db.ogrencis.Where(x => x.ogrenci_email == kullanici_emaili).ToList();
+                    if (kont.Count() == 0)
+                    {
+                        return RedirectToAction("Create", "ogrencis");
+                    }
+                    //return RedirectToAction("Create", "yazilimmuhs");
+
+                }
+
+                else if (user.kullanici_turu == "akademisyen")
+                {
+                    var akd = db.akademisyens.Where(x => x.akademisyen_mail == user.UserName).ToList();
+                    if (akd.Count() == 0)
+                        return RedirectToAction("Create", "akademisyens");
+                    //return RedirectToAction("Create", "yazilimmuhs");
+
+                }
+                else if (user.kullanici_turu == "diger_kullanici")
+                {
+                    var dgr = db.diger_kullanicilar.Where(x => x.diger_kullanicilar_mail == user.UserName).ToList();
+                    if (dgr.Count() == 0)
+                        //return RedirectToAction("Create", "yazilimmuhs");
+                        return RedirectToAction("Create", "diger_kullanicilar");
+                }
+                else if (user.kullanici_turu == "sirket")
+                {
+
+                    var srk = db.sirkets.Where(x => x.sirketi_ekleyen_kullaniciid == user.UserName).ToList();
+                    if (srk.Count() == 0)
+                        return RedirectToAction("Create", "sirkets");
+                }
+
+                Session["users"] = db.Users.ToList();
+
+
+
+
+
+            }
+
+
+
+
             if (kullanici_emaili != "")
             {
                 user = db.Users.Where(x => x.Email == kullanici_emaili).First();

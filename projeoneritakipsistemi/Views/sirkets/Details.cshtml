@@ -1,0 +1,82 @@
+﻿@model projeoneritakipsistemi.Models.sirket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sirket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_adresi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_adresi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_site)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_site)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_fax_adresi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_fax_adresi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirketcalismaalani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirketcalismaalani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirket_hakkinda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirket_hakkinda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sirketi_ekleyen_kullaniciid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirketi_ekleyen_kullaniciid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.sirket_adi }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

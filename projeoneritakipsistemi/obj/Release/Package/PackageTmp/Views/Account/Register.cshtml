@@ -21,7 +21,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.kullanici_turu, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m=>m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = false, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = false, Value = "akademisyen" }, new SelectListItem { Text = "Diger Kullanıcı", Selected = true, Value = "diger_kullanici" }}))
+            @Html.DropDownListFor(m=>m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = false, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = false, Value = "akademisyen" }, new SelectListItem { Text = "Misafir Kullanıcı", Selected = true, Value = "diger_kullanici" }}))
         </div>
     </div>
 

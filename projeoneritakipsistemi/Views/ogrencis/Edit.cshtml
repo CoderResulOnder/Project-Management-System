@@ -7,15 +7,17 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ogrencis", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
+
     <div class="form-horizontal">
         <h4>ogrenci</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ogrenci_id)
+        @Html.HiddenFor(model => model.ogrenci_resimurl)
 
         <div class="form-group">
             @Html.LabelFor(model => model.ogrenci_adi, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,6 +42,19 @@
                 @Html.ValidationMessageFor(model => model.ogrenci_no, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mevcut ögrenci resmi:</label>
+            <div class="col-md-10">
+                <img src="@Html.Raw(Model.ogrenci_resimurl)" width="200" height="200" />
+            </div>
+            @Html.Label("Yeni resiminizi Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ogrenci_profil_foto_edit" class="form-control fileupload" />
+            </div>
+        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.ogrenci_adresi, htmlAttributes: new { @class = "control-label col-md-2" })

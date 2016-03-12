@@ -26,7 +26,7 @@ namespace projeoneritakipsistemi.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("GenelAzureDatabase", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
@@ -60,5 +60,7 @@ namespace projeoneritakipsistemi.Models
         public System.Data.Entity.DbSet<projeoneritakipsistemi.Models.azureprojekontrol> azureprojekontrols { get; set; }
 
         public System.Data.Entity.DbSet<projeoneritakipsistemi.Models.begenme> begenmes { get; set; }
+
+        public System.Data.Entity.DbSet<projeoneritakipsistemi.Models.sirket> sirkets { get; set; }
     }
 }

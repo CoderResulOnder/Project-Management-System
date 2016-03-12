@@ -1,11 +1,13 @@
 ﻿@using Microsoft.AspNet.Identity
 
+@using Microsoft.AspNet.Identity.EntityFramework
+@using Microsoft.Owin.Security
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Proje Takip Ve Öneri Sistemi</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/angular.min.js"></script>
@@ -142,17 +144,27 @@ window.onload=animate
 
             </p>
 
+         
+
 
             @{
+
+
                 string kullanici_email = null;
                 if (User.Identity.GetUserName() != "")
                 {
+
+
+
+
                     kullanici_email = User.Identity.GetUserName();
 
+                   <input type="hidden" value="null"/>
+                  
 
                     List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
                     users.AsEnumerable();
-                    projeoneritakipsistemi.Models.ApplicationUser kullanici = null;
+                    projeoneritakipsistemi.Models.ApplicationUser kullanici=null ;
                     foreach (var j in users)
                     {
                         if (j.Email == kullanici_email)
@@ -160,14 +172,19 @@ window.onload=animate
                             kullanici = j;
                         }
                     }
+                    
                     if (kullanici.kullanici_turu != "")
                     {
                         if (kullanici.kullanici_turu == "ogrenci")
                         {
                             <h1>Hoş Geldiniz</h1>
-                            <h3>Ögrenci İşlemleri İşlemleri </h3>
+                            <h3>Ögrenci İşlemleri </h3>
                             <ol style="list-style-type:circle">
 
+                                @if (User.Identity.GetUserName() != "")
+                                {
+                                    <li style="color:white">@Html.ActionLink("Yeni Proje Önerisi Ekle", "create", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                                }
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
                             </ol>
                         }
@@ -185,7 +202,7 @@ window.onload=animate
                             <h1>Hoş Geldiniz</h1>
                             <h3>Kayıtlı Misafir Kullanici İşlemleri </h3>
                             <ol style="list-style-type:circle">
-                             
+
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
                             </ol>
                         }
@@ -204,7 +221,9 @@ window.onload=animate
                     <li style="color:white" >@Html.ActionLink("Sisteme Kayıt ol", "Register", "Account", routeValues: null, htmlAttributes: new { id = "links"  })</li> 
                     <li style="color:white">@Html.ActionLink("Sisteme Giriş Yap", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links" })</li>
                     <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
-                 </ol>
+                    <li style="color:white" >@Html.ActionLink("Yeni Proje Önerisi Ekle", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links"  })</li> 
+                    
+                </ol>
              
                 }
             }

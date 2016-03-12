@@ -223,6 +223,7 @@
     <Compile Include="Controllers\ogrenciHomeController.cs" />
     <Compile Include="Controllers\ogrencisController.cs" />
     <Compile Include="Controllers\projesController.cs" />
+    <Compile Include="Controllers\sirketsController.cs" />
     <Compile Include="Controllers\universitesController.cs" />
     <Compile Include="Controllers\yazilimmuhsController.cs" />
     <Compile Include="Controllers\yorumsController.cs" />
@@ -294,6 +295,34 @@
     <Compile Include="Migrations\201603021908267_vs12.Designer.cs">
       <DependentUpon>201603021908267_vs12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603100916433_versiyon0.cs" />
+    <Compile Include="Migrations\201603100916433_versiyon0.Designer.cs">
+      <DependentUpon>201603100916433_versiyon0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603101005003_versiyon1.cs" />
+    <Compile Include="Migrations\201603101005003_versiyon1.Designer.cs">
+      <DependentUpon>201603101005003_versiyon1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603101052068_versiyon2.cs" />
+    <Compile Include="Migrations\201603101052068_versiyon2.Designer.cs">
+      <DependentUpon>201603101052068_versiyon2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603101341531_versiyon3.cs" />
+    <Compile Include="Migrations\201603101341531_versiyon3.Designer.cs">
+      <DependentUpon>201603101341531_versiyon3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603101356158_versiyon4.cs" />
+    <Compile Include="Migrations\201603101356158_versiyon4.Designer.cs">
+      <DependentUpon>201603101356158_versiyon4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603121855036_versiyon5.cs" />
+    <Compile Include="Migrations\201603121855036_versiyon5.Designer.cs">
+      <DependentUpon>201603121855036_versiyon5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603122030234_versiyon6.cs" />
+    <Compile Include="Migrations\201603122030234_versiyon6.Designer.cs">
+      <DependentUpon>201603122030234_versiyon6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\akademisyen.cs" />
@@ -309,6 +338,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ogrenci.cs" />
     <Compile Include="Models\proje.cs" />
+    <Compile Include="Models\sirket.cs" />
     <Compile Include="Models\universite.cs" />
     <Compile Include="Models\yazilimmuh.cs" />
     <Compile Include="Models\yorum.cs" />
@@ -363,6 +393,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\kar.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\prefixfree.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\snowstorm.js" />
@@ -481,6 +512,11 @@
     <Content Include="Views\begenmes\Details.cshtml" />
     <Content Include="Views\begenmes\Edit.cshtml" />
     <Content Include="Views\begenmes\Index.cshtml" />
+    <Content Include="Views\sirkets\Create.cshtml" />
+    <Content Include="Views\sirkets\Delete.cshtml" />
+    <Content Include="Views\sirkets\Details.cshtml" />
+    <Content Include="Views\sirkets\Edit.cshtml" />
+    <Content Include="Views\sirkets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -541,6 +577,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603021908267_vs12.resx">
       <DependentUpon>201603021908267_vs12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603100916433_versiyon0.resx">
+      <DependentUpon>201603100916433_versiyon0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603101005003_versiyon1.resx">
+      <DependentUpon>201603101005003_versiyon1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603101052068_versiyon2.resx">
+      <DependentUpon>201603101052068_versiyon2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603101341531_versiyon3.resx">
+      <DependentUpon>201603101341531_versiyon3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603101356158_versiyon4.resx">
+      <DependentUpon>201603101356158_versiyon4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603121855036_versiyon5.resx">
+      <DependentUpon>201603121855036_versiyon5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603122030234_versiyon6.resx">
+      <DependentUpon>201603122030234_versiyon6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

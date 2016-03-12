@@ -186,7 +186,7 @@ namespace projeoneritakipsistemi.Controllers
             {
                 a = new SelectListItem();
                 a.Text = i.bolum_adi;
-                a.Value = i.bol_fakulte_id.ToString();
+                a.Value = i.bolum_id.ToString();
                 a.Selected = false;
                 fkt.Add(a);
             }

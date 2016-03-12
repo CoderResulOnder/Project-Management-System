@@ -166,33 +166,16 @@ namespace projeoneritakipsistemi.Controllers
 
                 if (result.Succeeded)
                 {
+
+                   
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     Session["mevcut_kullanici"] = user;
                     string kullaniciadi = user.UserName;
                     Session["username"] = kullaniciadi;
                     Session["parola"] = model.Password;
                 
-                    if (user.kullanici_turu == "ogrenci")
-                    {
-                        //return RedirectToAction("Create", "yazilimmuhs");
-                         return RedirectToAction("Create", "ogrencis");
-                    }
+              
 
-                    else if (user.kullanici_turu == "akademisyen")
-                    {
-                        return RedirectToAction("Create", "akademisyens");
-                        //return RedirectToAction("Create", "yazilimmuhs");
-
-                    }
-                    else if (user.kullanici_turu == "diger_kullanici")
-                    {
-                        //return RedirectToAction("Create", "yazilimmuhs");
-                        return RedirectToAction("Create", "diger_kullanicilar");
-                    }
-                    else
-                    {
-
-                    }
 
 
 
@@ -205,7 +188,7 @@ namespace projeoneritakipsistemi.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    Session["users"] = db.Users.ToList();
+
 
                     return RedirectToAction("Index", "Home");
 
