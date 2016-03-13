@@ -19,18 +19,20 @@ namespace projeoneritakipsistemi.Controllers
         public ActionResult Index()
         {
 
-
-
-
-
-
-
-
             ViewData["universiteler"] = db.universites.ToList();
+
             ViewData["fakulteler"] = db.fakultes.ToList();
+
             ViewData["bolumler"] = db.bolums.ToList();
+
             Session["users"] = db.Users.ToList();
+
+            Session["ogrenciler"] = db.ogrencis.ToList();
+
+            Session["akademisyenler"] = db.akademisyens.ToList();
+
             Session["projes"] = db.projes.ToList();
+
             ApplicationUser user = new ApplicationUser();
             string kullanici_emaili = User.Identity.GetUserName();
             if (kullanici_emaili != "")

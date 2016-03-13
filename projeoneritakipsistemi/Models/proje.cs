@@ -18,20 +18,19 @@ namespace projeoneritakipsistemi.Models
         }
         [Key]
         public int proje_id { get; set; }
-        [Required]
 
         public string proje_adi { get; set; }
 
         public Nullable<int> proje_begeni_sayisi { get; set; }
-        [Required]
+
         public Nullable<System.DateTime> proje_teslim_tarihi { get; set; }
-        [Required]
+
         public string proje_durumu { get; set; }
-        [Required]
+
         public string proje_aciklamasi { get; set; }
-        [Required]
+
         public string proje_turu { get; set; }
-        [Required]
+
         public Nullable<int> proje_kisi_siniri { get; set; }
 
         public string projeolusturanid { get; set; }

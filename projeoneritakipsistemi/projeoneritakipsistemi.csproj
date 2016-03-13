@@ -323,6 +323,10 @@
     <Compile Include="Migrations\201603122030234_versiyon6.Designer.cs">
       <DependentUpon>201603122030234_versiyon6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603131854433_versiyon7.cs" />
+    <Compile Include="Migrations\201603131854433_versiyon7.Designer.cs">
+      <DependentUpon>201603131854433_versiyon7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\akademisyen.cs" />
@@ -598,6 +602,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603122030234_versiyon6.resx">
       <DependentUpon>201603122030234_versiyon6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603131854433_versiyon7.resx">
+      <DependentUpon>201603131854433_versiyon7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

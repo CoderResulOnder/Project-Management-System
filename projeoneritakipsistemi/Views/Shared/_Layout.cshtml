@@ -160,11 +160,11 @@ window.onload=animate
                     kullanici_email = User.Identity.GetUserName();
 
                    <input type="hidden" value="null"/>
-                  
+
 
                     List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
                     users.AsEnumerable();
-                    projeoneritakipsistemi.Models.ApplicationUser kullanici=null ;
+                    projeoneritakipsistemi.Models.ApplicationUser kullanici = null;
                     foreach (var j in users)
                     {
                         if (j.Email == kullanici_email)
@@ -172,18 +172,38 @@ window.onload=animate
                             kullanici = j;
                         }
                     }
-                    
+
                     if (kullanici.kullanici_turu != "")
                     {
                         if (kullanici.kullanici_turu == "ogrenci")
                         {
+
+                            List<projeoneritakipsistemi.Models.ogrenci> ogr = (List<projeoneritakipsistemi.Models.ogrenci>)Session["ogrenciler"];
+                            ogr.AsEnumerable();
+                            projeoneritakipsistemi.Models.ogrenci aranan = null;
                             <h1>Hoş Geldiniz</h1>
                             <h3>Ögrenci İşlemleri </h3>
                             <ol style="list-style-type:circle">
 
+                                @foreach (var a in ogr)
+                                {
+
+                                if (a.ogrenci_email == kullanici.UserName)
+                                {
+                               
+
+                                <li style="color:white">@Html.ActionLink("Ögrenci Bilgilerini Düzenle", "Edit/"+ a.ogrenci_id,"ogrencis", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                                        break;
+                                    }
+                                }
+
+
+
                                 @if (User.Identity.GetUserName() != "")
                                 {
                                     <li style="color:white">@Html.ActionLink("Yeni Proje Önerisi Ekle", "create", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                                    
+
                                 }
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
                             </ol>
@@ -192,11 +212,33 @@ window.onload=animate
                         {
                             <h1>Hoş Geldiniz</h1>
                             <h3>Akademisyen İşlemleri </h3>
+
+
+                            List<projeoneritakipsistemi.Models.akademisyen> ak = (List<projeoneritakipsistemi.Models.akademisyen>)Session["akademisyenler"];
+                            ak.AsEnumerable();
                             <ol style="list-style-type:circle">
+
+                                @foreach (var a in ak)
+                                {
+
+                                    if (a.akademisyen_mail == kullanici.UserName)
+                                    {
+
+
+                                        <li style="color:white">@Html.ActionLink("Akademisyen Bilgilerini Düzenle", "Edit/" + a.akademisyen_id, "akademisyens", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                                        break;
+                                    }
+                                }
+
+
+
 
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
                             </ol>
                         }
+
+
+
                         else if (kullanici.kullanici_turu == "diger_kullanici")
                         {
                             <h1>Hoş Geldiniz</h1>

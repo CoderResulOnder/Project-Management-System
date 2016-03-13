@@ -892,10 +892,7 @@
           var prj = $(this).attr("id");
           $("div[value='" + prj + "'").css("visibility", "visible");
 
-          if (username == "") {
-              alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
-              window.location = "/Account/Login";
-          }
+         
           $.ajax({
               type: "POST",
               url: '@Url.Action("yorumlar", "projes")', //"../Map/Search"
@@ -909,7 +906,15 @@
                   if (data.length == 0) {
                       
                       var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
+
+                    
+
                       if (r == true) {
+
+                          if (username == "") {
+                              alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                              window.location = "/Account/Login";
+                          }
 
                           var yazilan = prompt("Lütfen Aşagıya Proje Hakkındaki İlk Yorumu Giriniz...");
                           if (yazilan !=null) {

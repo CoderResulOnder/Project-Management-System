@@ -468,7 +468,28 @@ namespace projeoneritakipsistemi.Controllers
                 proje.proje_begeni_sayisi = 0;
                 proje.projeolusturanid = User.Identity.GetUserName();
                 proje.proje_yayin_tarihi = DateTime.Now;
-                proje.proje_durumu = "false";
+                ApplicationUser kullanici = db.Users.Where(x=>x.UserName==proje.projeolusturanid).First();
+
+
+                if (kullanici.kullanici_turu == "ogrenci")
+                {
+                    proje.proje_durumu = "Öneri/Ögrenci Önerisi";
+                }
+
+                if (kullanici.kullanici_turu == "diger_kullanici")
+                {
+                    proje.proje_durumu = "Öneri/Misafir Kullanıcı Önerisi";
+                }
+                if (kullanici.kullanici_turu == "akademisyen")
+                {
+                    proje.proje_durumu = "Öneri/Akademisyen Önerisi";
+                }
+
+                if (kullanici.kullanici_turu == "sirket")
+                {
+                    proje.proje_durumu = "Öneri/Sirket Önerisi";
+                }
+
                 db.projes.Add(proje);
                 db.SaveChanges();
                 return RedirectToAction("Index");

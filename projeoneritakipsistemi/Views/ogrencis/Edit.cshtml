@@ -46,9 +46,22 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Mevcut ögrenci resmi:</label>
-            <div class="col-md-10">
-                <img src="@Html.Raw(Model.ogrenci_resimurl)" width="200" height="200" />
-            </div>
+            
+            @if (Model.ogrenci_resimurl !="")
+            {
+                <div class="col-md-10">
+                    <img src="@Html.Raw(Model.ogrenci_resimurl)" width="200" height="200" />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    <img src="@Html.Raw(Model.ogrenci_resimurl)" alt="Lutfen Resim Yükleyiniz " width="200" height="200" />
+                </div>
+
+            }
+
+
             @Html.Label("Yeni resiminizi Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="ogrenci_profil_foto_edit" class="form-control fileupload" />
