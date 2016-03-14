@@ -354,6 +354,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="gif\294.gif" />
+    <Content Include="gif\66.gif" />
+    <Content Include="gif\76.gif" />
+    <Content Include="gif\circle-bub_light.gif" />
+    <Content Include="gif\loader.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="resimler\arayuz.jpg" />
