@@ -25,7 +25,11 @@ namespace projeoneritakipsistemi.Controllers
 
             ViewData["bolumler"] = db.bolums.ToList();
 
+            ViewData["users"] = db.Users.ToList();
+
             Session["users"] = db.Users.ToList();
+
+            ViewBag.users = db.Users.ToList();
 
             Session["ogrenciler"] = db.ogrencis.ToList();
 
@@ -35,9 +39,11 @@ namespace projeoneritakipsistemi.Controllers
 
             ApplicationUser user = new ApplicationUser();
             string kullanici_emaili = User.Identity.GetUserName();
-            if (kullanici_emaili != "")
+            if (kullanici_emaili != "" && kullanici_emaili!=null)
             {
                 user = db.Users.Where(x => x.Email == kullanici_emaili).First();
+
+                if (user.kullanici_turu == null) return View();
 
                 if (user.kullanici_turu == "ogrenci")
                 {
@@ -84,9 +90,11 @@ namespace projeoneritakipsistemi.Controllers
 
 
 
-            if (kullanici_emaili != "")
+            if (kullanici_emaili != "" && kullanici_emaili!=null)
             {
-                user = db.Users.Where(x => x.Email == kullanici_emaili).First();
+                user = db.Users.Where(x => x.UserName == kullanici_emaili).First();
+
+                if (user.kullanici_turu == null) return View();
                 if (user.kullanici_turu == "ogrenci")
                 {
                     //return RedirectToAction("Create", "yazilimmuhs");

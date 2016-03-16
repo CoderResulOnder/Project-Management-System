@@ -526,6 +526,7 @@
     <Content Include="Views\sirkets\Details.cshtml" />
     <Content Include="Views\sirkets\Edit.cshtml" />
     <Content Include="Views\sirkets\Index.cshtml" />
+    <Content Include="Views\Manage\Changeinformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

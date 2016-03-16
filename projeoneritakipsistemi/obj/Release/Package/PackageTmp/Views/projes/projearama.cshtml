@@ -755,9 +755,12 @@
 
 
 
-       $("input[value='+1']").click(function () {
+            $("input[value='+1']").click(function () {
+               
            var prj = $(this).attr("id");
-
+           $("input[value='+1'][id='" + prj + "']").hide();
+           $("input[value='-1'][id='" + prj + "']").show();
+           $("input[value='0'][id='" + prj + "']").show();
            var username = $("body").attr("id");
 
 
@@ -780,9 +783,9 @@
                        $.each(data, function (index, value) {
 
 
-                           $("input[value='+1'][id='" + prj + "']").hide();
-                           $("input[value='-1'][id='" + prj + "']").show();
-                           $("input[value='0'][id='" + prj + "']").show();
+                           //$("input[value='+1'][id='" + prj + "']").hide();
+                           //$("input[value='-1'][id='" + prj + "']").show();
+                           //$("input[value='0'][id='" + prj + "']").show();
                            $("label[id='" + prj + "']").text("<Begendim>Toplam Begeni:" + value.proje_begeni_sayisi)
 
                        });
@@ -797,7 +800,9 @@
 
             $("input[value='0']").click(function () {
                 var prj = $(this).attr("id");
-
+                $("input[value='+1'][id='" + prj + "']").show();
+                $("input[value='-1'][id='" + prj + "']").show();
+                $("input[value='0'][id='" + prj + "']").hide();
                 var username = $("body").attr("id");
 
 
@@ -820,9 +825,9 @@
                             $.each(data, function (index, value) {
 
 
-                                $("input[value='+1'][id='" + prj + "']").show();
-                                $("input[value='-1'][id='" + prj + "']").show();
-                                $("input[value='0'][id='" + prj + "']").hide();
+                                //$("input[value='+1'][id='" + prj + "']").show();
+                                //$("input[value='-1'][id='" + prj + "']").show();
+                                //$("input[value='0'][id='" + prj + "']").hide();
                                 $("label[id='" + prj + "']").text("Kararsızım !..Toplam Begeni:" + value.proje_begeni_sayisi)
 
                             });
@@ -839,7 +844,9 @@
 
             $("input[value='-1']").click(function () {
                 var prj = $(this).attr("id");
-
+                $("input[value='+1'][id='" + prj + "']").show();
+                $("input[value='-1'][id='" + prj + "']").hide();
+                $("input[value='0'][id='" + prj + "']").show();
                 var username = $("body").attr("id");
 
 
@@ -860,9 +867,9 @@
                         success: function (data) {
 
                             $.each(data, function (index, value) {
-                                $("input[value='+1'][id='" + prj + "']").show();
-                                $("input[value='-1'][id='" + prj + "']").hide();
-                                $("input[value='0'][id='" + prj + "']").show();
+                                //$("input[value='+1'][id='" + prj + "']").show();
+                                //$("input[value='-1'][id='" + prj + "']").hide();
+                                //$("input[value='0'][id='" + prj + "']").show();
                                 $("label[id='"+prj+"']").text("<Begenmedim>Toplam Begeni: "+value.proje_begeni_sayisi)
                                 //alert(value.proje_begeni_sayisi);
 
@@ -885,10 +892,7 @@
           var prj = $(this).attr("id");
           $("div[value='" + prj + "'").css("visibility", "visible");
 
-          if (username == "") {
-              alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
-              window.location = "/Account/Login";
-          }
+         
           $.ajax({
               type: "POST",
               url: '@Url.Action("yorumlar", "projes")', //"../Map/Search"
@@ -902,7 +906,15 @@
                   if (data.length == 0) {
                       
                       var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
+
+                    
+
                       if (r == true) {
+
+                          if (username == "") {
+                              alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                              window.location = "/Account/Login";
+                          }
 
                           var yazilan = prompt("Lütfen Aşagıya Proje Hakkındaki İlk Yorumu Giriniz...");
                           if (yazilan !=null) {

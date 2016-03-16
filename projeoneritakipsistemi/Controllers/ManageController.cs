@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using projeoneritakipsistemi.Models;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace projeoneritakipsistemi.Controllers
 {
@@ -218,6 +220,79 @@ namespace projeoneritakipsistemi.Controllers
         {
             return View();
         }
+
+        public ActionResult Changeinformation()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            //ViewBag.kullanicilar = db.Users.ToList();
+            Session["users"] = db.Users.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Changeinformation( ApplicationUser kullanici)
+        {
+            //string oldemail=null;
+            string usernames = User.Identity.GetUserName();
+            ApplicationDbContext db = new ApplicationDbContext();
+            List<projeoneritakipsistemi.Models.ApplicationUser> my = db.Users.Where(m => m.UserName == usernames).ToList();
+            if (my.Count != 0)
+            {
+                //if (my.First().Email != null) { oldemail = my.First().Email; }
+
+                //if (kullanici.Email != null && my.First().UserName!=kullanici.Email)
+                //{
+                //    my.First().Email = kullanici.Email;
+                //    my.First().UserName = kullanici.Email;
+                   
+
+
+                //}
+                if (kullanici.kullaniciadi != null && my.First().kullaniciadi!=kullanici.kullaniciadi)
+                {
+                    my.First().kullaniciadi = kullanici.kullaniciadi;
+                }
+                else if (kullanici.kullanici_turu!=null && my.First().kullanici_turu!=kullanici.kullanici_turu)
+                {
+                    my.First().kullanici_turu = kullanici.kullanici_turu;
+
+                }
+                db.Entry(my.First()).State = EntityState.Modified;
+                db.SaveChanges();
+
+                //if (my.First().kullanici_turu == "ogrenci")
+                //{
+                //    if (kullanici.Email!=null && oldemail != null && oldemail!=kullanici.Email) {
+                //        ogrenci ogrencim = db.ogrencis.Where(m => m.ogrenci_email == oldemail).First();
+                //        return RedirectToAction("Edit/" +ogrencim.ogrenci_id, "Ogrencis");
+                //    }
+                           
+                //}
+
+                //if (my.First().kullanici_turu == "akademisyen")
+                //{
+                //    if (kullanici.Email != null && oldemail != null && oldemail != kullanici.Email)
+                //    {
+                //       var akademisyens = db.akademisyens.Where(m => m.akademisyen_mail == oldemail).ToList();
+                //        return RedirectToAction("Edit/" + akademisyens.First().akademisyen_id, "akademisyens");
+                //    }
+                //}
+                //if (my.First().kullanici_turu == "diger_kullanici")
+                //{
+                //    if (kullanici.Email != null && oldemail != null && oldemail != kullanici.Email)
+                //    {
+                //        ogrenci ogrencim = db.ogrencis.Where(m => m.ogrenci_email == oldemail).First();
+                //        return RedirectToAction("Edit/" + ogrencim.ogrenci_id, "diger_kullanicilar");
+                //    }
+                //}
+
+            }
+
+            return RedirectToAction("Index","Home");
+        }
+
+
 
         //
         // POST: /Manage/ChangePassword

@@ -1,18 +1,18 @@
 ﻿@model projeoneritakipsistemi.Models.ogrenci
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "yeni Ögrenci";
 }
 
-<h2>Create</h2>
+<h2>Ögrenci Kaydını Tamamlamak İçin Lütfen Formu Doldurup Devam Edin</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "ogrencis", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ogrenci</h4>
+        <h4>Yeni Ögrenci</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -38,6 +38,15 @@
                 @Html.ValidationMessageFor(model => model.ogrenci_no, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="imageFile">Lütfen Profil Resminizi Seçiniz</label>
+            <div class="col-md-10">
+                <input type="file" name="ogrenci_profil_foto" class="form-control fileupload" />
+            </div>
+        </div>
+
 
         <div class="form-group">
             @Html.Label("Ögrenci Adresi", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -137,7 +146,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="but" disabled="disabled" value="Create" class="btn btn-default" />
+                <input type="submit" id="but" disabled="disabled" value="Kaydet" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -156,6 +165,8 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <script type="text/javascript">
+
+
 
                 $(document).ready(function () {
                     var degisen = 0;
@@ -189,7 +200,7 @@
 
 
                                 $.each(data, function (index, value) {
-                                    //alert(value.Value);
+                                   
                                     b = 1;
                                     $("#fakulteler").append("<option value='" + value.Value + "'>" + value.Text + "</option>");
 
@@ -210,6 +221,7 @@
                     $("#fakulteler").change(function () {
 
                         var akd = $("#fakulteler").val();
+                       
                         if (akd == 0) { alert("Lutfen Bir Fakulte Seçiniz....");}
 
                         $("#but").attr("disabled", true);
@@ -230,7 +242,7 @@
                                 $.each(data, function (index, value) {
                                     a = 1;
 
-
+                                   
                                     $("#bolumler").append("<option value='" + value.Value + "'>" + value.Text + "</option>");
 
                                     console.log(value);
@@ -304,7 +316,17 @@
 
                     });
 
+                    $("#but").click(function () {
 
+
+                        require(['jQuery'], function ($) {
+                            $(document).ready(function () {
+                                $("#but").css("visibility", "hidden");
+
+                            });
+                        });
+                    
+                    });
 
 
                 });

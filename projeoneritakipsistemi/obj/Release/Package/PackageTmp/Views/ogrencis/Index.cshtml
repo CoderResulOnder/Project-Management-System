@@ -82,7 +82,16 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ogrenci_no)
                                 </td>
-                            </tr> 
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("Ögrenci Profil Resmi")
+                                </th>
+                                <td>
+                                    <a href="@Html.Raw(item.ogrenci_resimurl)"> <img src="@Html.Raw(item.ogrenci_resimurl)" width="400" height="400" /></a>
+                                </td>
+                            </tr>
+
                             <tr>   
                                 <th>
                                     @Html.Label("Adresi")
