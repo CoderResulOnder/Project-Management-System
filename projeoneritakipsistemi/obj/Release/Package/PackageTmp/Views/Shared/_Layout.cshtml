@@ -192,7 +192,7 @@ window.onload=animate
                         }
                     }
 
-                    if (kullanici.kullanici_turu != "")
+                    if (kullanici.kullanici_turu != null)
                     {
                         if (kullanici.kullanici_turu == "ogrenci")
                         {
@@ -262,6 +262,16 @@ window.onload=animate
                         {
                             <h1>Hoş Geldiniz</h1>
                             <h3>Kayıtlı Misafir Kullanici İşlemleri </h3>
+                            <ol style="list-style-type:circle">
+
+                                <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
+                            </ol>
+                        }
+
+                        else if (kullanici.kullanici_turu == "sirket")
+                        {
+                            <h1>Hoş Geldiniz</h1>
+                            <h3>Sirket İşlemleri </h3>
                             <ol style="list-style-type:circle">
 
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>

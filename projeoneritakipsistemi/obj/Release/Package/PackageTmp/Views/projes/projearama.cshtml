@@ -484,10 +484,7 @@
 
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
-            if (prj == "") {
-                window.location = "/projes/projearama";
-                
-            }
+        
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("arama", "projes")', //"../Map/Search"
@@ -497,7 +494,7 @@
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
                     var table = "";
-                    table = "<table  style='table-layout: fixed; width: 100%'  class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
+                    table = "<table border=1  style='table-layout: fixed; width: 100%'  class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
 
                     $.each(data, function (index, value) {
                         //alert("deneme");
@@ -509,11 +506,16 @@
 
                             table += "<tr style='max-width:400px;word-wrap:break-word'><th  style='max-width:400px'>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
                         }
+                        if (value.proje_teslim_tarihi != null) {
+
+                            table += "<tr style='max-width:400px;word-wrap:break-word'><th  style='max-width:400px'>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                        }
                         if (value.proje_begeni_sayisi != null) {
 
 
                             table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>   <button id='" + value.proje_id + "' value='begendim'>+1</button><button id='" + value.proje_id + "' value='vazgectim' >0</button> <button id='" + value.proje_id + "' value='begenmedim'>-1</button> <label id='" + value.proje_id + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></th></tr>";
                         }
+
                         if (value.proje_durumu != null) {
 
                             table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";

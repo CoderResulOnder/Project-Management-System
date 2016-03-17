@@ -361,6 +361,9 @@
     <Content Include="gif\loader.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="resimler\aglayan.jpg" />
+    <Content Include="resimler\gülen.jpg" />
+    <Content Include="resimler\resim.jpg" />
     <Content Include="resimler\arayuz.jpg" />
     <Content Include="resimler\arkaplan.jpg" />
     <Content Include="resimler\arkaplans.jpg" />
@@ -382,6 +385,8 @@
     <Content Include="resimler\proje1.jpg" />
     <Content Include="resimler\projes.jpg" />
     <Content Include="resimler\proje_yonetimi.jpg" />
+    <Content Include="resimler\resim2.jpg" />
+    <Content Include="resimler\resim3.jpg" />
     <Content Include="resimler\txt.png" />
     <Content Include="resimler\yorumcu.png" />
     <Content Include="Scripts\angular.min.js" />
@@ -389,6 +394,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\resulonder %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\resulonder.pubxml" />
+    <None Include="Properties\PublishProfiles\resulonderprojectmanagementsystem.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

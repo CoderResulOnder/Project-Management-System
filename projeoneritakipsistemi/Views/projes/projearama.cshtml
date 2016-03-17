@@ -74,7 +74,7 @@
                                                                                    
                                             <div>
                                                 
-                                                <table class="table" style="table-layout: fixed; width: 100%">
+                                                <table class="table"  style=" table-layout: fixed; width: 100%">
                                                     <tr>
                                                         <th colspan="2">
                                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.ActionLink("Daha Detaylı Bilgi İçin Tıkla", "Details", new { id = item.proje_id })
@@ -249,7 +249,7 @@
 
 
 
-                                                            <input  type="button" id="@item.proje_id" value="+1" />
+                                                            <input  type="button"  id="@item.proje_id"  value= "+1" />
                                                         }
 
                                                         
@@ -267,12 +267,13 @@
                                                             }
                                                         
                                                        
-                                                        <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Kararsızım !..Toplam begeni:@item.proje_begeni_sayisi</label></td>
+                                                        <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Toplam begeni:@item.proje_begeni_sayisi</label></td>
 
                                                     </tr>
                                                
                                                     <tr>
                                                         <td colspan="2">
+                                                            
                                                             <label style="font-weight:bold">Proje Hakkındaki Yorumunuzu Giriniz </label>
                                                         </td>
                                                     </tr>
@@ -447,13 +448,13 @@
                                         $("input[value='+1'][id='"+value.projeid+"']").hide();
                                         $("input[value='-1'][id='" + value.projeid + "']").show();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begendim>Toplam Begeni:" +   $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/gülen.jpg' width='30' height='30'></img>");
                                     }
                                     else if (value.begenmedurumu == "begenmedi") {
                                         $("input[value='+1'][id='" + value.projeid + "']").show();
                                         $("input[value='-1'][id='" + value.projeid + "']").hide();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begenmedim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/aglayan.jpg' width='30' height='30'></img>");
                                     }
                                    
 
@@ -484,10 +485,7 @@
 
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
-            if (prj == "") {
-                window.location = "/projes/projearama";
-                
-            }
+        
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("arama", "projes")', //"../Map/Search"
@@ -497,36 +495,79 @@
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
                     var table = "";
-                    table = "<table  style='table-layout: fixed; width: 100%'  class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
-
+                    table = "<table border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
+                    var i = 0;
+                    
                     $.each(data, function (index, value) {
                         //alert("deneme");
 
+                        if (i % 3 == 0) {
+                            
+                            table += "</tr><tr><td style='min-width:480px;max-width:480px'>";
+                        }
+
+                    
+                    else {
+                            table += "<td style='min-width:480px;max-width:480px' > ";
+                            }
+                       // alert(i);
                         console.log(value);
-
-
+                        table += "<table class='table'>";
+                        
                         if (value.proje_adi != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th  style='max-width:400px'>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                            table += "<tr ><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
                         }
+                        if (value.proje_yayin_tarihi != null) {
+
+                            var dateString = value.proje_yayin_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+
+
+
+                            table += "<tr ><th >Proje Yayınlanma Tarihi:</th><td>" + date + "</td></tr>";
+                        }
+
+                        if (value.proje_teslim_tarihi != null) {
+
+                            var dateString = value.proje_teslim_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+                            
+
+
+                            table += "<tr ><th >Proje Son Teslim Tarihi:</th><td>" +date + "</td></tr>";
+                        }
+
+                        
                         if (value.proje_begeni_sayisi != null) {
 
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>   <button id='" + value.proje_id + "' value='begendim'>+1</button><button id='" + value.proje_id + "' value='vazgectim' >0</button> <button id='" + value.proje_id + "' value='begenmedim'>-1</button> <label id='" + value.proje_id + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></th></tr>";
+                            table += "<tr ><th >Begeni Durumu:</th><td><button id='" + value.proje_id + "' value='begendim'>+1</button><button id='" + value.proje_id + "' value='vazgectim' >0</button> <button id='" + value.proje_id + "' value='begenmedim'>-1</button> <label id='" + value.proje_id + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></td></tr>";
                         }
+                       
+
+
                         if (value.proje_durumu != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
+                            table += "<tr><th>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
                         }
                         if (value.proje_aciklamasi != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
+                            table += "<tr ><th >Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
                         }
                         if (value.proje_turu != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
+                            table += "<tr ><th >Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
 
                         }
                         if (value.proje_kisi_siniri != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
+                            table += "<tr ><th >Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
                         }
 
 
@@ -534,14 +575,14 @@
                         //alert(a);
                         if (a != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<tr ><td></td><th><a href='Details/" + a + "'>Detay</a> |";
                             table += "<a href='Edit/" + a + "'>Düzenle</a> |";
                             table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
                         }
 
+                        table += "</table></td>";
 
-
-
+                        i++;
                     });
                     table += "</tbody></table>";
                     $("#myData").html(table);
@@ -786,7 +827,7 @@
                            //$("input[value='+1'][id='" + prj + "']").hide();
                            //$("input[value='-1'][id='" + prj + "']").show();
                            //$("input[value='0'][id='" + prj + "']").show();
-                           $("label[id='" + prj + "']").text("<Begendim>Toplam Begeni:" + value.proje_begeni_sayisi)
+                           $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi+"   Siz:").append("<img src='../resimler/gülen.jpg' width='30' height='30'></img>");
 
                        });
 
@@ -828,7 +869,7 @@
                                 //$("input[value='+1'][id='" + prj + "']").show();
                                 //$("input[value='-1'][id='" + prj + "']").show();
                                 //$("input[value='0'][id='" + prj + "']").hide();
-                                $("label[id='" + prj + "']").text("Kararsızım !..Toplam Begeni:" + value.proje_begeni_sayisi)
+                                $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi)
 
                             });
 
@@ -870,7 +911,7 @@
                                 //$("input[value='+1'][id='" + prj + "']").show();
                                 //$("input[value='-1'][id='" + prj + "']").hide();
                                 //$("input[value='0'][id='" + prj + "']").show();
-                                $("label[id='"+prj+"']").text("<Begenmedim>Toplam Begeni: "+value.proje_begeni_sayisi)
+                                $("label[id='" + prj + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi + "   Siz:").append("<img src='../resimler/aglayan.jpg' width='30' height='30'></img>")
                                 //alert(value.proje_begeni_sayisi);
 
 

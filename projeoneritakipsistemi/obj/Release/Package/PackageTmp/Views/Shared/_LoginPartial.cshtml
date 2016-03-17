@@ -58,9 +58,10 @@
                                 users = (List<projeoneritakipsistemi.Models.ApplicationUser>
                                     )Session["users"];
                             users.AsEnumerable();
-                            if (User.Identity.GetUserName() != "")
+
+                            if (User.Identity.GetUserName() != "" && User.Identity.GetUserName()!=null)
                             {
-                                foreach (var j in users)
+                                foreach (projeoneritakipsistemi.Models.ApplicationUser j in users)
                                 {
                                     if (j.UserName == User.Identity.GetUserName())
                                     {

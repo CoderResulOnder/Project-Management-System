@@ -90,9 +90,9 @@
 
                                     }
 
-                                    if (a >= 5 && k == 1 && item.proje_id > 5 && ilk != son)
+                                    if (a >= 5 && k == 1 && item.proje_id >= 5 && ilk != son)
                                     {
-                                        <td>
+                                        <td >
                                             @Html.ActionLink("Geri", "geri", new { id = item.proje_id }, new { @class = "geriicon" })
                                         </td>
 
@@ -107,7 +107,7 @@
 
                                             <div>
 
-                                                <table class="table" style="table-layout: fixed; width: 100%">
+                                                <table  class="table" style="table-layout: fixed; width: 100%">
                                                     <tr>
                                                         <th colspan="2">
                                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.ActionLink("Daha Detaylı Bilgi İçin Tıkla", "Details", new { id = item.proje_id })
@@ -239,7 +239,7 @@
                                                             <th>
                                                                 @Html.Label("Proje Hakkında Açıklama")
                                                             </th>
-                                                            <td>
+                                                            <td >
                                                                 @Html.DisplayFor(modelItem => item.proje_aciklamasi)
                                                             </td>
                                                         </tr>
@@ -303,7 +303,7 @@
                                                             }
 
 
-                                                            <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Kararsızım!..Toplam begeni:@item.proje_begeni_sayisi</label>
+                                                            <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Toplam begeni:@item.proje_begeni_sayisi</label>
                                                         </td>
 
                                                     </tr>
@@ -323,7 +323,7 @@
                                                         <td colspan="2">
                                                             <label value="@item.proje_id" id="projem">Sisteme Son Eklediginiz Yorumlar</label>
                                                                                                                 
-                                                            <div style="width:100%;height:150px;overflow:auto;max-height:150px;margin-left:0px;overflow-wrap:break-word;max-width:200px">
+                                                            <div style="width:100%;height:125px;overflow:auto;max-height:125px;margin-left:0px;overflow-wrap:break-word;max-width:200px">
 
 
                                                                 <ol class="@item.proje_id.ToString()" style="overflow:auto"></ol>
@@ -475,13 +475,13 @@
                                         $("input[value='+1'][id='"+value.projeid+"']").hide();
                                         $("input[value='-1'][id='" + value.projeid + "']").show();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begendim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value")+" Siz").append("<img src='../../resimler/gülen.jpg' width='30' height='30'></img>");
                                     }
                                     else if (value.begenmedurumu == "begenmedi") {
                                         $("input[value='+1'][id='" + value.projeid + "']").show();
                                         $("input[value='-1'][id='" + value.projeid + "']").hide();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begenmedim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + " Siz").append("<img src='../../resimler/aglayan.jpg' width='30' height='30'></img>");
                                     }
 
 
@@ -508,9 +508,7 @@
 
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
-            if (prj == "") {
-                window.location = "/projes/projearama";
-            }
+          
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("arama", "projes")', //"../Map/Search"
@@ -674,7 +672,7 @@
                            $("input[value='+1'][id='" + prj + "']").hide();
                            $("input[value='-1'][id='" + prj + "']").show();
                            $("input[value='0'][id='" + prj + "']").show();
-                           $("label[id='" + prj + "']").text("<Begendim>Toplam Begeni:" + value.proje_begeni_sayisi)
+                           $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + " Siz").append("<img src='../../resimler/gülen.jpg' width='30' height='30'></img>");
 
                        });
 
@@ -754,7 +752,7 @@
                                 $("input[value='+1'][id='" + prj + "']").show();
                                 $("input[value='-1'][id='" + prj + "']").hide();
                                 $("input[value='0'][id='" + prj + "']").show();
-                                $("label[id='"+prj+"']").text("<Begenmedim>Toplam Begeni:"+value.proje_begeni_sayisi)
+                                $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + " Siz").append("<img src='../../resimler/aglayan.jpg' width='30' height='30'></img>");
                                 //alert(value.proje_begeni_sayisi);
 
 
