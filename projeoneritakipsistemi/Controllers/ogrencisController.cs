@@ -33,7 +33,7 @@ namespace projeoneritakipsistemi.Controllers
         private void InitializeStorage()
         {
             // Open storage account using credentials from .cscfg file.
-            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorageGenel"].ToString());
 
             // Get context object for working with blobs, and 
             // set a default retry policy appropriate for a web user interface.

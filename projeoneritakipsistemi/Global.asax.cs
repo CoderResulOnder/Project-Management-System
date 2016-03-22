@@ -39,11 +39,11 @@ namespace projeoneritakipsistemi
         {
             // Open storage account using credentials from .cscfg file.
             var storageAccount = CloudStorageAccount.Parse
-                (ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+                (ConfigurationManager.ConnectionStrings["AzureWebJobsStorageGenel"].ToString());
 
             Trace.TraceInformation("Creating images blob container");
             var blobClient = storageAccount.CreateCloudBlobClient();
-            var imagesBlobContainer = blobClient.GetContainerReference("images");
+            var imagesBlobContainer = blobClient.GetContainerReference("resulonderproject");
             if (imagesBlobContainer.CreateIfNotExists())
             {
                 // Enable public access on the newly created "images" container.

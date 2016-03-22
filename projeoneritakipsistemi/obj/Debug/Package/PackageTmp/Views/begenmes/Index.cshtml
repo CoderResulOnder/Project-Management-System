@@ -1,0 +1,45 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.begenme>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.projeid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.begenenid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.begenmedurumu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.projeid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.begenenid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.begenmedurumu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.begenmeid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.begenmeid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.begenmeid })
+        </td>
+    </tr>
+}
+
+</table>

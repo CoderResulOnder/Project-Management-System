@@ -1,0 +1,82 @@
+﻿
+@model projeoneritakipsistemi.Models.ApplicationUser
+
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Giriş Bilgileri Güncelleme Sayfası";
+}
+
+<body>
+<h2>@ViewBag.Title.</h2>
+    
+@if(User.Identity.GetUserName()!=""){
+    List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
+    users.AsEnumerable();
+    
+
+
+    foreach (projeoneritakipsistemi.Models.ApplicationUser myuser in users)
+    {
+        if (myuser.UserName == User.Identity.GetUserName())
+        {
+
+            using (Html.BeginForm("Changeinformation", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Yeni Kullanıcı Adinizi Giriniz", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.kullaniciadi, new { @class = "form-control", @placeholder = myuser.kullaniciadi })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Yeni Kullanıcı Türü Seçiniz", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+
+                        @if (myuser.kullanici_turu == "ogrenci")
+                        {
+                            @Html.DropDownListFor(m => m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = true, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = false, Value = "akademisyen" }, new SelectListItem { Text = "Misafir Kullanıcı", Selected = false, Value = "diger_kullanici" }, new SelectListItem { Text = "Şirket Kaydı", Selected = false, Value = "sirket" } }))
+                        }
+
+                        @if (myuser.kullanici_turu == "akademisyen")
+                        {
+                            @Html.DropDownListFor(m => m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = false, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = true, Value = "akademisyen" }, new SelectListItem { Text = "Misafir Kullanıcı", Selected = false, Value = "diger_kullanici" }, new SelectListItem { Text = "Şirket Kaydı", Selected = false, Value = "sirket" } }))
+                        }
+                        @if (myuser.kullanici_turu == "diger_kullanici")
+                        {
+                            @Html.DropDownListFor(m => m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = false, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = false, Value = "akademisyen" }, new SelectListItem { Text = "Misafir Kullanıcı", Selected = true, Value = "diger_kullanici" }, new SelectListItem { Text = "Şirket Kaydı", Selected = false, Value = "sirket" } }))
+                        }
+
+                        @if (myuser.kullanici_turu == "sirket")
+                        {
+                            @Html.DropDownListFor(m => m.kullanici_turu, (new List<SelectListItem>() { new SelectListItem { Text = "Ögrenci", Selected = false, Value = "ogrenci" }, new SelectListItem { Text = "Akademisyen", Selected = false, Value = "akademisyen" }, new SelectListItem { Text = "Misafir Kullanıcı", Selected = false, Value = "diger_kullanici" }, new SelectListItem { Text = "Şirket Kaydı", Selected = true, Value = "sirket" } }))
+                        }
+
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.Label("Daha Önceden Bu Sitede Kullanmadıgınız Yeni Email adresinizi Giriniz", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control",@placeholder=myuser.UserName })
+                    </div>
+                </div>*@
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Kaydet" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        }
+
+
+    }
+
+}
+</body>
+    

@@ -17,6 +17,8 @@ namespace projeoneritakipsistemi.Models
 
         public string begenmedurumu{ get; set; }
 
+        public string begenmemesebebi { get; set; }
+
         public virtual proje proje { get; set; }
 
     }

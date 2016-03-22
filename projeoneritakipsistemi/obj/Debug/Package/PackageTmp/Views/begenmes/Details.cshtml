@@ -1,0 +1,42 @@
+﻿@model projeoneritakipsistemi.Models.begenme
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>begenme</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.projeid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begenenid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begenenid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begenmedurumu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begenmedurumu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.begenmeid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -74,7 +74,7 @@
                                                                                    
                                             <div>
                                                 
-                                                <table class="table" style="table-layout: fixed; width: 100%">
+                                                <table class="table"  style=" table-layout: fixed; width: 100%">
                                                     <tr>
                                                         <th colspan="2">
                                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.ActionLink("Daha Detaylı Bilgi İçin Tıkla", "Details", new { id = item.proje_id })
@@ -249,7 +249,7 @@
 
 
 
-                                                            <input  type="button" id="@item.proje_id" value="+1" />
+                                                            <input  type="button"  id="@item.proje_id"  value= "+1" />
                                                         }
 
                                                         
@@ -267,12 +267,13 @@
                                                             }
                                                         
                                                        
-                                                        <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Kararsızım !..Toplam begeni:@item.proje_begeni_sayisi</label></td>
+                                                        <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Toplam begeni:@item.proje_begeni_sayisi&nbsp;&nbsp;&nbsp;siz:<img src="~/resimler/kararsızım.jpg" width="30" height="30" /></label></td>
 
                                                     </tr>
                                                
                                                     <tr>
                                                         <td colspan="2">
+                                                            
                                                             <label style="font-weight:bold">Proje Hakkındaki Yorumunuzu Giriniz </label>
                                                         </td>
                                                     </tr>
@@ -414,12 +415,13 @@
 
 
             $(document).ready(function () {
-                
+
                 var username = $("body").attr("id");
                 if (username == "") {
                     $("input[value='+1']").show();
                     $("input[value='-1']").show();
                     $("input[value='0']").hide();
+                    $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
 
                 }
                 else {
@@ -428,7 +430,7 @@
                         $("input[value='+1']").show();
                         $("input[value='-1']").show();
                         $("input[value='0']").hide();
-                      
+                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
 
                         $.ajax({
                             type: "POST",
@@ -438,37 +440,37 @@
                             dataType: "json",
                             error: function (q, status, err) { console.log(q, status, err); },
                             success: function (data) {
-                               
+
                                 $.each(data, function (index, value) {
-                                   
+
 
 
                                     if (value.begenmedurumu == "begendi") {
                                         $("input[value='+1'][id='"+value.projeid+"']").hide();
                                         $("input[value='-1'][id='" + value.projeid + "']").show();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begendim>Toplam Begeni:" +   $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/ok.jpg' width='30' height='30'></img>");
                                     }
                                     else if (value.begenmedurumu == "begenmedi") {
                                         $("input[value='+1'][id='" + value.projeid + "']").show();
                                         $("input[value='-1'][id='" + value.projeid + "']").hide();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("<Begenmedim>Toplam Begeni:" + $("label[id='" + id + "']").attr("value"))
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/red.jpg' width='30' height='30'></img>");
                                     }
-                                   
 
-                                         
 
-                                    
-                                   
-                                    
+
+
+
+
+
 
                                 });
 
                             }
                         });
 
-                        
+
 
                     });
 
@@ -481,10 +483,10 @@
 
         $("#arama1").keyup(function () {
 
-
+            var user = $("body").attr("id");
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
-        
+           
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("arama", "projes")', //"../Map/Search"
@@ -494,41 +496,79 @@
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
                     var table = "";
-                    table = "<table border=1  style='table-layout: fixed; width: 100%'  class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
+                    table = "<table id="+user+" border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
+                    var i = 0;
 
                     $.each(data, function (index, value) {
                         //alert("deneme");
 
-                        console.log(value);
+                        if (i % 3 == 0) {
 
+                            table += "</tr><tr><td style='min-width:480px;max-width:480px'>";
+                        }
+
+
+                    else {
+                            table += "<td style='min-width:480px;max-width:480px' > ";
+                            }
+                       // alert(i);
+                        console.log(value);
+                        table += "<table class='table'>";
 
                         if (value.proje_adi != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th  style='max-width:400px'>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                            table += "<tr ><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
                         }
+                        if (value.proje_yayin_tarihi != null) {
+
+                            var dateString = value.proje_yayin_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+
+
+
+                            table += "<tr ><th >Proje Yayınlanma Tarihi:</th><td>" + date + "</td></tr>";
+                        }
+
                         if (value.proje_teslim_tarihi != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th  style='max-width:400px'>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                            var dateString = value.proje_teslim_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+
+
+
+                            table += "<tr ><th >Proje Son Teslim Tarihi:</th><td>" +date + "</td></tr>";
                         }
+
+
                         if (value.proje_begeni_sayisi != null) {
 
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>   <button id='" + value.proje_id + "' value='begendim'>+1</button><button id='" + value.proje_id + "' value='vazgectim' >0</button> <button id='" + value.proje_id + "' value='begenmedim'>-1</button> <label id='" + value.proje_id + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></th></tr>";
+                            table += "<tr ><th >Begeni Durumu:</th><td><button id='" + value.proje_id + "' value='begendim'><img src='../resimler/ok.jpg' width='30' height='30'></img></button><button id='" + value.proje_id + "' value='vazgectim' ><img src='../resimler/kararsızım.jpg' width='30' height='30'></img></button> <button id='" + value.proje_id + "' value='begenmedim'><img src='../resimler/red.jpg' width='30' height='30'></img></button> <label id='" + value.proje_id + "'  value='" + value.proje_begeni_sayisi + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></td></tr>";
                         }
+
+                        table += "<tr><td>  <input style='width:240px' type='text' placeholder='Proje Hakkındaki Yorumunuzu giriniz' id="+value.proje_id+"/></td></tr>";
 
                         if (value.proje_durumu != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
+                            table += "<tr><th>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
                         }
                         if (value.proje_aciklamasi != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
+                            table += "<tr ><th >Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
                         }
                         if (value.proje_turu != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
+                            table += "<tr ><th >Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
 
                         }
                         if (value.proje_kisi_siniri != null) {
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'>Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
+                            table += "<tr ><th >Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
                         }
 
 
@@ -536,23 +576,91 @@
                         //alert(a);
                         if (a != null) {
 
-                            table += "<tr style='max-width:400px;word-wrap:break-word'><th style='max-width:400px'><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<tr ><td></td><th><a href='Details/" + a + "'>Detay</a> |";
                             table += "<a href='Edit/" + a + "'>Düzenle</a> |";
                             table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
                         }
 
+                        table += "</table></td>";
 
-
-
+                        i++;
                     });
                     table += "</tbody></table>";
                     $("#myData").html(table);
+                    
+                
+
+                    
+                                    
+                        if (user == "" || user == null) {
+                            $("button[value='begendim']").show();
+                            $("button[value='begenmedim']").show();
+                            $("button[value='vazgectim']").hide();
+                            $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' value='vazgectim' height='30'></img>");
+                        }
+                        else {
+                            $("button[value='begendim']").each(function () {
+                                var id = $(this).attr("id");
+                                $("button[value='begendim']").show();
+                                $("button[value='begenmedim']").show();
+                                $("button[value='vazgectim']").hide();
+                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
+
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("butonlar", "projes")', //"../Map/Search"
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify({ "projeid": id, "kullanici": user }),
+                                    dataType: "json",
+                                    error: function (q, status, err) { console.log(q, status, err); },
+                                    success: function (data) {
+
+                                        $.each(data, function (index, value) {
+
+
+
+                                            if (value.begenmedurumu == "begendi") {
+                                                $("button[value='begendim'][id='" + value.projeid + "']").hide();
+                                                $("button[value='begenmedim'][id='" + value.projeid + "']").show();
+                                                $("button[value='vazgectim'][id='" + value.projeid + "']").show();
+                                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/ok.jpg' width='30' height='30'></img>");
+                                            }
+                                            else if (value.begenmedurumu == "begenmedi") {
+                                                $("button[value='begendim'][id='" + value.projeid + "']").show();
+                                                $("button[value='begenmedim'][id='" + value.projeid + "']").hide();
+                                                $("button[value='vazgectim'][id='" + value.projeid + "']").show();
+                                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/red.jpg' width='30' height='30'></img>");
+                                            }
+
+
+
+
+
+
+
+
+                                        });
+
+                                    }
+                                });
+
+
+
+                            });
+
+                        }
+
+                   
+
+
+
 
                     $("button[value='begendim']").click(function () {
-                        
+
 
                         var prj = $(this).attr("id");
-                      
+
 
                         var username = $("body").attr("id");
 
@@ -576,8 +684,10 @@
                                     $.each(data, function (index, value) {
 
                                         $("button[value='begendim'][id='" + value.proje_id + "']").hide();
-                                        $("button[value='begenmedim'][id='" +value.proje_id + "']").show();
-                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi)
+                                        $("button[value='begenmedim'][id='" + value.proje_id + "']").show();
+                                        $("button[value='vazgectim'][id='" + value.proje_id + "']").show();
+
+                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi).append("<img src='../resimler/ok.jpg' width='30' height='30'></img>");
 
                                     });
 
@@ -613,10 +723,11 @@
 
                                     $.each(data, function (index, value) {
 
-
+                                        $("button[value='vazgectim'][id='" + value.proje_id + "']").hide();
                                         $("button[value='begendim'][id='" + value.proje_id + "']").show();
                                         $("button[value='begenmedim'][id='" + value.proje_id + "']").show();
-                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi)
+                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + "   Siz:").append("<img src='../resimler/kararsızım.jpg' value='vazgectim'  width='30' height='30'></img>");
+                                        //$("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi)
 
                                     });
 
@@ -629,7 +740,7 @@
                     });
 
                     $("button[value='begenmedim']").click(function () {
-                     
+
 
                         var prj = $(this).attr("id");
 
@@ -655,11 +766,42 @@
 
                             $.each(data, function (index, value) {
 
-        
+                                $("button[value='vazgectim'][id='" + value.proje_id + "']").show();
                                 $("button[value='begendim'][id='" + value.proje_id + "']").show();
                                 $("button[value='begenmedim'][id='" + value.proje_id + "']").hide();
-                                $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi)
+                                $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi).append("<img src='../resimler/red.jpg' width='30' height='30'></img>");
                                 //alert(value.proje_begeni_sayisi);
+
+                                var r = confirm("Bu Projeyi Neden Begenmediginizi Bize Bildirmek İstermisiniz..");
+
+                                if (r == true) {
+                                    var yazilan = prompt("Lütfen Begenmeme Sebebinizi Açıkca Yazarmısınız ...");
+                                    if (yazilan != null) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '@Url.Action("begenmemesebebi", "projes")', //"../Map/Search"
+                                            contentType: "application/json; charset=utf-8",
+                                            data: JSON.stringify({ "projeid": value.proje_id, "kullanici": username, "yorum": yazilan }),
+                                            dataType: "json",
+                                            error: function (q, status, err) { console.log(q, status, err); },
+                                            success: function (data) {
+
+                                                alert("Bizi Uyardıgınız için teşekkurler");
+                                                $.each(data, function (index, value) {
+
+                                                });
+
+
+                                            }
+                                        });
+                                    }
+
+
+                                } else {
+
+                                }
+
+
 
 
                             });
@@ -677,6 +819,14 @@
 
                     }
             });
+
+
+
+
+
+
+
+
 
         });
 
@@ -741,14 +891,14 @@
             $("button[value='gizle']").click(function () {
 
 
-                
+
                 $("button[value='gizle']").each(function () {
                     var prj = $(this).attr("id");
                     $("div[value='" + prj + "'").css("visibility", "hidden");
 
                 });
 
-               
+
 
                 window.scrollTo(0, 0);
 
@@ -758,7 +908,7 @@
 
 
             $("input[value='+1']").click(function () {
-               
+
            var prj = $(this).attr("id");
            $("input[value='+1'][id='" + prj + "']").hide();
            $("input[value='-1'][id='" + prj + "']").show();
@@ -788,7 +938,7 @@
                            //$("input[value='+1'][id='" + prj + "']").hide();
                            //$("input[value='-1'][id='" + prj + "']").show();
                            //$("input[value='0'][id='" + prj + "']").show();
-                           $("label[id='" + prj + "']").text("<Begendim>Toplam Begeni:" + value.proje_begeni_sayisi)
+                           $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi+"   Siz:").append("<img src='../resimler/ok.jpg' width='30' height='30'></img>");
 
                        });
 
@@ -830,7 +980,7 @@
                                 //$("input[value='+1'][id='" + prj + "']").show();
                                 //$("input[value='-1'][id='" + prj + "']").show();
                                 //$("input[value='0'][id='" + prj + "']").hide();
-                                $("label[id='" + prj + "']").text("Kararsızım !..Toplam Begeni:" + value.proje_begeni_sayisi)
+                                $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi+"   Siz").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
 
                             });
 
@@ -872,7 +1022,7 @@
                                 //$("input[value='+1'][id='" + prj + "']").show();
                                 //$("input[value='-1'][id='" + prj + "']").hide();
                                 //$("input[value='0'][id='" + prj + "']").show();
-                                $("label[id='"+prj+"']").text("<Begenmedim>Toplam Begeni: "+value.proje_begeni_sayisi)
+                                $("label[id='" + prj + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi + "   Siz:").append("<img src='../resimler/red.jpg' width='30' height='30'></img>")
                                 //alert(value.proje_begeni_sayisi);
 
 
@@ -894,7 +1044,7 @@
           var prj = $(this).attr("id");
           $("div[value='" + prj + "'").css("visibility", "visible");
 
-         
+
           $.ajax({
               type: "POST",
               url: '@Url.Action("yorumlar", "projes")', //"../Map/Search"
@@ -906,10 +1056,10 @@
 
 
                   if (data.length == 0) {
-                      
+
                       var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
 
-                    
+
 
                       if (r == true) {
 
@@ -931,22 +1081,22 @@
                                       window.location.reload();
                                       $("." + id).empty();
                                       $("button[id='" + id + "'][value='goster']").trigger("click");
-                                  
+
                                       $.each(data, function (index, value) {
                                           if (kontrol == 0) {
                                               kontrol = 0;
                                               $("." + id).prepend("<li style=' border-top: 1px solid black ;padding: .3em 0;'><p>" + value.yorum_icerigi + "<p><a href='/yorums/Edit/" + value.yorum_id + "' ><input type='button' value='Düzenle' id='" + value.yorum_id + "'/></a><a href='/yorums/Delete/" + value.yorum_id + "' ><input type='button' value='Sil' id='" + value.yorum_id + "'/></a></li>");
                                           }
                                       });
-                                    
+
 
                                   }
                               });
                           }
 
-                          
+
                       } else {
-                        
+
                       }
                   }
                   else {
@@ -959,8 +1109,8 @@
                   $.each(data, function (index, value) {
 
 
-                     
-                                            
+
+
 
 
                       var ekle = "<li style=' border-top: 1px solid black ;padding: .3em 0;'><p style='font-weight:bold'>" + value.yorumu_yapan_id + "</p><p>:" + value.yorum_icerigi + "</p>";

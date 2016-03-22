@@ -1,0 +1,112 @@
+﻿@model projeoneritakipsistemi.Models.yazilimmuh
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>yazilimmuh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Projeadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projeadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeaciklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeaciklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projegrupuyeleri)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projegrupuyeleri)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projedil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projedil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projeide)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projeide)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surumkontsisadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surumkontsisadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teslimtarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teslimtarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.baclocimgurl)
+        </dt>
+
+        <dd>
+            
+                <a href="@Html.Raw(Model.baclocimgurl)"> <img src="@Html.Raw(Model.baclocimgurl)" width="400" height="400" /></a>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sprintimgurl)
+        </dt>
+
+        <dd>
+            
+             <a href="@Html.Raw(Model.sprintimgurl)"> <img src="@Html.Raw(Model.sprintimgurl)" width="400" height="400" /></a>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.checkinimgurl)
+        </dt>
+
+        <dd>
+            
+            
+                <a href="@Html.Raw(Model.checkinimgurl)"> <img src="@Html.Raw(Model.checkinimgurl)" width="400" height="400" /></a>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.youtubecalismavideourl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.youtubecalismavideourl)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

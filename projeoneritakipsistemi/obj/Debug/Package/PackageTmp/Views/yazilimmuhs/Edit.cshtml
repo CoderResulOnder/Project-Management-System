@@ -1,0 +1,141 @@
+﻿@model projeoneritakipsistemi.Models.yazilimmuh
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "yazilimmuhs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+
+    <div class="form-horizontal">
+        <h4>yazilimmuh</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.projeid)
+        @Html.HiddenFor(model => model.baclocimgurl)
+        @Html.HiddenFor(model => model.sprintimgurl)
+        @Html.HiddenFor(model => model.checkinimgurl)
+
+        <div class="form-group">
+            @Html.Label("Proje Adını Giriniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Projeadi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Projeadi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Projenizi Kısaca Açıklayınız ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projeaciklama, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projeaciklama, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Grup üyelerinin adlarını giriniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projegrupuyeleri, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projegrupuyeleri, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Projeyi Geliştirdiginiz Dili Giriniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projedil, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projedil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Projeyi Geliştirdiginiz İde yi giriniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projeide, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projeide, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Proje Gelistirdiginiz Sürüm Kontrol Sistemini Giriniz(TFS,GİT,GİTHUB vb)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.surumkontsisadi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.surumkontsisadi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mevcut Baclog image:</label>
+            <div class="col-md-10">
+                <img src="@Html.Raw(Model.baclocimgurl)" width="200" height="200" />
+            </div>
+            @Html.Label("Baclogların Bulundugu Yeni Resim(Ekran Görüntüsü) Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="imageFile" class="form-control fileupload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mevcut Sprint image:</label>
+            <div class="col-md-10">
+                <img src="@Html.Raw(Model.sprintimgurl)" width="200" height="200" />
+            </div>
+
+            @Html.Label("Sprint1'i Gösteren Yeni Ekran Görüntüsü Ekleyiniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="imageFile1" class="form-control fileupload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mevcut Checkin image:</label>
+            <div class="col-md-10">
+                <img src="@Html.Raw(Model.checkinimgurl)" width="200" height="200" />
+            </div>
+            @Html.Label("Size ait Checkinleri Gösteren Yeni Ekran Görüntüsü Ekleyiniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="imageFile2" class="form-control fileupload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Projenizin Çalışmasını gösteren Video Linki Ekleyiniz", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.youtubecalismavideourl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.youtubecalismavideourl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="create1" type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+
+        $("#create1").click(function () {
+
+            $("#create1").hide();
+        });
+  });
+</script>

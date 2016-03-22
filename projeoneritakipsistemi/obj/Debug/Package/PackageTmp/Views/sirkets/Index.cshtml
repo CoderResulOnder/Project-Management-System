@@ -1,0 +1,75 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.sirket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_adresi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_site)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_fax_adresi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirketcalismaalani)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirket_hakkinda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sirketi_ekleyen_kullaniciid)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_adresi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_site)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_fax_adresi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirketcalismaalani)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirket_hakkinda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sirketi_ekleyen_kullaniciid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.sirket_adi }) |
+            @Html.ActionLink("Details", "Details", new { id=item.sirket_adi }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.sirket_adi })
+        </td>
+    </tr>
+}
+
+</table>

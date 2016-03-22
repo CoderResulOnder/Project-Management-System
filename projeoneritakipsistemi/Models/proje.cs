@@ -23,7 +23,7 @@ namespace projeoneritakipsistemi.Models
 
         public Nullable<int> proje_begeni_sayisi { get; set; }
 
-        public Nullable<System.DateTime> proje_teslim_tarihi { get; set; }
+        public DateTime proje_teslim_tarihi { get; set; }
 
         public string proje_durumu { get; set; }
 
@@ -43,7 +43,7 @@ namespace projeoneritakipsistemi.Models
 
         public Nullable<int> diger_kullanicilar_id { get; set; }
 
-        public Nullable<System.DateTime> proje_yayin_tarihi { get; set; }
+        public DateTime proje_yayin_tarihi { get; set; }
 
         public virtual ogrenci ogrenci { get; set; }
 

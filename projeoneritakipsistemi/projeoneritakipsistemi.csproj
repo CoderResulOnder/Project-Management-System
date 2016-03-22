@@ -327,6 +327,14 @@
     <Compile Include="Migrations\201603131854433_versiyon7.Designer.cs">
       <DependentUpon>201603131854433_versiyon7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603201903051_versiyon8.cs" />
+    <Compile Include="Migrations\201603201903051_versiyon8.Designer.cs">
+      <DependentUpon>201603201903051_versiyon8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603202049379_versiyon81.cs" />
+    <Compile Include="Migrations\201603202049379_versiyon81.Designer.cs">
+      <DependentUpon>201603202049379_versiyon81.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\akademisyen.cs" />
@@ -362,7 +370,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="resimler\aglayan.jpg" />
-    <Content Include="resimler\gülen.jpg" />
+    <Content Include="resimler\kararsızım.jpg" />
+    <Content Include="resimler\ok.jpg" />
+    <Content Include="resimler\kararsız.jpg" />
+    <Content Include="resimler\onay.jpg" />
+    <Content Include="resimler\red.jpg" />
     <Content Include="resimler\resim.jpg" />
     <Content Include="resimler\arayuz.jpg" />
     <Content Include="resimler\arkaplan.jpg" />
@@ -617,6 +629,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603131854433_versiyon7.resx">
       <DependentUpon>201603131854433_versiyon7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201903051_versiyon8.resx">
+      <DependentUpon>201603201903051_versiyon8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603202049379_versiyon81.resx">
+      <DependentUpon>201603202049379_versiyon81.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

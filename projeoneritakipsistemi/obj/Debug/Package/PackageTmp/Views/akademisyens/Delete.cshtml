@@ -1,0 +1,120 @@
+﻿@model projeoneritakipsistemi.Models.akademisyen
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>akademisyen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_soyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_soyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_tc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_tc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_sitesi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_sitesi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_parola)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_parola)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_kullanici_adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_kullanici_adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_unvani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_unvani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_uzmanlik_alani)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_uzmanlik_alani)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.akademisyen_oda_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.akademisyen_oda_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aka_bolum_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aka_bolum_id)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

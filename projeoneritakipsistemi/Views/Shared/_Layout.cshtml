@@ -46,7 +46,7 @@
       
     </style>
 </head>
-<body style="background-color:white" >
+<body style="background-color:white" id="@User.Identity.GetUserName()">
    <!-- 
        
        <img src="~/gif/circle-bub_light.gif" />
@@ -113,8 +113,8 @@ lines=line.length-1 //--Number of lines
 //if IE 4+ or NS6
 if (document.all||document.getElementById){
 document.write('<form name="bannerform">')
-document.write('<input type="text" name="banner" size="'+tscroller_width+'"')
-document.write('  style=" '+document.r+'; color: '+document.body.text+'; font-family: verdana; font-size: '+ts_fontsize+'; font-weight:bold; border: medium none" onfocus="blur()">')
+document.write('&nbsp;&nbsp;&nbsp;<input type="text" name="banner" size="' + tscroller_width + '"')
+document.write('  style=" ' + document.r + ';border-radius:25px; color: ' + document.body.text + '; font-family: verdana; font-size: ' + ts_fontsize + '; font-weight:bold; border: medium none" onfocus="blur()">')
 document.write('</form>')
 }
 
@@ -162,7 +162,7 @@ window.onload=animate
                 </script>
 
             </p>
-
+            <div style="border-radius:25px;width:100%;color:white;background-color:black;border:1px dotted black;text-align:center;align-content:flex-end"><marquee style="font-size:xx-large">Yeni Fikirler && Yeni Projeler...</marquee></div>
          
 
 
@@ -218,7 +218,7 @@ window.onload=animate
 
 
 
-                                @if (User.Identity.GetUserName() != "")
+                                @if (User.Identity.GetUserName() != null)
                                 {
                                     <li style="color:white">@Html.ActionLink("Yeni Proje Önerisi Ekle", "create", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
                                     
@@ -292,7 +292,7 @@ window.onload=animate
                     <li style="color:white" >@Html.ActionLink("Sisteme Kayıt ol", "Register", "Account", routeValues: null, htmlAttributes: new { id = "links"  })</li> 
                     <li style="color:white">@Html.ActionLink("Sisteme Giriş Yap", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links" })</li>
                     <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
-                    <li style="color:white" >@Html.ActionLink("Yeni Proje Önerisi Ekle", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links"  })</li> 
+                     <li style="color:white" >@Html.ActionLink("Yeni Proje Önerisi Ekle", "Login", "Account", routeValues: null, htmlAttributes: new { id = "links" , @class="projeadd" })</li> 
                     
                 </ol>
              
@@ -332,6 +332,9 @@ window.onload=animate
         //$(window).ready(function () {
         //    $(".loader").fadeOut("slow");
     //})
+
+
+
     $(window).load(function () {
         $(".loader").fadeOut("slow");
 
@@ -342,6 +345,22 @@ window.onload=animate
         $(".loader").fadeIn();
 
     });
+    $(document).ready(function () {
+
+        $(".projeadd").click(function () {
+            var user=$("body").attr("id");
+
+            if(user==""){
+                alert("Sisteme Proje Önerisi Yükleye Bilmek İçin İlk Önce Giriş Yapmalısınız...(Kayıt Olmadan Sisteme Proje EKleyemezsiniz)");
+               // window.location = "/Account/Login";
+             
+            }
+
+        });
+
+
+    });
+
 
    
 </script>

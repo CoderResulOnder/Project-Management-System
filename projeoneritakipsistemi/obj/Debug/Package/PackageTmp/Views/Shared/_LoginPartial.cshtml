@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNet.Identity;
+<body id="@User.Identity.GetUserName()" >
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-right" >
+                <li>
+                    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+                    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+                    @*<script type="text/javascript">
+
+                        $(document).ready(function () {
+
+                            var username = $("body").attr("id");
+                            if (username == "") {
+                                alert("Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                                window.location = "/Account/Login";
+                            }
+                            else {
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("kullaniciadibul", "projes")', //"../Map/Search"
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify({ "kullanici": username }),
+                                    dataType: "json",
+                                    error: function (q, status, err) { console.log(q, status, err); },
+                                    success: function (data) {
+
+           
+
+                                        $.each(data, function (index, value) {
+                                            document.writeln("<p>Mevcut Kullanici<" + value.kullaniciadi+ "><p>")
+                                        });
+
+
+                                    }
+                                });
+
+                            }
+
+
+                        });
+
+                    </script>*@
+                    @{
+
+
+                            string kullanici = "...........";
+                            List<projeoneritakipsistemi.Models.ApplicationUser>
+                                users = (List<projeoneritakipsistemi.Models.ApplicationUser>
+                                    )Session["users"];
+                            users.AsEnumerable();
+
+                            if (User.Identity.GetUserName() != "" && User.Identity.GetUserName()!=null)
+                            {
+                                foreach (projeoneritakipsistemi.Models.ApplicationUser j in users)
+                                {
+                                    if (j.UserName == User.Identity.GetUserName())
+                                    {
+                                        kullanici = j.kullaniciadi;
+
+                                    }
+                                }
+
+                            }
+
+                            @Html.ActionLink("Mevcut Kullanici< "+kullanici.ToUpper()+" >", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        }
+
+                    @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+
+
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Çıkış Yap</a></li>
+            </ul>
+        }
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Yeni Hesap Oluştur", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Giriş Yap", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
+    }
+</body>

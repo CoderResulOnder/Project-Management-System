@@ -171,6 +171,30 @@ namespace projeoneritakipsistemi.Controllers
 
         [HttpPost]
 
+        public ActionResult begenmemesebebi(int projeid, string yorum, string kullanici)
+        {
+            var begenme = db.begenmes.Where(x => x.begenenid == kullanici && x.projeid == projeid).First();
+            begenme.begenmemesebebi = yorum;
+
+            db.Entry(begenme).State = EntityState.Modified;
+
+            db.SaveChanges();
+
+            List<begenme> prjm = new List<begenme>();
+            //prjm.Add(yeni_yorum);
+            
+
+                prjm.Add(begenme);
+            
+
+            var sonuc = Json(prjm, JsonRequestBehavior.AllowGet);
+            return sonuc;
+
+        }
+
+
+        [HttpPost]
+
         public ActionResult begenmedim(string kullanici, int projeid)
         {
 
@@ -449,7 +473,7 @@ namespace projeoneritakipsistemi.Controllers
             }
             return View(proje);
         }
-
+        [Authorize]
         // GET: projes/Create
         public ActionResult Create()
         {
@@ -459,6 +483,8 @@ namespace projeoneritakipsistemi.Controllers
         // POST: projes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "proje_id,proje_adi,proje_begeni_sayisi,proje_teslim_tarihi,proje_durumu,proje_aciklamasi,proje_turu,proje_kisi_siniri,proje_ogrenci_id,proje_akademisyen_id,proje_bolum_id,proje_diger_kul_id,proje_yayin_tarihi")] proje proje)
@@ -467,8 +493,12 @@ namespace projeoneritakipsistemi.Controllers
             {
                 proje.proje_begeni_sayisi = 0;
                 proje.projeolusturanid = User.Identity.GetUserName();
-                proje.proje_yayin_tarihi = DateTime.Now;
-                ApplicationUser kullanici = db.Users.Where(x=>x.UserName==proje.projeolusturanid).First();
+
+
+                proje.proje_yayin_tarihi= DateTime.Now;
+
+                if (User.Identity.GetUserName() == null) { ViewBag.message = "no_user"; return View(); }
+                ApplicationUser kullanici = db.Users.Where(x=>x.UserName==proje.projeolusturanid).FirstOrDefault();
 
 
                 if (kullanici.kullanici_turu == "ogrenci")

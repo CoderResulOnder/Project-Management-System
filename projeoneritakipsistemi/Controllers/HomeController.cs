@@ -13,8 +13,25 @@ namespace projeoneritakipsistemi.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [HttpPost]
 
-     
+        public ActionResult kullanicilar()
+        {
+            var kullanicim = User.Identity.GetUserName();
+
+            List<projeoneritakipsistemi.Models.ApplicationUser> result = new List<projeoneritakipsistemi.Models.ApplicationUser>();
+
+            var sonuc = db.Users.Where(x => x.UserName == kullanicim).ToList();
+
+           foreach( var i in sonuc)
+            {
+                result.Add(i);
+            }
+
+            var donecek = Json(result, JsonRequestBehavior.AllowGet);
+            return donecek;
+        }
+
 
         public ActionResult Index()
         {

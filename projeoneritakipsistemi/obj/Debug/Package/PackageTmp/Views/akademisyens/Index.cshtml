@@ -1,0 +1,99 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.akademisyen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_soyadi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_tc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_sitesi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_parola)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_kullanici_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_unvani)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_uzmanlik_alani)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akademisyen_oda_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aka_bolum_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_soyadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_tc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_sitesi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_mail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_parola)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_kullanici_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_unvani)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_uzmanlik_alani)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akademisyen_oda_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.aka_bolum_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.akademisyen_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.akademisyen_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.akademisyen_id })
+        </td>
+    </tr>
+}
+
+</table>

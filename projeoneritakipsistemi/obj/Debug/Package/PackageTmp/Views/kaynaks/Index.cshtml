@@ -1,0 +1,128 @@
+﻿@model IEnumerable<projeoneritakipsistemi.Models.kaynak>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.proje.proje_adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_aciklamasi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_tarih)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_url)
+        </th>
+        <th>
+            @Html.DisplayName("İndirme Butonu")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_yukleyen_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.kaynak_yukleyen_statu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+  
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.proje.proje_adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kaynak_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kaynak_aciklamasi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kaynak_tarih)
+        </td>
+        
+            @{
+                string b = null;
+                if (item.kaynak_url != null)
+                {
+                    string url = item.kaynak_url;
+                    var liste = url.Split('.');
+                    List<string> a = new List<string>();
+                    a.AsEnumerable();
+                    foreach (string eleman in liste)
+                    {
+                        a.Add(eleman);
+                    }
+
+                    b = a.Last();
+                    b = b.ToUpper();
+                }
+
+                if ( b == "JPG" || b=="PNG" || b=="GIF" || b=="TIFF"  && b != null)
+                {
+                 <td>
+                     <a href="@Html.Raw(item.kaynak_url)"> <img src="@Html.Raw(item.kaynak_url)" width="100" height="100" /></a>
+                 </td>
+                }
+                else if(b=="PDF" && b != null)
+                {
+                <td>
+                    <a href="@Html.Raw(item.kaynak_url)"><img src="~/resimler/deneme.png" width="100" height="100"/> </a>     
+                </td>
+                }
+                else if (b == "PPT" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.kaynak_url)"><img src="~/resimler/ppt.jpg" width="100" height="100" /> </a>
+                    </td>
+                }
+                else if (b == "DOCX" && b != null)
+                {
+                    <td>
+                        <a href="@Html.Raw(item.kaynak_url)"><img src="~/resimler/doc.png" width="100" height="100" /> </a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="@Html.Raw(item.kaynak_url)"><img src="~/resimler/dosya.png" width="100" height="100" /> </a>
+                    </td>
+
+                }
+
+            }
+         
+        <td>
+            @if (item.kaynak_url != null)
+            {
+
+
+            <a href="@Html.Raw(item.kaynak_url)" download=""><input type="button" value="indir"/></a>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kaynak_yukleyen_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.kaynak_yukleyen_statu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.kaynak_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.kaynak_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.kaynak_id })
+        </td>
+    </tr>
+}
+
+</table>
