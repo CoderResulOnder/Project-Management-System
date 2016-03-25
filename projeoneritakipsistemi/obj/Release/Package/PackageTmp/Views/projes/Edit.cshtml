@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "projes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -17,6 +17,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.proje_id)
 
+        @Html.HiddenFor(model => model.kaynaks.ElementAtOrDefault<projeoneritakipsistemi.Models.kaynak>(0).kaynak_id)
         <div class="form-group">
             @Html.LabelFor(model => model.proje_adi, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -73,7 +74,146 @@
             </div>
         </div>
 
-       
+        <div class="form-group">
+           
+
+            @for (int i = 0; i < Model.kaynaks.Count(); i++)
+            {
+                <div class="form-group">
+                    @Html.Label("Proje İle ilgili yüklü Toplam Kaynak Sayısı", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label(Model.kaynaks.Count().ToString(), htmlAttributes: new { @class = "control-label col-md-2" })
+                       
+                    </div>
+                </div>
+                var t = i + 1; 
+                <label class="control-label col-md-2">Mevcut @t . Dosya Bilgisi:</label>
+                if (Model.kaynaks.ElementAtOrDefault<projeoneritakipsistemi.Models.kaynak>(i).kaynak_url != "")
+                {
+
+
+
+
+                    string b = null;
+                    if (Model.kaynaks.ElementAtOrDefault<projeoneritakipsistemi.Models.kaynak>(i).kaynak_url != null)
+                    {
+                        string url = Model.kaynaks.ElementAtOrDefault<projeoneritakipsistemi.Models.kaynak>(0).kaynak_url;
+                        var liste = url.Split('.');
+                        List<string> a = new List<string>();
+                        a.AsEnumerable();
+                        foreach (string eleman in liste)
+                        {
+                            a.Add(eleman);
+                        }
+
+                        b = a.Last();
+                        b = b.ToUpper();
+
+
+                        if (b == "JPG" || b == "PNG" || b == "GIF" || b == "TIFF" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"> <img alt="tıkla indir" src="@Html.Raw(url)" width="800" height="400" /></a>
+                            </div>
+                        }
+                        else if (b == "PDF" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/deneme.png" width="200" height="200"/></a>
+                            </div>
+                        }
+                        else if (b == "PPT" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/ppt.jpg" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else if (b == "CSV" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/csv.jpg" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else if (b == "JSON" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/json.jpg" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else if (b == "DATA" && b != null)
+                        {
+                           <div class="col-md-10">
+                               <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/data.jpg" width="100" height="100"/></a>
+                            </div>
+                        }
+                        else if (b == "TXT" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/txt.png" width="100" height="100" /></a>
+                            </div>
+                        }
+
+                        else if (b == "DOCX" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else if (b == "XLSX" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/exel.jpg" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else if (b == "DOC" && b != null)
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/doc.png" width="100" height="100" /></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-10">
+                                <a href="@url">@url</a><br />
+                                <a href="@Html.Raw(url)"><img alt="tıkla indir" src="~/resimler/dosya.png" width="100" height="100" /></a>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-md-10">
+                            <a href="">Lütfen Bir dosya yükleyiniz !... </a><br />
+                            <img src="" alt="yükleme yapınız lütfen" />
+                        </div>
+                    }
+
+
+
+                }
+                else
+                {
+                        @Html.Label("Yeni resiminizi Seciniz", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="file" name="ogrenci_profil_foto_edit" class="form-control fileupload" />
+                        </div>
+
+                }
+
+            }
+
+
+        </div>
 
       
 

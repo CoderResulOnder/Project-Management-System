@@ -14,7 +14,13 @@ namespace projeoneritakipsistemi.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         [HttpPost]
+        public void Kontroluser()
+        {
+            Session["users"] = db.Users.ToList();
 
+        }
+
+        [HttpPost]
         public ActionResult kullanicilar()
         {
             var kullanicim = User.Identity.GetUserName();
@@ -46,7 +52,7 @@ namespace projeoneritakipsistemi.Controllers
 
             Session["users"] = db.Users.ToList();
 
-            ViewBag.users = db.Users.ToList();
+            //ViewBag.users = db.Users.ToList();
 
             Session["ogrenciler"] = db.ogrencis.ToList();
 

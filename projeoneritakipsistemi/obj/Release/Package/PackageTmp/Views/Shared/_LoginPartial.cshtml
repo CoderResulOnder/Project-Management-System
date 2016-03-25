@@ -53,26 +53,31 @@
                     @{
 
 
-                            string kullanici = "...........";
-                            List<projeoneritakipsistemi.Models.ApplicationUser>
-                                users = (List<projeoneritakipsistemi.Models.ApplicationUser>
-                                    )Session["users"];
-                            users.AsEnumerable();
+//string kullanici = "...........";
+//List<projeoneritakipsistemi.Models.ApplicationUser>
+//    users = (List<projeoneritakipsistemi.Models.ApplicationUser>
+//        )Session["users"];
+//users.AsEnumerable();
 
-                            if (User.Identity.GetUserName() != "" && User.Identity.GetUserName()!=null)
-                            {
-                                foreach (projeoneritakipsistemi.Models.ApplicationUser j in users)
-                                {
-                                    if (j.UserName == User.Identity.GetUserName())
-                                    {
-                                        kullanici = j.kullaniciadi;
+//if (User.Identity.GetUserName() != "" && User.Identity.GetUserName()!=null)
+//{
+//    foreach (projeoneritakipsistemi.Models.ApplicationUser j in users)
+//    {
+//        if (j.UserName == User.Identity.GetUserName())
+//        {
+//            kullanici = j.kullaniciadi;
 
-                                    }
-                                }
+//        }
+//    }
 
-                            }
+//}
 
-                            @Html.ActionLink("Mevcut Kullanici< "+kullanici.ToUpper()+" >", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+// @Html.ActionLink("Mevcut Kullanici< "+kullanici.ToUpper()+" >", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+
+ @Html.ActionLink("Hoş Geldiniz...", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage",id="usercontrol" })
+
+                               
                         }
 
                     @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
@@ -81,13 +86,67 @@
                 </li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Çıkış Yap</a></li>
             </ul>
-        }
-    }
-    else
-    {
+                            }
+                        }
+                        else
+                        {
         <ul class="nav navbar-nav navbar-right">
             <li>@Html.ActionLink("Yeni Hesap Oluştur", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
             <li>@Html.ActionLink("Giriş Yap", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         </ul>
     }
 </body>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var user=$("body").attr("id");
+        var kullanici_adi=null;
+        if (user != "" && user != null) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("kullanicilar", "Home")', //"../Map/Search"
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ }),
+                dataType: "json",
+                error: function (q, status, err) { console.log(q, status, err); },
+                success: function (data) {
+
+       
+
+                    $.each(data, function (index, value) {
+
+                        kullanici_adi = value.kullaniciadi;
+                        $("#usercontrol").text("Hoş Geldiniz< " + value.kullaniciadi + ">");
+
+
+                    });
+
+                }
+            });
+
+            
+                $("#usercontrol").mouseover(function () {
+                    if (kullanici_adi != null) {
+                        $("#usercontrol").text("Hoş Geldiniz!.." + kullanici_adi + " kullanıcı adı, kullanıcı türü ve şifre degişikligi için tıklayın");
+                    }
+                });
+
+                $("#usercontrol").mouseout(function () {
+                    if (kullanici_adi != null) {
+                        $("#usercontrol").text("Hoş Geldiniz< " + kullanici_adi + ">");
+                    }
+                    });
+            
+        }
+    });
+
+</script>

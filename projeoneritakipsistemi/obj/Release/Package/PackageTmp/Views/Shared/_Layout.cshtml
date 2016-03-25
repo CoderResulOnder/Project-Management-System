@@ -113,8 +113,8 @@ lines=line.length-1 //--Number of lines
 //if IE 4+ or NS6
 if (document.all||document.getElementById){
 document.write('<form name="bannerform">')
-document.write('<input type="text" name="banner" size="'+tscroller_width+'"')
-document.write('  style=" '+document.r+'; color: '+document.body.text+'; font-family: verdana; font-size: '+ts_fontsize+'; font-weight:bold; border: medium none" onfocus="blur()">')
+document.write('&nbsp;&nbsp;&nbsp;<input type="text" name="banner" size="' + tscroller_width + '"')
+document.write('  style=" ' + document.r + ';border-radius:25px; color: ' + document.body.text + '; font-family: verdana; font-size: ' + ts_fontsize + '; font-weight:bold; border: medium none" onfocus="blur()">')
 document.write('</form>')
 }
 
@@ -162,7 +162,7 @@ window.onload=animate
                 </script>
 
             </p>
-
+            <div style="border-radius:25px;width:100%;color:white;background-color:black;border:1px dotted black;text-align:center;align-content:flex-end"><marquee style="font-size:xx-large">Yeni Fikirler && Yeni Projeler...</marquee></div>
          
 
 
@@ -184,6 +184,7 @@ window.onload=animate
                     List<projeoneritakipsistemi.Models.ApplicationUser> users = (List<projeoneritakipsistemi.Models.ApplicationUser>)Session["users"];
                     users.AsEnumerable();
                     projeoneritakipsistemi.Models.ApplicationUser kullanici = null;
+                   
                     foreach (var j in users)
                     {
                         if (j.Email == kullanici_email)
@@ -199,7 +200,7 @@ window.onload=animate
 
                             List<projeoneritakipsistemi.Models.ogrenci> ogr = (List<projeoneritakipsistemi.Models.ogrenci>)Session["ogrenciler"];
                             ogr.AsEnumerable();
-                           
+
                             <h1>Hoş Geldiniz</h1>
                             <h3>Ögrenci İşlemleri </h3>
                             <ol style="list-style-type:circle">
@@ -209,19 +210,19 @@ window.onload=animate
 
                                 if (a.ogrenci_email == kullanici.UserName)
                                 {
-                               
+
 
                                 <li style="color:white">@Html.ActionLink("Ögrenci Bilgilerini Düzenle", "Edit/"+ a.ogrenci_id,"ogrencis", routeValues: null, htmlAttributes: new { id = "links" })</li>
                                         break;
-                                    }
                                 }
+                            }
 
 
 
-                                @if (User.Identity.GetUserName() != null)
+                            @if (User.Identity.GetUserName() != null)
                                 {
                                     <li style="color:white">@Html.ActionLink("Yeni Proje Önerisi Ekle", "create", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
-                                    
+
 
                                 }
                                 <li style="color:white">@Html.ActionLink("Tüm Projeleri Görüntüle", "projearama", "projes", routeValues: null, htmlAttributes: new { id = "links" })</li>
@@ -240,14 +241,14 @@ window.onload=animate
                                 @foreach (var a in ak)
                                 {
 
-                                    if (a.akademisyen_mail == kullanici.UserName)
-                                    {
+                                if (a.akademisyen_mail == kullanici.UserName)
+                                {
 
 
                                         <li style="color:white">@Html.ActionLink("Akademisyen Bilgilerini Düzenle", "Edit/" + a.akademisyen_id, "akademisyens", routeValues: null, htmlAttributes: new { id = "links" })</li>
                                         break;
-                                    }
                                 }
+                            }
 
 
 
@@ -345,7 +346,25 @@ window.onload=animate
         $(".loader").fadeIn();
 
     });
+
     $(document).ready(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Kontroluser", "Home")', //"../Map/Search"
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({}),
+                    dataType: "json",
+                    error: function (q, status, err) { console.log(q, status, err); },
+                    success: function (data){
+                        $.each(data, function (index, value) {
+
+
+                        });
+
+                    }
+                });
+       
 
         $(".projeadd").click(function () {
             var user=$("body").attr("id");

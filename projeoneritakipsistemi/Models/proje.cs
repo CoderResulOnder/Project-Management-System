@@ -47,6 +47,7 @@ namespace projeoneritakipsistemi.Models
 
         public virtual ogrenci ogrenci { get; set; }
 
+        public string proje_yapimiyla_ilgili_oneri { get; set;}
 
         public virtual akademisyen akademisyen { get; set; }
 

@@ -19,7 +19,7 @@ namespace projeoneritakipsistemi.Models
         [MaxLength(1000)]
         public string kaynak_url { get; set; }
         public Nullable<int> proje_id { get; set; }
-        public Nullable<int> kaynak_yukleyen_id { get; set; }
+        public string kaynak_yukleyen_id { get; set; }
         public string kaynak_yukleyen_statu { get; set; }
        
         public virtual proje proje { get; set; }

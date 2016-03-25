@@ -365,8 +365,6 @@
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-
-
     <script type="text/javascript">
 
 
@@ -495,6 +493,7 @@
                 dataType: "json",
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
+                   
                     var table = "";
                     table = "<table id="+user+" border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
                     var i = 0;
@@ -505,13 +504,10 @@
                         if (i % 3 == 0) {
 
                             table += "</tr><tr><td style='min-width:480px;max-width:480px'>";
-                        }
-
-
-                    else {
+                        } else {
                             table += "<td style='min-width:480px;max-width:480px' > ";
                             }
-                       // alert(i);
+                        alert(i);
                         console.log(value);
                         table += "<table class='table'>";
 
@@ -587,10 +583,7 @@
                     });
                     table += "</tbody></table>";
                     $("#myData").html(table);
-                    
-                
-
-                    
+                   
                                     
                         if (user == "" || user == null) {
                             $("button[value='begendim']").show();

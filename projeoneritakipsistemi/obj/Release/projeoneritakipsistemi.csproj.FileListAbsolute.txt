@@ -147,3 +147,6 @@ c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistem
 c:\users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon7.resources
 C:\Users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon8.resources
 C:\Users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon81.resources
+C:\Users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon9.resources
+C:\Users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon10.resources
+C:\Users\resul_onder\documents\visual studio 2015\Projects\projeoneritakipsistemi\projeoneritakipsistemi\obj\Release\projeoneritakipsistemi.Migrations.versiyon11.resources

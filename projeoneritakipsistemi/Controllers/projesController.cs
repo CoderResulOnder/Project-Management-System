@@ -8,12 +8,96 @@ using System.Web;
 using System.Web.Mvc;
 using projeoneritakipsistemi.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
+using System.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using System.Threading.Tasks;
+using System.IO;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace projeoneritakipsistemi.Controllers
 {
     public class projesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private CloudQueue thumbnailRequestQueue;
+
+        private static CloudBlobContainer imagesBlobContainer;
+
+        public projesController()
+        {
+            InitializeStorage();
+        }
+
+        private void InitializeStorage()
+        {
+            // Open storage account using credentials from .cscfg file.
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorageGenel"].ToString());
+
+            // Get context object for working with blobs, and 
+            // set a default retry policy appropriate for a web user interface.
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            //blobClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the blob container.
+            imagesBlobContainer = blobClient.GetContainerReference("resulonderblobs");
+
+            // Get context object for working with queues, and 
+            // set a default retry policy appropriate for a web user interface.
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the queue.
+            thumbnailRequestQueue = queueClient.GetQueueReference("thumbnailrequest");
+        }
+
+        private async Task<CloudBlockBlob> UploadAndSaveBlobAsync(HttpPostedFileBase imageFile)
+        {
+            Trace.TraceInformation("Uploading image file {0}", imageFile.FileName);
+
+            string blobName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+            // Retrieve reference to a blob. 
+            CloudBlockBlob imageBlob = imagesBlobContainer.GetBlockBlobReference(blobName);
+            // Create the blob by uploading a local file.
+            using (var fileStream = imageFile.InputStream)
+            {
+                await imageBlob.UploadFromStreamAsync(fileStream);
+            }
+
+            Trace.TraceInformation("Uploaded image file to {0}", imageBlob.Uri.ToString());
+
+            return imageBlob;
+        }
+
+        private async Task DeleteAdBlobsAsync(string ad)
+        {
+            if (!string.IsNullOrWhiteSpace(ad))
+            {
+                Uri blobUri = new Uri(ad);
+                await DeleteAdBlobAsync(blobUri);
+            }
+
+        }
+
+        private static async Task DeleteAdBlobAsync(Uri blobUri)
+        {
+            //string blobName = Guid.NewGuid().ToString() + Path.GetExtension(blobUri.ToString().FileName);
+            // Retrieve reference to a blob. 
+
+
+
+            string blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            Trace.TraceInformation("Deleting image blob {0}", blobName);
+            CloudBlockBlob blobToDelete = imagesBlobContainer.GetBlockBlobReference(blobName);
+            await blobToDelete.DeleteAsync();
+        }
+
+
+
+
 
         // GET: projes
         public ActionResult Index()
@@ -98,19 +182,33 @@ namespace projeoneritakipsistemi.Controllers
                     var sonuc1 = Json(result, JsonRequestBehavior.AllowGet);
                     return sonuc1;
 
-
                 }
                 result = db.projes.Where(x => x.proje_turu.StartsWith(projeadi)).ToList();
             }
 
 
-            List<proje> prjm = new List<proje>();
-
+            List<projeler> prjm = new List<projeler>();
+            projeler newprj=new projeler();
             foreach (proje prj in result)
             {
+                newprj.akademisyen_id = prj.akademisyen_id;
+                newprj.diger_kullanicilar_id = prj.diger_kullanicilar_id;
+                newprj.bolum_id = prj.bolum_id;
+                newprj.ogrenci_id = prj.ogrenci_id;
+                newprj.projeolusturanid = prj.projeolusturanid;
+                newprj.proje_aciklamasi = prj.proje_aciklamasi;
+                newprj.proje_adi = prj.proje_adi;
+                newprj.proje_begeni_sayisi = prj.proje_begeni_sayisi;
+                newprj.proje_durumu = prj.proje_durumu;
+                newprj.proje_id = prj.proje_id;
+                newprj.proje_kisi_siniri = prj.proje_kisi_siniri;
+                newprj.proje_teslim_tarihi = prj.proje_teslim_tarihi;
+                newprj.proje_turu = prj.proje_turu;
+                newprj.proje_yapimiyla_ilgili_oneri = prj.proje_yapimiyla_ilgili_oneri;
+                newprj.proje_yayin_tarihi = prj.proje_yayin_tarihi;
+              
 
-
-                prjm.Add(prj);
+                prjm.Add(newprj);
             }
 
             var sso = Json(result, JsonRequestBehavior.AllowGet);
@@ -249,14 +347,6 @@ namespace projeoneritakipsistemi.Controllers
                 var sonuc = Json(prjm, JsonRequestBehavior.AllowGet);
                 return sonuc;
             }
-
-
-
-
-
-
-
-
 
         }
 
@@ -487,10 +577,13 @@ namespace projeoneritakipsistemi.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "proje_id,proje_adi,proje_begeni_sayisi,proje_teslim_tarihi,proje_durumu,proje_aciklamasi,proje_turu,proje_kisi_siniri,proje_ogrenci_id,proje_akademisyen_id,proje_bolum_id,proje_diger_kul_id,proje_yayin_tarihi")] proje proje)
+        public async Task<ActionResult> Create([Bind(Include = "proje_id,proje_adi,proje_begeni_sayisi,proje_yapimiyla_ilgili_oneri,proje_teslim_tarihi,proje_durumu,proje_aciklamasi,proje_turu,proje_kisi_siniri,proje_ogrenci_id,proje_akademisyen_id,proje_bolum_id,proje_diger_kul_id,proje_yayin_tarihi")] proje proje, HttpPostedFileBase new_kaynak)
         {
             if (ModelState.IsValid)
             {
+
+               
+
                 proje.proje_begeni_sayisi = 0;
                 proje.projeolusturanid = User.Identity.GetUserName();
 
@@ -521,7 +614,39 @@ namespace projeoneritakipsistemi.Controllers
                 }
 
                 db.projes.Add(proje);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+
+                CloudBlockBlob imageBlob = null;
+                projeoneritakipsistemi.Models.kaynak yenikaynak = new kaynak();
+
+                if (new_kaynak != null && new_kaynak.ContentLength != 0)
+                {
+                   
+                    imageBlob = await UploadAndSaveBlobAsync(new_kaynak);
+                    yenikaynak.kaynak_url = imageBlob.Uri.ToString();
+                    yenikaynak.kaynak_tarih = DateTime.Now;
+                    yenikaynak.kaynak_aciklamasi = "proje_oluşturma sırasında eklenen kaynak";
+                    yenikaynak.kaynak_name = "proje tanımı ve acıklaması";
+                    yenikaynak.kaynak_yukleyen_id = User.Identity.GetUserName();
+                    yenikaynak.proje_id = proje.proje_id;
+                }
+                Trace.TraceInformation("Created AdId {0} in database",yenikaynak.kaynak_url );
+                if (imageBlob != null)
+                {
+                    BlobInformation blobInfo = new BlobInformation() { AdId = yenikaynak.kaynak_id, BlobUri = new Uri(yenikaynak.kaynak_url) };
+                    var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(blobInfo));
+                    await thumbnailRequestQueue.AddMessageAsync(queueMessage);
+                    Trace.TraceInformation("Created queue message for AdId {0}", yenikaynak.kaynak_id);
+
+                }
+
+                db.kaynaks.Add(yenikaynak);
+                await db.SaveChangesAsync();
+                proje.kaynaks.Add(yenikaynak);
+                db.Entry(proje).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+
                 return RedirectToAction("Index");
             }
 
@@ -548,10 +673,13 @@ namespace projeoneritakipsistemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "proje_id,proje_adi,proje_begeni_sayisi,proje_teslim_tarihi,proje_durumu,proje_aciklamasi,proje_turu,proje_kisi_siniri,proje_ogrenci_id,proje_akademisyen_id,proje_bolum_id,proje_diger_kul_id,proje_yayin_tarihi")] proje proje)
+        public ActionResult Edit([Bind(Include = "proje_id,proje_adi,proje_begeni_sayisi,proje_teslim_tarihi,proje_yapimiyla_ilgili_oneri,proje_durumu,proje_aciklamasi,proje_turu,proje_kisi_siniri,proje_ogrenci_id,proje_akademisyen_id,proje_bolum_id,proje_diger_kul_id,proje_yayin_tarihi")] proje proje, HttpPostedFileBase new_kaynak)
         {
             if (ModelState.IsValid)
             {
+
+
+
                 db.Entry(proje).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -22,11 +22,24 @@
          word-wrap: break-word;
      }   
    
+    .loader {
+	    position: fixed;
+	    left: 0px;
+	    top: 0px;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 9999;
+	    background: url('../../gif/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    }
+
+
     </style>
 
 </head>
 <body id="@User.Identity.GetUserName()">
-   
+    <div class="loader">
+
+    </div>   
     <table style="margin-top:50px">
 
         <tr>
@@ -365,8 +378,6 @@
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-
-
     <script type="text/javascript">
 
 
@@ -483,6 +494,7 @@
 
         $("#arama1").keyup(function () {
 
+            $(".loader").fadeIn("");
             var user = $("body").attr("id");
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
@@ -495,26 +507,24 @@
                 dataType: "json",
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
+                   
                     var table = "";
-                    table = "<table id="+user+" border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
+                    table = "<table id='deneme' border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
                     var i = 0;
-
+                    $(".loader").fadeOut("slow");
                     $.each(data, function (index, value) {
                         //alert("deneme");
 
                         if (i % 3 == 0) {
 
                             table += "</tr><tr><td style='min-width:480px;max-width:480px'>";
-                        }
-
-
-                    else {
+                        } else {
                             table += "<td style='min-width:480px;max-width:480px' > ";
                             }
-                       // alert(i);
+                       
                         console.log(value);
                         table += "<table class='table'>";
-
+                        table += "<tr ><td></td><th><a href='/Projes/Details/"+value.proje_id+"'>Proje Hakkında Detaylı Bilgi</a></th></tr>";
                         if (value.proje_adi != null) {
 
                             table += "<tr ><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
@@ -587,17 +597,19 @@
                     });
                     table += "</tbody></table>";
                     $("#myData").html(table);
-                    
-                
-
-                    
+                   
                                     
                         if (user == "" || user == null) {
-                            $("button[value='begendim']").show();
-                            $("button[value='begenmedim']").show();
-                            $("button[value='vazgectim']").hide();
-                            $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' value='vazgectim' height='30'></img>");
+                            $("button[value='begendim']").each(function () {
+                                var id = $(this).attr("id");
+                                $("button[value='begendim']").show();
+                                $("button[value='begenmedim']").show();
+                                $("button[value='vazgectim']").hide();
+                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
+                            });
+
                         }
+
                         else {
                             $("button[value='begendim']").each(function () {
                                 var id = $(this).attr("id");
@@ -615,11 +627,7 @@
                                     dataType: "json",
                                     error: function (q, status, err) { console.log(q, status, err); },
                                     success: function (data) {
-
                                         $.each(data, function (index, value) {
-
-
-
                                             if (value.begenmedurumu == "begendi") {
                                                 $("button[value='begendim'][id='" + value.projeid + "']").hide();
                                                 $("button[value='begenmedim'][id='" + value.projeid + "']").show();
@@ -632,35 +640,17 @@
                                                 $("button[value='vazgectim'][id='" + value.projeid + "']").show();
                                                 $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../resimler/red.jpg' width='30' height='30'></img>");
                                             }
-
-
-
-
-
-
-
-
                                         });
-
                                     }
                                 });
-
-
-
                             });
-
                         }
 
                    
 
-
-
-
-                    $("button[value='begendim']").click(function () {
-
-
+                    $("button[value='begendim']").click(function () {                       
                         var prj = $(this).attr("id");
-
+                        
 
                         var username = $("body").attr("id");
 
@@ -669,8 +659,14 @@
                             alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
                             window.location = "/Account/Login";
                         }
+                       
+
 
                         else {
+                            $(".loader").fadeIn();
+                            $("button[value='begendim'][id='" + prj + "']").hide();
+                            $("button[value='begenmedim'][id='" + prj + "']").show();
+                            $("button[value='vazgectim'][id='" + prj + "']").show();
 
                             $.ajax({
                                 type: "POST",
@@ -680,7 +676,7 @@
                                 dataType: "json",
                                 error: function (q, status, err) { console.log(q, status, err); },
                                 success: function (data) {
-
+                                    $(".loader").fadeOut("slow");
                                     $.each(data, function (index, value) {
 
                                         $("button[value='begendim'][id='" + value.proje_id + "']").hide();
@@ -701,7 +697,7 @@
 
                     $("button[value='vazgectim']").click(function () {
                         var prj = $(this).attr("id");
-
+                       
                         var username = $("body").attr("id");
 
 
@@ -711,7 +707,10 @@
                         }
 
                         else {
-
+                            $(".loader").fadeIn();
+                            $("button[value='vazgectim'][id='" + prj + "']").hide();
+                            $("button[value='begendim'][id='" + prj + "']").show();
+                            $("button[value='begenmedim'][id='" + prj + "']").show();
                             $.ajax({
                                 type: "POST",
                                 url: '@Url.Action("vazgec", "projes")', //"../Map/Search"
@@ -720,7 +719,7 @@
                                 dataType: "json",
                                 error: function (q, status, err) { console.log(q, status, err); },
                                 success: function (data) {
-
+                                    $(".loader").fadeOut("slow");
                                     $.each(data, function (index, value) {
 
                                         $("button[value='vazgectim'][id='" + value.proje_id + "']").hide();
@@ -743,7 +742,7 @@
 
 
                         var prj = $(this).attr("id");
-
+                       
 
                         var username = $("body").attr("id");
 
@@ -754,7 +753,10 @@
                         }
 
                         else {
-
+                            $(".loader").fadeIn();
+                            $("button[value='vazgectim'][id='" + prj + "']").show();
+                            $("button[value='begendim'][id='" + prj + "']").show();
+                            $("button[value='begenmedim'][id='" + prj + "']").hide();
                            $.ajax({
                         type: "POST",
                         url: '@Url.Action("begenmedim", "projes")', //"../Map/Search"
@@ -763,7 +765,7 @@
                         dataType: "json",
                         error: function (q, status, err) { console.log(q, status, err); },
                         success: function (data) {
-
+                            $(".loader").fadeOut("slow");
                             $.each(data, function (index, value) {
 
                                 $("button[value='vazgectim'][id='" + value.proje_id + "']").show();
@@ -777,6 +779,8 @@
                                 if (r == true) {
                                     var yazilan = prompt("Lütfen Begenmeme Sebebinizi Açıkca Yazarmısınız ...");
                                     if (yazilan != null) {
+
+                                        $(".loader").fadeIn();
                                         $.ajax({
                                             type: "POST",
                                             url: '@Url.Action("begenmemesebebi", "projes")', //"../Map/Search"
@@ -785,7 +789,7 @@
                                             dataType: "json",
                                             error: function (q, status, err) { console.log(q, status, err); },
                                             success: function (data) {
-
+                                                $(".loader").fadeOut("slow");
                                                 alert("Bizi Uyardıgınız için teşekkurler");
                                                 $.each(data, function (index, value) {
 
@@ -908,6 +912,8 @@
 
 
             $("input[value='+1']").click(function () {
+               
+                
 
            var prj = $(this).attr("id");
            $("input[value='+1'][id='" + prj + "']").hide();
@@ -922,6 +928,7 @@
            }
 
            else {
+               $(".loader").fadeIn();
 
                $.ajax({
                    type: "POST",
@@ -931,7 +938,7 @@
                    dataType: "json",
                    error: function (q, status, err) { console.log(q, status, err); },
                    success: function (data) {
-
+                       $(".loader").fadeOut("slow");
                        $.each(data, function (index, value) {
 
 
@@ -940,7 +947,9 @@
                            //$("input[value='0'][id='" + prj + "']").show();
                            $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi+"   Siz:").append("<img src='../resimler/ok.jpg' width='30' height='30'></img>");
 
+                          
                        });
+                      
 
                    }
 
@@ -951,6 +960,7 @@
        });
 
             $("input[value='0']").click(function () {
+               
                 var prj = $(this).attr("id");
                 $("input[value='+1'][id='" + prj + "']").show();
                 $("input[value='-1'][id='" + prj + "']").show();
@@ -964,7 +974,7 @@
                 }
 
                 else {
-
+                    $(".loader").fadeIn();
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("vazgec", "projes")', //"../Map/Search"
@@ -973,7 +983,7 @@
                         dataType: "json",
                         error: function (q, status, err) { console.log(q, status, err); },
                         success: function (data) {
-
+                            $(".loader").fadeOut("slow");
                             $.each(data, function (index, value) {
 
 
@@ -981,7 +991,7 @@
                                 //$("input[value='-1'][id='" + prj + "']").show();
                                 //$("input[value='0'][id='" + prj + "']").hide();
                                 $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi+"   Siz").append("<img src='../resimler/kararsızım.jpg' width='30' height='30'></img>");
-
+                               
                             });
 
                         }
@@ -995,6 +1005,7 @@
 
 
             $("input[value='-1']").click(function () {
+               
                 var prj = $(this).attr("id");
                 $("input[value='+1'][id='" + prj + "']").show();
                 $("input[value='-1'][id='" + prj + "']").hide();
@@ -1008,7 +1019,7 @@
                 }
 
                 else {
-
+                    $(".loader").fadeIn();
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("begenmedim", "projes")', //"../Map/Search"
@@ -1017,14 +1028,14 @@
                         dataType: "json",
                         error: function (q, status, err) { console.log(q, status, err); },
                         success: function (data) {
-
+                            $(".loader").fadeOut("slow");
                             $.each(data, function (index, value) {
                                 //$("input[value='+1'][id='" + prj + "']").show();
                                 //$("input[value='-1'][id='" + prj + "']").hide();
                                 //$("input[value='0'][id='" + prj + "']").show();
                                 $("label[id='" + prj + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi + "   Siz:").append("<img src='../resimler/red.jpg' width='30' height='30'></img>")
                                 //alert(value.proje_begeni_sayisi);
-
+                              
 
                             });
 
@@ -1039,7 +1050,7 @@
 
 
       $("button[value='goster']").click(function () {
-
+          $(".loader").fadeIn();
           var username = $("body").attr("id");
           var prj = $(this).attr("id");
           $("div[value='" + prj + "'").css("visibility", "visible");
@@ -1054,7 +1065,7 @@
               error: function (q, status, err) { console.log(q, status, err); },
               success: function (data) {
 
-
+                  $(".loader").fadeOut("slow");
                   if (data.length == 0) {
 
                       var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
