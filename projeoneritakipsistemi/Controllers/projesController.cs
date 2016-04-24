@@ -188,9 +188,10 @@ namespace projeoneritakipsistemi.Controllers
 
 
             List<projeler> prjm = new List<projeler>();
-            projeler newprj=new projeler();
+            projeler newprj;
             foreach (proje prj in result)
             {
+                newprj = new projeler();
                 newprj.akademisyen_id = prj.akademisyen_id;
                 newprj.diger_kullanicilar_id = prj.diger_kullanicilar_id;
                 newprj.bolum_id = prj.bolum_id;
@@ -412,6 +413,11 @@ namespace projeoneritakipsistemi.Controllers
             var sonuc = Json(prjm, JsonRequestBehavior.AllowGet);
             return sonuc;
 
+
+
+
+
+
         }
 
 
@@ -629,6 +635,13 @@ namespace projeoneritakipsistemi.Controllers
                     yenikaynak.kaynak_name = "proje tanımı ve acıklaması";
                     yenikaynak.kaynak_yukleyen_id = User.Identity.GetUserName();
                     yenikaynak.proje_id = proje.proje_id;
+
+                    db.kaynaks.Add(yenikaynak);
+                    await db.SaveChangesAsync();
+                    proje.kaynaks.Add(yenikaynak);
+                    db.Entry(proje).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
                 }
                 Trace.TraceInformation("Created AdId {0} in database",yenikaynak.kaynak_url );
                 if (imageBlob != null)
@@ -640,11 +653,7 @@ namespace projeoneritakipsistemi.Controllers
 
                 }
 
-                db.kaynaks.Add(yenikaynak);
-                await db.SaveChangesAsync();
-                proje.kaynaks.Add(yenikaynak);
-                db.Entry(proje).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+               
 
 
                 return RedirectToAction("Index");

@@ -17,20 +17,30 @@
             padding: 90px;
             background: transparent url('../../resimler/ileriicon.png');
         }
-        td{
-            word-wrap:break-word;
+
+        td {
+            word-wrap: break-word;
+        }
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('../../gif/loader.gif') 50% 50% no-repeat rgb(249,249,249);
         }
     </style>
 
 </head>
 <body id="@User.Identity.GetUserName()">
+    <div class="loader">
 
+    </div>
     <table style="margin-top:50px">
 
         <tr>
-
-
-
             <td>
                 <p style="margin-left:400px;font-size:20px;font-weight:bold">
                     Lütfen Arama Yapmak İstediginiz Kategori Secin&nbsp;&nbsp;&nbsp;:
@@ -39,6 +49,7 @@
             </td>
 
         </tr>
+
         <tr>
             @*<td>
 
@@ -49,7 +60,7 @@
                 <p style="font-size:20px;margin-left:400px;font-weight:bold">
                     Lütfen Aranacak Proje İle ilgili Bilgiyi Giriniz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
 
-                    @Html.TextBox("arama1", null, new { @placeholder = "Aranacak proje bilgisini giriniz" })
+                    @Html.TextBox("arama1", null, new { @placeholder = "Aranacak proje bilgisini giriniz" })  <img id="yorumloader" hidden width="30" height="30" src="~/gif/loader.gif" />
                 </p>
                 <div id="myData">
 
@@ -92,22 +103,24 @@
 
                                     if (a >= 5 && k == 1 && item.proje_id >= 5 && ilk != son)
                                     {
-                                        <td >
+                                        <td>
                                             @Html.ActionLink("Geri", "geri", new { id = item.proje_id }, new { @class = "geriicon" })
                                         </td>
 
 
                                     }
 
+
                                     i++;
                                     if (i % 5 != 0)
                                     {
 
-                                        <td>
+
+                                        <td style="max-width:400px">
 
                                             <div>
 
-                                                <table  class="table" style="table-layout: fixed; width: 100%">
+                                                <table class="table" style=" table-layout: fixed; width: 100%">
                                                     <tr>
                                                         <th colspan="2">
                                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.ActionLink("Daha Detaylı Bilgi İçin Tıkla", "Details", new { id = item.proje_id })
@@ -143,13 +156,13 @@
                                                         </tr>
                                                     }
                                                     @*<tr>
-            <th>
-                @Html.Label("begeni sayısı", new { @id="beg"})
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.proje_begeni_sayisi)
-            </td>
-        </tr>*@
+                                                            <th>
+                                                                @Html.Label("begeni sayısı", new { @id="beg"})
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.proje_begeni_sayisi)
+                                                            </td>
+                                                        </tr>*@
                                                     @if (item.proje_durumu.Length > 20)
                                                     {
                                                         <tr>
@@ -210,16 +223,6 @@
                                                             </td>
                                                         </tr>
                                                     }
-                                                    <tr>
-                                                        <th>
-                                                            @Html.Label("Yayın Tarihi")
-                                                        </th>
-
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.proje_yayin_tarihi)
-                                                        </td>
-                                                    </tr>
-
                                                     @if (item.proje_aciklamasi.Length >= 20)
                                                     {
                                                         <tr>
@@ -239,51 +242,61 @@
                                                             <th>
                                                                 @Html.Label("Proje Hakkında Açıklama")
                                                             </th>
-                                                            <td >
+                                                            <td>
                                                                 @Html.DisplayFor(modelItem => item.proje_aciklamasi)
                                                             </td>
                                                         </tr>
                                                     }
 
-                                                    <tr>
-                                                        @if (item.akademisyen != null)
-                                                        {
-                                                            <th>
-                                                                @Html.Label("Akademisyen")
-                                                            </th>
-                                                            <td>
 
-                                                                @Html.DisplayFor(modelItem => item.akademisyen.akademisyen_adi)
+                                                    @*<tr >
+                                                            @if (item.akademisyen != null)
+                                                            {
+                                                                <th>
+                                                                    @Html.Label("Akademisyen")
+                                                                </th>
+                                                                    <td>
 
-                                                                @Html.ActionLink("Akademisyen Bilgileri", "Details", "akademisyens", new { id = item.akademisyen.akademisyen_id })
+                                                                        @Html.DisplayFor(modelItem => item.akademisyen.akademisyen_adi)
 
-                                                            </td>
-                                                        }
-                                                    </tr>
-                                                    <tr>
-                                                        @if (item.bolum != null)
-                                                        {
-                                                            <th>
-                                                                @Html.Label("Bolum Bilgileri")
-                                                            </th>
+                                                                        @Html.ActionLink("Akademisyen Bilgileri", "Details", "akademisyens", new { id = item.akademisyen.akademisyen_id })
+
+                                                                    </td>
+                                                            }
+                                                        </tr>
+                                                        <tr>
+                                                            @if (item.bolum != null)
+                                                            {
+                                                                <th>
+                                                                    @Html.Label("Bolum Bilgileri")
+                                                                </th>
 
 
 
-                                                            <td>
-                                                                @Html.ActionLink("Bolum Bilgileri", "Details", "bolums", new { id = item.bolum.bolum_id })
+                                                                    <td>
+                                                                        @Html.ActionLink("Bolum Bilgileri", "Details", "bolums", new { id = item.bolum.bolum_id })
 
-                                                            </td>
-                                                        }
-                                                    </tr>
+                                                                    </td>
+                                                            }
+                                                        </tr>*@
                                                     <tr>
                                                         <td colspan="2">
 
                                                             @{
-                                                                @*List<projeoneritakipsistemi.Models.begenme> a = item.begenmes.Where(x => x.begenenid == User.Identity.GetUserName() && x.projeid == item.proje_id && x.begenmedurumu == "begendi").ToList();
-                        if (a.Count== 0)
-                        {
-                           <input type="button" id="@item.proje_id" value="+1" />
-                        }*@
+                                                                @*List<projeoneritakipsistemi.Models.begenme> a = item.begenmes.ElementAtOrDefault(x => x.begenenid == User.Identity.GetUserName() && x.projeid == item.proje_id && x.begenmedurumu == "begendi").ToList();
+                                                                    if (a.Count== 0)
+                                                                    {
+                                                                       <input type="button" id="@item.proje_id" value="+1" />
+                                                                    }*@
+
+
+
+                                                                //List<projeoneritakipsistemi.Models.begenme> begendimmi = item.begenmes.Where(x => x.projeid == item.proje_id).ToList();
+
+                                                                //projeoneritakipsistemi.Models.begenme yenibegen = item.begenmes.Where(x => x.projeid == item.proje_id).LastOrDefault();
+                                                                //Console.Write(yenibegen);
+
+
 
                                                                 <input type="button" id="@item.proje_id" value="+1" />
                                                             }
@@ -294,21 +307,26 @@
 
                                                             @{
                                                                 @*List<projeoneritakipsistemi.Models.begenme> aa = item.begenmes.Where(x => x.begenenid == User.Identity.GetUserName() && x.projeid == item.proje_id && x.begenmedurumu == "begenmedi").ToList();
-                        if (aa.Count == 0)
-                        {
-                            <input type="button" id="@item.proje_id" value="-1" />
-                        }*@
+                                                                    if (aa.Count == 0)
+                                                                    {
+                                                                        <input type="button" id="@item.proje_id" value="-1" />
+                                                                    }*@
 
                                                                 <input type="button" id="@item.proje_id" value="-1" />
                                                             }
 
+                                                            <img id="@item.proje_id" class="begenmeloader" hidden width="20" height="20" src="~/gif/loader.gif" />
 
-                                                            <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Toplam begeni:@item.proje_begeni_sayisi</label>
+                                                            <label id="@item.proje_id" value="@item.proje_begeni_sayisi">Toplam begeni:@item.proje_begeni_sayisi&nbsp;&nbsp;&nbsp;siz:<img src="~/resimler/kararsızım.jpg" width="30" height="30" /></label>
+
                                                         </td>
 
+
                                                     </tr>
+
                                                     <tr>
                                                         <td colspan="2">
+
                                                             <label style="font-weight:bold">Proje Hakkındaki Yorumunuzu Giriniz </label>
                                                         </td>
                                                     </tr>
@@ -322,8 +340,7 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <label value="@item.proje_id" id="projem">Sisteme Son Eklediginiz Yorumlar</label>
-                                                                                                                
-                                                            <div style="width:100%;height:125px;overflow:auto;max-height:125px;margin-left:0px;overflow-wrap:break-word;max-width:200px">
+                                                            <div style="width:100%;height:150px;overflow:auto;max-height:150px;margin-left:0px;overflow-wrap:break-word">
 
 
                                                                 <ol class="@item.proje_id.ToString()" style="overflow:auto"></ol>
@@ -335,13 +352,13 @@
 
 
                                                     @*<tr>
-                <th>
-                    @Html.ActionLink("Düzenle", "Edit", new { id = item.proje_id }) |
-                    @Html.ActionLink("Detay", "Details", new { id = item.proje_id }) |
-                    @Html.ActionLink("Sil", "Delete", new { id = item.proje_id })
-                </th>
+                                                            <th>
+                                                                @Html.ActionLink("Düzenle", "Edit", new { id = item.proje_id }) |
+                                                                @Html.ActionLink("Detay", "Details", new { id = item.proje_id }) |
+                                                                @Html.ActionLink("Sil", "Delete", new { id = item.proje_id })
+                                                            </th>
 
-            </tr>*@
+                                                        </tr>*@
 
 
                                                     <tr>
@@ -366,16 +383,17 @@
                                                 </table>
                                             </div>
                                         </td>
-
                                                                 }
 
                                                                 else
                                                                 {
                                                                     <td>
                                                                         @Html.ActionLink("İlerle", "devam", new { id = item.proje_id }, new { @class = "ileriicon" })
+
                                                                     </td>
                                                                             break;
                                                                         }
+
 
 
                                                                     }
@@ -397,14 +415,10 @@
 
     <script type="text/javascript">
 
-        window.scroll(500, 0);
 
+
+        window.scroll(0, 0);
         $("#arama1").focus();
-
-
-
-
-
 
         var username = $("body").attr("id");
 
@@ -438,7 +452,12 @@
                     });
 
                 }
+
+
+
+
             });
+
 
 
             $(document).ready(function () {
@@ -448,15 +467,18 @@
                     $("input[value='+1']").show();
                     $("input[value='-1']").show();
                     $("input[value='0']").hide();
+                    $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img  src='../../resimler/kararsızım.jpg' width='30' height='30'></img>");
 
                 }
                 else {
                     $("input[value='+1']").each(function () {
                         var id = $(this).attr("id");
+
+                        $("img[class='begenmeloader'][id='" + id + "']").show();
                         $("input[value='+1']").show();
                         $("input[value='-1']").show();
                         $("input[value='0']").hide();
-
+                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/kararsızım.jpg' width='30' height='30'></img>");
 
                         $.ajax({
                             type: "POST",
@@ -475,25 +497,21 @@
                                         $("input[value='+1'][id='"+value.projeid+"']").hide();
                                         $("input[value='-1'][id='" + value.projeid + "']").show();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value")+" Siz").append("<img src='../../resimler/gülen.jpg' width='30' height='30'></img>");
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/ok.jpg' width='30' height='30'></img>");
                                     }
                                     else if (value.begenmedurumu == "begenmedi") {
                                         $("input[value='+1'][id='" + value.projeid + "']").show();
                                         $("input[value='-1'][id='" + value.projeid + "']").hide();
                                         $("input[value='0'][id='" + value.projeid + "']").show();
-                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + " Siz").append("<img src='../../resimler/aglayan.jpg' width='30' height='30'></img>");
+                                        $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/red.jpg' width='30' height='30'></img>");
                                     }
 
 
 
-
                                 });
-
+                                $("img[class='begenmeloader'][id='" + id + "']").hide();
                             }
                         });
-
-
-
                     });
 
                 }
@@ -505,10 +523,14 @@
 
         $("#arama1").keyup(function () {
 
-
+            $("#yorumloader").show();
+            var user = $("body").attr("id");
             var prj = $("#arama1").val();
             var aramaturu = $("#neyegore").val();
-          
+            if (prj == "") {
+
+                window.location = "/projes/projearama";
+            }
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("arama", "projes")', //"../Map/Search"
@@ -517,36 +539,78 @@
                 dataType: "json",
                 error: function (q, status, err) { console.log(q, status, err); },
                 success: function (data) {
-                    var table = "";
-                    table = "<table class='table' ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr>";
 
+                    var table = "";
+                    table = "<table id='deneme' border=1 ><tbody><tr><td><a href='/Projes/projearama'>AnaSayfa</a></td></tr><tr>";
+                    var i = 0;
+                    $("#yorumloader").hide();
                     $.each(data, function (index, value) {
                         //alert("deneme");
 
+                        if (i % 3 == 0) {
+
+                            table += "</tr><tr><td style='min-width:480px;max-width:480px'>";
+                        } else {
+                            table += "<td style='min-width:480px;max-width:480px' > ";
+                            }
+
                         console.log(value);
-
-
+                        table += "<table class='table'>";
+                        table += "<tr ><td></td><th><a href='/Projes/Details/"+value.proje_id+"'>Proje Hakkında Detaylı Bilgi</a></th></tr>";
                         if (value.proje_adi != null) {
 
-                            table += "<tr><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
+                            table += "<tr ><th>Proje Adi:</th><td>" + value.proje_adi + "</td></tr>";
                         }
+                        if (value.proje_yayin_tarihi != null) {
+
+                            var dateString = value.proje_yayin_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+
+
+
+                            table += "<tr ><th >Proje Yayınlanma Tarihi:</th><td>" + date + "</td></tr>";
+                        }
+
+                        if (value.proje_teslim_tarihi != null) {
+
+                            var dateString = value.proje_teslim_tarihi.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            var year = currentTime.getFullYear();
+                            var date = day + "/" + month + "/" + year;
+
+
+
+                            table += "<tr ><th >Proje Son Teslim Tarihi:</th><td>" +date + "</td></tr>";
+                        }
+
+
                         if (value.proje_begeni_sayisi != null) {
 
-                            table += "<tr><th>Begeni Sayısı:</th><td>" + value.proje_begeni_sayisi + "</td></tr>";
+
+                            table += "<tr ><th >Begeni Durumu:</th><td><button id='" + value.proje_id + "' value='begendim'><img src='../../resimler/ok.jpg' width='30' height='30'></img></button><button id='" + value.proje_id + "' value='vazgectim' ><img src='../../resimler/kararsızım.jpg' width='30' height='30'></img></button> <button id='" + value.proje_id + "' value='begenmedim'><img src='../../resimler/red.jpg' width='30' height='30'></img></button>  <img id='" + value.proje_id + "' class='begenmeloader' width='20' height='20' hidden src='../../gif/loader.gif' /> <label id='" + value.proje_id + "'  value='" + value.proje_begeni_sayisi + "'> Begeni Sayısı:" + value.proje_begeni_sayisi + "</label></td></tr>";
                         }
+
+                        table += "<tr><td>  <input style='width:240px' type='text' placeholder='Proje Hakkındaki Yorumunuzu giriniz' id="+value.proje_id+"/></td></tr>";
+
                         if (value.proje_durumu != null) {
 
                             table += "<tr><th>proje durumu:</th><td>" + value.proje_durumu + "</td></tr>";
                         }
                         if (value.proje_aciklamasi != null) {
-                            table += "<tr><th>Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
+                            table += "<tr ><th >Proje Hakkında Açıklama :</th><td>" + value.proje_aciklamasi + "</td></tr>";
                         }
                         if (value.proje_turu != null) {
-                            table += "<tr><th>Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
+                            table += "<tr ><th >Proje Türü</th><td>" + value.proje_turu + "</td></tr>";
 
                         }
                         if (value.proje_kisi_siniri != null) {
-                            table += "<tr><th>Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
+                            table += "<tr ><th >Kişi Sınırı</th><td>" + value.proje_kisi_siniri + "</td></tr>";
                         }
 
 
@@ -554,17 +618,247 @@
                         //alert(a);
                         if (a != null) {
 
-                            table += "<tr><th><a href='Details/" + a + "'>Detay</a> |";
+                            table += "<tr ><td></td><th><a href='Details/" + a + "'>Detay</a> |";
                             table += "<a href='Edit/" + a + "'>Düzenle</a> |";
                             table += "<a href='Delete/" + a + "'>Sil</a>  </th></tr>";
                         }
 
+                        table += "</table></td>";
 
-
-
+                        i++;
                     });
                     table += "</tbody></table>";
                     $("#myData").html(table);
+
+
+                        if (user == "" || user == null) {
+                            $("button[value='begendim']").each(function () {
+                                var id = $(this).attr("id");
+                                $("button[value='begendim']").show();
+                                $("button[value='begenmedim']").show();
+                                $("button[value='vazgectim']").hide();
+                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/kararsızım.jpg' width='30' height='30'></img>");
+                            });
+
+                        }
+
+                        else {
+                            $("button[value='begendim']").each(function () {
+                                var id = $(this).attr("id");
+                                $("img[class='begenmeloader'][id='" + id + "']").show();
+                                $("button[value='begendim']").show();
+                                $("button[value='begenmedim']").show();
+                                $("button[value='vazgectim']").hide();
+                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/kararsızım.jpg' width='30' height='30'></img>");
+
+
+                                $.ajax({
+
+                                    type: "POST",
+                                    url: '@Url.Action("butonlar", "projes")', //"../Map/Search"
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify({ "projeid": id, "kullanici": user }),
+                                    dataType: "json",
+                                    error: function (q, status, err) { console.log(q, status, err); },
+                                    success: function (data) {
+                                        $.each(data, function (index, value) {
+                                            if (value.begenmedurumu == "begendi") {
+                                                $("button[value='begendim'][id='" + value.projeid + "']").hide();
+                                                $("button[value='begenmedim'][id='" + value.projeid + "']").show();
+                                                $("button[value='vazgectim'][id='" + value.projeid + "']").show();
+                                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/ok.jpg' width='30' height='30'></img>");
+                                            }
+                                            else if (value.begenmedurumu == "begenmedi") {
+                                                $("button[value='begendim'][id='" + value.projeid + "']").show();
+                                                $("button[value='begenmedim'][id='" + value.projeid + "']").hide();
+                                                $("button[value='vazgectim'][id='" + value.projeid + "']").show();
+                                                $("label[id='" + id + "']").text("Toplam Begeni:" + $("label[id='" + id + "']").attr("value") + "   Siz:").append("<img src='../../resimler/red.jpg' width='30' height='30'></img>");
+                                            }
+
+                                        });
+                                        $("img[class='begenmeloader'][id='" + id + "']").hide();
+                                    }
+                                });
+                            });
+                        }
+
+
+
+                    $("button[value='begendim']").click(function () {
+                        var prj = $(this).attr("id");
+
+
+                        var username = $("body").attr("id");
+
+
+                        if (username == "") {
+                            alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                            window.location = "/Account/Login";
+                        }
+
+
+
+                        else {
+                            $("img[class='begenmeloader'][id='" + prj + "']").show();
+
+                            $("button[value='begendim'][id='" + prj + "']").hide();
+                            $("button[value='begenmedim'][id='" + prj + "']").show();
+                            $("button[value='vazgectim'][id='" + prj + "']").show();
+
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("begen", "projes")', //"../Map/Search"
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify({ "projeid": prj, "kullanici": username }),
+                                dataType: "json",
+                                error: function (q, status, err) { console.log(q, status, err); },
+                                success: function (data) {
+                                    $(".loader").fadeOut("slow");
+                                    $.each(data, function (index, value) {
+
+                                        $("button[value='begendim'][id='" + value.proje_id + "']").hide();
+                                        $("button[value='begenmedim'][id='" + value.proje_id + "']").show();
+                                        $("button[value='vazgectim'][id='" + value.proje_id + "']").show();
+
+                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi).append("<img src='../../resimler/ok.jpg' width='30' height='30'></img>");
+                                        $("img[class='begenmeloader'][id='" + prj + "']").hide();
+                                    });
+
+                                }
+
+                            });
+
+                        }
+
+                    });
+
+                    $("button[value='vazgectim']").click(function () {
+                        var prj = $(this).attr("id");
+
+                        var username = $("body").attr("id");
+
+
+                        if (username == "") {
+                            alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                            window.location = "/Account/Login";
+                        }
+
+                        else {
+                            $("img[class='begenmeloader'][id='" + prj + "']").show();
+
+                            $("button[value='vazgectim'][id='" + prj + "']").hide();
+                            $("button[value='begendim'][id='" + prj + "']").show();
+                            $("button[value='begenmedim'][id='" + prj + "']").show();
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("vazgec", "projes")', //"../Map/Search"
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify({ "projeid": prj, "kullanici": username }),
+                                dataType: "json",
+                                error: function (q, status, err) { console.log(q, status, err); },
+                                success: function (data) {
+                                    $(".loader").fadeOut("slow");
+                                    $.each(data, function (index, value) {
+
+                                        $("button[value='vazgectim'][id='" + value.proje_id + "']").hide();
+                                        $("button[value='begendim'][id='" + value.proje_id + "']").show();
+                                        $("button[value='begenmedim'][id='" + value.proje_id + "']").show();
+                                        $("label[id='" + value.proje_id + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + "   Siz:").append("<img src='../../resimler/kararsızım.jpg' value='vazgectim'  width='30' height='30'></img>");
+                                        //$("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi)
+                                        $("img[class='begenmeloader'][id='" + value.proje_id + "']").hide();
+                                    });
+
+                                }
+
+                            });
+
+                        }
+
+                    });
+
+                    $("button[value='begenmedim']").click(function () {
+
+
+                        var prj = $(this).attr("id");
+
+                        $("img[class='begenmeloader'][id='" + prj + "']").show();
+                        var username = $("body").attr("id");
+
+
+                        if (username == "") {
+                            alert("projeyi begene bilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
+                            window.location = "/Account/Login";
+                        }
+
+                        else {
+
+                            $("button[value='vazgectim'][id='" + prj + "']").show();
+                            $("button[value='begendim'][id='" + prj + "']").show();
+                            $("button[value='begenmedim'][id='" + prj + "']").hide();
+                           $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("begenmedim", "projes")', //"../Map/Search"
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ "projeid": prj, "kullanici": username }),
+                        dataType: "json",
+                        error: function (q, status, err) { console.log(q, status, err); },
+                        success: function (data) {
+
+                            $.each(data, function (index, value) {
+
+                                $("button[value='vazgectim'][id='" + value.proje_id + "']").show();
+                                $("button[value='begendim'][id='" + value.proje_id + "']").show();
+                                $("button[value='begenmedim'][id='" + value.proje_id + "']").hide();
+                                $("label[id='" + value.proje_id + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi).append("<img src='../../resimler/red.jpg' width='30' height='30'></img>");
+                                //alert(value.proje_begeni_sayisi);
+
+                                $("img[class='begenmeloader'][id='" + prj + "']").hide();
+                                var r = confirm("Bu Projeyi Neden Begenmediginizi Bize Bildirmek İstermisiniz..");
+
+                                if (r == true) {
+                                    var yazilan = prompt("Lütfen Begenmeme Sebebinizi Açıkca Yazarmısınız ...");
+                                    if (yazilan != null) {
+
+                                        $(".loader").fadeIn();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '@Url.Action("begenmemesebebi", "projes")', //"../Map/Search"
+                                            contentType: "application/json; charset=utf-8",
+                                            data: JSON.stringify({ "projeid": value.proje_id, "kullanici": username, "yorum": yazilan }),
+                                            dataType: "json",
+                                            error: function (q, status, err) { console.log(q, status, err); },
+                                            success: function (data) {
+                                                $(".loader").fadeOut("slow");
+                                                alert("Bizi Uyardıgınız için teşekkurler");
+                                                $.each(data, function (index, value) {
+
+                                                });
+
+
+                                            }
+                                        });
+                                    }
+
+
+                                } else {
+
+                                }
+
+
+
+
+                            });
+
+                        }
+
+                         });
+                        }
+
+                    });
+
+
+
+
 
                     }
             });
@@ -572,13 +866,7 @@
         });
 
 
-
-
-
-
-
-
-      $("input:text").keypress(function (event) {
+            $("input:text[placeholder='Proje Hakkındaki Yorumunuzu giriniz']").keypress(function (event) {
           if (event.keyCode == 13) {
               var yorumum = $(this).val();
               $(this).val("");
@@ -631,11 +919,15 @@
 
             $("button[value='gizle']").click(function () {
 
+
+
                 $("button[value='gizle']").each(function () {
                     var prj = $(this).attr("id");
                     $("div[value='" + prj + "'").css("visibility", "hidden");
 
                 });
+
+
 
                 window.scrollTo(0, 0);
 
@@ -644,9 +936,14 @@
 
 
 
-       $("input[value='+1']").click(function () {
-           var prj = $(this).attr("id");
+            $("input[value='+1']").click(function () {
 
+
+
+           var prj = $(this).attr("id");
+           $("input[value='+1'][id='" + prj + "']").hide();
+           $("input[value='-1'][id='" + prj + "']").show();
+           $("input[value='0'][id='" + prj + "']").show();
            var username = $("body").attr("id");
 
 
@@ -656,6 +953,7 @@
            }
 
            else {
+               $("img[class='begenmeloader'][id='" + prj + "']").show();
 
                $.ajax({
                    type: "POST",
@@ -665,16 +963,18 @@
                    dataType: "json",
                    error: function (q, status, err) { console.log(q, status, err); },
                    success: function (data) {
-
+                       $(".loader").fadeOut("slow");
                        $.each(data, function (index, value) {
 
 
-                           $("input[value='+1'][id='" + prj + "']").hide();
-                           $("input[value='-1'][id='" + prj + "']").show();
-                           $("input[value='0'][id='" + prj + "']").show();
-                           $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + " Siz").append("<img src='../../resimler/gülen.jpg' width='30' height='30'></img>");
+                           //$("input[value='+1'][id='" + prj + "']").hide();
+                           //$("input[value='-1'][id='" + prj + "']").show();
+                           //$("input[value='0'][id='" + prj + "']").show();
+                           $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + "   Siz:").append("<img src='../../resimler/ok.jpg' width='30' height='30'></img>");
 
+                           $("img[class='begenmeloader'][id='" + prj + "']").hide();
                        });
+
 
                    }
 
@@ -685,8 +985,11 @@
        });
 
             $("input[value='0']").click(function () {
-                var prj = $(this).attr("id");
 
+                var prj = $(this).attr("id");
+                $("input[value='+1'][id='" + prj + "']").show();
+                $("input[value='-1'][id='" + prj + "']").show();
+                $("input[value='0'][id='" + prj + "']").hide();
                 var username = $("body").attr("id");
 
 
@@ -696,7 +999,7 @@
                 }
 
                 else {
-
+                    $("img[class='begenmeloader'][id='" + prj + "']").show();
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("vazgec", "projes")', //"../Map/Search"
@@ -705,15 +1008,15 @@
                         dataType: "json",
                         error: function (q, status, err) { console.log(q, status, err); },
                         success: function (data) {
-
+                            $(".loader").fadeOut("slow");
                             $.each(data, function (index, value) {
 
 
-                                $("input[value='+1'][id='" + prj + "']").show();
-                                $("input[value='-1'][id='" + prj + "']").show();
-                                $("input[value='0'][id='" + prj + "']").hide();
-                                $("label[id='" + prj + "']").text("Kararsızım!..Toplam Begeni:" + value.proje_begeni_sayisi)
-
+                                //$("input[value='+1'][id='" + prj + "']").show();
+                                //$("input[value='-1'][id='" + prj + "']").show();
+                                //$("input[value='0'][id='" + prj + "']").hide();
+                                $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + "   Siz").append("<img src='../../resimler/kararsızım.jpg' width='30' height='30'></img>");
+                                $("img[class='begenmeloader'][id='" + prj + "']").hide();
                             });
 
                         }
@@ -727,8 +1030,11 @@
 
 
             $("input[value='-1']").click(function () {
-                var prj = $(this).attr("id");
 
+                var prj = $(this).attr("id");
+                $("input[value='+1'][id='" + prj + "']").show();
+                $("input[value='-1'][id='" + prj + "']").hide();
+                $("input[value='0'][id='" + prj + "']").show();
                 var username = $("body").attr("id");
 
 
@@ -738,7 +1044,7 @@
                 }
 
                 else {
-
+                    $("img[class='begenmeloader'][id='" + prj + "']").show();
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("begenmedim", "projes")', //"../Map/Search"
@@ -747,15 +1053,15 @@
                         dataType: "json",
                         error: function (q, status, err) { console.log(q, status, err); },
                         success: function (data) {
-
+                            $(".loader").fadeOut("slow");
                             $.each(data, function (index, value) {
-                                $("input[value='+1'][id='" + prj + "']").show();
-                                $("input[value='-1'][id='" + prj + "']").hide();
-                                $("input[value='0'][id='" + prj + "']").show();
-                                $("label[id='" + prj + "']").text("Toplam Begeni:" + value.proje_begeni_sayisi + " Siz").append("<img src='../../resimler/aglayan.jpg' width='30' height='30'></img>");
+                                //$("input[value='+1'][id='" + prj + "']").show();
+                                //$("input[value='-1'][id='" + prj + "']").hide();
+                                //$("input[value='0'][id='" + prj + "']").show();
+                                $("label[id='" + prj + "']").text("Toplam Begeni: " + value.proje_begeni_sayisi + "   Siz:").append("<img src='../../resimler/red.jpg' width='30' height='30'></img>")
                                 //alert(value.proje_begeni_sayisi);
 
-
+                                $("img[class='begenmeloader'][id='" + prj + "']").hide();
                             });
 
                         }
@@ -768,14 +1074,13 @@
 
 
 
-
       $("button[value='goster']").click(function () {
-
+          $(".loader").fadeIn();
           var username = $("body").attr("id");
           var prj = $(this).attr("id");
           $("div[value='" + prj + "'").css("visibility", "visible");
 
-         
+
           $.ajax({
               type: "POST",
               url: '@Url.Action("yorumlar", "projes")', //"../Map/Search"
@@ -785,15 +1090,20 @@
               error: function (q, status, err) { console.log(q, status, err); },
               success: function (data) {
 
-
+                  $(".loader").fadeOut("slow");
                   if (data.length == 0) {
 
                       var r = confirm("Bu Proje Hakkında Hiç Yorum Yapılmamış İlk yorumu Yapmaya ne dersiniz..");
+
+
+
                       if (r == true) {
+
                           if (username == "") {
                               alert("Yorum Yapabilmek İçin Giriş Yapmalısınız...Lütfen Bekleyin Giriş sayfasına Yönlendirileceksiniz...");
                               window.location = "/Account/Login";
                           }
+
                           var yazilan = prompt("Lütfen Aşagıya Proje Hakkındaki İlk Yorumu Giriniz...");
                           if (yazilan !=null) {
                               $.ajax({
@@ -864,4 +1174,3 @@
 
 
 </body>
-
